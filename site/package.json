@@ -31,7 +31,16 @@
   },
   "overrides": {
     "axios": "^1.7.4",
-    "webpack-dev-middleware": "^5.3.4"
+    "webpack-dev-middleware": "^5.3.4",
+    "serialize-javascript": "^7.0.3",
+    "cookie": "^0.7.0",
+    "minimatch": "^3.1.4",
+    "glob@^10": {
+      "minimatch": "^9.0.7"
+    },
+    "glob@^13": {
+      "minimatch": "^10.2.3"
+    }
   },
   "keywords": [
     "gatsby"

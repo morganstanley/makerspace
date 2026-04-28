@@ -11,32 +11,41 @@ Now let's program the robot!
 
 # Bluetooth Code
 
-Start with a basic program that listens for the three types of Bluetooth packets we've been using (`ColorPacket`, `AccelerometerPacket`, `ButtonPacket`) and prints the packet contents to the serial console. Start by running this program and sending each of the 3 packet types from your phone, confirming they're printed to the serial console. This will be the foundation of our robot program:
+Start with a basic program that listens for the three types of Bluetooth packets we've been using (`ColorPacket`, `ButtonPacket`, `AccelerometerPacket`) and prints the packet contents to the serial console. Start by running this program and sending each of the 3 packet types from your phone, confirming they're printed to the serial console. This will be the foundation of our robot program:
 
 ```python
+from adafruit_circuitplayground import cp
+
+from adafruit_bluefruit_connect.packet import Packet
+from adafruit_bluefruit_connect.color_packet import ColorPacket
+from adafruit_bluefruit_connect.button_packet import ButtonPacket
+from adafruit_bluefruit_connect.accelerometer_packet import AccelerometerPacket
+
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
 
-from adafruit_bluefruit_connect.packet import Packet
-from adafruit_bluefruit_connect.color_packet import ColorPacket
-from adafruit_bluefruit_connect.accelerometer_packet import AccelerometerPacket
-from adafruit_bluefruit_connect.button_packet import ButtonPacket
-
 from adafruit_crickit import crickit
 
+# Start with the LEDs turned off
+BLACK = (0, 0, 0)
+cp.pixels.brightness = 0.3
+cp.pixels.fill(BLACK)
+
 ble = BLERadio()
+ble.name = # TODO: give your device a name
 uart_service = UARTService()
 advertisement = ProvideServicesAdvertisement(uart_service)
 
 def handle_color_packet(packet):
     print(f"Color={packet.color}")
-
-def handle_accelerometer_packet(packet):
-    print(f"X={packet.x}, Y={packet.y}, Z={packet.z}")
+    cp.pixels.fill(packet.color)
 
 def handle_button_packet(packet):
     print(f"Button={packet.button}, Pressed={packet.pressed}")
+
+def handle_accelerometer_packet(packet):
+    print(f"X={packet.x}, Y={packet.y}, Z={packet.z}")
 
 while True:
     # Keep advertising until another device connects
@@ -51,15 +60,47 @@ while True:
             packet = Packet.from_stream(uart_service)
             if isinstance(packet, ColorPacket):
                 handle_color_packet(packet)
-            if isinstance(packet, AccelerometerPacket):
-                handle_accelerometer_packet(packet)
             if isinstance(packet, ButtonPacket):
                 handle_button_packet(packet)
+            if isinstance(packet, AccelerometerPacket):
+                handle_accelerometer_packet(packet)
 ```
 
-# Accelerometer: Foward/Backward
+# Driving with the Control Pad
 
-We'll use the accelerometer measurement along the Z-axis to set forward/backward motor speed. Be sure the throttle doesn't go above 1.0 or below -1.0, otherwise an exception will be thrown:
+We can use the Control Pad on the phone app to drive the robot. Let's program each button to set the throttle on each of the two motors. Keep in mind you may have to change the throttle values based on how your robot was wired up - experiment and find out!
+
+```python
+def full_stop():
+    print("STOP")
+    crickit.dc_motor_1.throttle = 0
+    crickit.dc_motor_2.throttle = 0
+
+def handle_button_packet(packet):
+    print(f"Button={packet.button}, Pressed={packet.pressed}")
+    if not packet.pressed:
+        full_stop()
+    elif packet.button == '5':
+        print("UP")
+        crickit.dc_motor_1.throttle = 0.5
+        crickit.dc_motor_2.throttle = 0.5
+    elif packet.button == '6':
+        print("DOWN")
+        crickit.dc_motor_1.throttle = -0.5
+        crickit.dc_motor_2.throttle = -0.5
+    elif packet.button == '7':
+        print("LEFT")
+        crickit.dc_motor_1.throttle = 0.5
+        crickit.dc_motor_2.throttle = -0.5
+    elif packet.button == '8':
+        print("RIGHT")
+        crickit.dc_motor_1.throttle = -0.5
+        crickit.dc_motor_2.throttle = 0.5
+```
+
+# Accelerometer: Forward/Backward
+
+Instead of using the control, we can use the accelerometer measurement along the Z-axis to set forward/backward motor speed. Be sure the throttle doesn't go above 1.0 or below -1.0, otherwise an exception will be thrown:
 ```python
 def compute_throttle(value):
     if value > 1:
@@ -91,7 +132,7 @@ def handle_accelerometer_packet(packet):
 
 # Servo: Turning Heads
 
-Now let's attach the servo from the previous lesson and swivel the servo arm back and forth using the control pad on your phone app:
+If we're using the accelerometer to control the motors, we can attach the servo and swivel the arm back and forth using the control pad on your phone app:
 ```python
 # Start with arm at the halfway point
 angle = 90

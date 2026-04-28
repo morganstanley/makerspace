@@ -37,6 +37,7 @@ cp.pixels.brightness = 0.3
 cp.pixels.fill(BLACK)
 
 ble = BLERadio()
+ble.name = # TODO: give your device a name
 uart_service = UARTService()
 advertisement = ProvideServicesAdvertisement(uart_service)
 

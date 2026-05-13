@@ -42,12 +42,12 @@
     "gatsby": {
       "webpack": "^5.104.1"
     },
-    "minimatch": "^3.1.4",
+    "minimatch": "^3.1.5",
     "glob@^10": {
-      "minimatch": "^9.0.7"
+      "minimatch": "^9.0.9"
     },
     "glob@^13": {
-      "minimatch": "^10.2.3"
+      "minimatch": "^10.2.4"
     }
   },
   "keywords": [

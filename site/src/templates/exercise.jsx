@@ -29,7 +29,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
   const selectedLanguage = getCurrentLanguage(slug, languages);
   const nodes = getLanguage(data.allMdx.nodes, selectedLanguage);
   const [next, previous] = nextPrev(nodes, location);
-  const strings = getStrings(getLocaleFromPath(location?.pathname));
+  const strings = getStrings(getLocaleFromPath(location?.pathname || slug));
   const { exercise: exerciseStrings } = strings;
 
   return (

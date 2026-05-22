@@ -28,3 +28,41 @@ export function getLocalePath(path, locale) {
   if (path.startsWith('/exercises')) return `/exercises/${locale}/`;
   return `/${locale}${path}`;
 }
+
+export function getLocaleSwitchPath(pathname, locale) {
+  const path = pathname || '/';
+  const segments = path.split('/').filter(Boolean);
+  const hasTrailingSlash = path.endsWith('/');
+
+  if (segments.length === 0) {
+    return locale === DEFAULT_LOCALE ? '/' : `/${locale}/`;
+  }
+
+  if (segments[0] === 'exercises') {
+    if (segments.length === 1) {
+      return locale === DEFAULT_LOCALE ? '/exercises/' : `/exercises/${locale}/`;
+    }
+
+    if (SUPPORTED_LOCALES.includes(segments[1])) {
+      segments[1] = locale;
+    } else {
+      segments.splice(1, 0, locale);
+    }
+
+    return `/${segments.join('/')}${hasTrailingSlash ? '/' : ''}`;
+  }
+
+  if (SUPPORTED_LOCALES.includes(segments[0])) {
+    segments.shift();
+  }
+
+  if (locale !== DEFAULT_LOCALE) {
+    segments.unshift(locale);
+  }
+
+  if (segments.length === 0) {
+    return locale === DEFAULT_LOCALE ? '/' : `/${locale}/`;
+  }
+
+  return `/${segments.join('/')}${hasTrailingSlash ? '/' : ''}`;
+}

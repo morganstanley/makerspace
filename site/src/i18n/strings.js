@@ -5,6 +5,7 @@ const strings = {
       teach: 'Teach',
       makerspace: 'Make a Makerspace',
       about: 'About',
+      language: 'Language',
     },
     footer: {
       message:
@@ -32,6 +33,7 @@ const strings = {
       teach: 'Enseigner',
       makerspace: 'Créer un Makerspace',
       about: 'À Propos',
+      language: 'Langue',
     },
     footer: {
       message:
@@ -59,6 +61,7 @@ const strings = {
       teach: 'Ensinar',
       makerspace: 'Criar um Makerspace',
       about: 'Sobre',
+      language: 'Idioma',
     },
     footer: {
       message:

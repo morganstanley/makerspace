@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 
 import { useLocale } from '../i18n/LocaleContext';
-import { getLocalePath } from '../i18n';
+import {
+  LOCALE_NAMES,
+  SUPPORTED_LOCALES,
+  getLocalePath,
+  getLocaleSwitchPath,
+} from '../i18n';
 
 const Header = ({ location }) => {
   const { strings, locale } = useLocale();
@@ -28,6 +33,12 @@ const Header = ({ location }) => {
     );
   }
 
+  function onLocaleChange(event) {
+    const nextLocale = event.target.value;
+    const nextPath = getLocaleSwitchPath(location?.pathname, nextLocale);
+    navigate(nextPath);
+  }
+
   return (
     <div className="content">
       <h1>
@@ -37,7 +48,19 @@ const Header = ({ location }) => {
       </h1>
 
       <div className="header-nav">
-        <ul>{links.map(menuLink)}</ul>
+        <div className="header-nav-controls">
+          <ul>{links.map(menuLink)}</ul>
+          <label className="language-selector">
+            {nav.language}
+            <select value={locale} onChange={onLocaleChange}>
+              {SUPPORTED_LOCALES.map((supportedLocale) => (
+                <option key={supportedLocale} value={supportedLocale}>
+                  {LOCALE_NAMES[supportedLocale]}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
     </div>
   );

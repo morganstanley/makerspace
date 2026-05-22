@@ -3,6 +3,7 @@ import {
   SUPPORTED_LOCALES,
   getLocaleFromPath,
   getLocalePath,
+  getLocaleSwitchPath,
 } from './index';
 
 test('DEFAULT_LOCALE is en-US', () => {
@@ -58,5 +59,29 @@ describe('getLocalePath', () => {
 
   test('returns original path when no locale is provided', () => {
     expect(getLocalePath('/about', undefined)).toBe('/about');
+  });
+});
+
+describe('getLocaleSwitchPath', () => {
+  test('switches locale for non-exercise pages', () => {
+    expect(getLocaleSwitchPath('/about/', 'fr-CA')).toBe('/fr-CA/about/');
+    expect(getLocaleSwitchPath('/fr-CA/about/', 'pt-BR')).toBe('/pt-BR/about/');
+    expect(getLocaleSwitchPath('/pt-BR/about/', 'en-US')).toBe('/about/');
+  });
+
+  test('switches locale for exercise pages while preserving route', () => {
+    expect(getLocaleSwitchPath('/exercises/en-US/python/E1/', 'fr-CA')).toBe(
+      '/exercises/fr-CA/python/E1/'
+    );
+    expect(getLocaleSwitchPath('/exercises/fr-CA/python/E1/', 'en-US')).toBe(
+      '/exercises/en-US/python/E1/'
+    );
+  });
+
+  test('handles exercise root pages', () => {
+    expect(getLocaleSwitchPath('/exercises/', 'fr-CA')).toBe(
+      '/exercises/fr-CA/'
+    );
+    expect(getLocaleSwitchPath('/exercises/', 'en-US')).toBe('/exercises/');
   });
 });

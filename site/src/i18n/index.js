@@ -25,7 +25,20 @@ export function getLocaleFromPath(pathname) {
 
 export function getLocalePath(path, locale) {
   if (!locale || locale === DEFAULT_LOCALE) return path;
-  if (path.startsWith('/exercises')) return `/exercises/${locale}/`;
+  if (path.startsWith('/exercises')) {
+    const hasTrailingSlash = path.endsWith('/');
+    const parts = path.replace(/^\/exercises\/?/, '').split('/').filter(Boolean);
+
+    if (SUPPORTED_LOCALES.includes(parts[0])) {
+      parts.shift();
+    }
+
+    if (parts.length === 0) {
+      return `/exercises/${locale}/`;
+    }
+
+    return `/exercises/${locale}/${parts.join('/')}${hasTrailingSlash ? '/' : ''}`;
+  }
   return `/${locale}${path}`;
 }
 
@@ -45,7 +58,7 @@ export function getLocaleSwitchPath(pathname, locale) {
 
     if (SUPPORTED_LOCALES.includes(segments[1])) {
       segments[1] = locale;
-    } else {
+    } else if (locale !== DEFAULT_LOCALE) {
       segments.splice(1, 0, locale);
     }
 

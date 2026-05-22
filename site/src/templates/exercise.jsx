@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby';
 import ExerciseNav from '../components/exercise-nav';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import { useLocale } from '../i18n/LocaleContext';
+import { getLocaleFromPath, getStrings } from '../i18n';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
@@ -29,7 +29,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
   const selectedLanguage = getCurrentLanguage(slug, languages);
   const nodes = getLanguage(data.allMdx.nodes, selectedLanguage);
   const [next, previous] = nextPrev(nodes, location);
-  const { strings } = useLocale();
+  const strings = getStrings(getLocaleFromPath(location?.pathname));
   const { exercise: exerciseStrings } = strings;
 
   return (

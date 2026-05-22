@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
+import { useLocale } from '../i18n/LocaleContext';
+
 function getLevels(nodes) {
   const potentialValues = [];
   nodes.forEach((node) => {
@@ -38,6 +40,8 @@ const ExerciseListItems = ({ location, nodes, toc }) => {
 
 const ExerciseNav = ({ location, nodes, toc }) => {
   const levels = getLevels(nodes);
+  const { strings } = useLocale();
+  const { exercise: exerciseStrings } = strings;
 
   return (
     <nav className="nav exercise-nav">
@@ -48,7 +52,7 @@ const ExerciseNav = ({ location, nodes, toc }) => {
         );
         return (
           <div key={`level-${i}`}>
-            {level !== null && <h3>Level {level}</h3>}
+            {level !== null && <h3>{exerciseStrings.level} {level}</h3>}
             <ul>
               <ExerciseListItems
                 location={location}

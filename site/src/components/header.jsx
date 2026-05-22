@@ -1,23 +1,28 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-const Header = ({ location }) => {
-  const links = {
-    Learn: '/exercises',
-    Teach: '/teach',
-    'Make a Makerspace': '/makerspace',
-    'About': '/about',
-  };
+import { useLocale } from '../i18n/LocaleContext';
+import { getLocalePath } from '../i18n';
 
-  function menuLink(text) {
-    const path = links[text];
+const Header = ({ location }) => {
+  const { strings, locale } = useLocale();
+  const { nav } = strings;
+
+  const links = [
+    { label: nav.learn, path: getLocalePath('/exercises', locale) },
+    { label: nav.teach, path: getLocalePath('/teach', locale) },
+    { label: nav.makerspace, path: getLocalePath('/makerspace', locale) },
+    { label: nav.about, path: getLocalePath('/about', locale) },
+  ];
+
+  function menuLink({ label, path }) {
     const classname =
       path === location.pathname ? 'nav-link-current' : 'nav-link';
 
     return (
-      <li key={text}>
+      <li key={label}>
         <Link className={classname} to={path}>
-          {text}
+          {label}
         </Link>
       </li>
     );
@@ -32,7 +37,7 @@ const Header = ({ location }) => {
       </h1>
 
       <div className="header-nav">
-        <ul>{Object.keys(links).map(menuLink)}</ul>
+        <ul>{links.map(menuLink)}</ul>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 
+import { LOCALE_NAMES } from '../i18n';
+
 export default function Translations() {
   const data = useStaticQuery(graphql`
     query TranslationsQuery {
@@ -19,8 +21,8 @@ export default function Translations() {
       {translations.map((translation) => {
         const url = `/exercises/${translation}/`;
         return (
-          <li>
-            <Link to={url}>{translation}</Link>
+          <li key={translation}>
+            <Link to={url}>{LOCALE_NAMES[translation] || translation}</Link>
           </li>
         );
       })}

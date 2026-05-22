@@ -51,7 +51,6 @@ const Header = ({ location }) => {
         <div className="header-nav-controls">
           <ul>{links.map(menuLink)}</ul>
           <label className="language-selector">
-            {nav.language}
             <select value={locale} onChange={onLocaleChange}>
               {SUPPORTED_LOCALES.map((supportedLocale) => (
                 <option key={supportedLocale} value={supportedLocale}>

@@ -23,6 +23,10 @@
   justify-content: flex-end;
 }
 
+.header-main h1 {
+  width: auto;
+}
+
 .header-nav {
   flex-grow: 2;
   text-align: right;

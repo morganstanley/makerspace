@@ -1,5 +1,10 @@
 /* Ensure headings always start on a new line and have spacing */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   display: block;
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -17,13 +22,17 @@ h1, h2, h3, h4, h5, h6 {
   --alternate-text-bg: #fff;
   --alternate-font: 'Inter', 'Roboto', Arial, sans-serif;
   --more-alternate-font: 'Inter', 'Roboto', Arial, sans-serif;
-  --shadow: 0 4px 24px rgba(60,72,88,0.08);
-  --shadow-hover: 0 8px 32px rgba(60,72,88,0.16);
-  --transition: 0.3s cubic-bezier(.25,.8,.25,1);
+  --shadow: 0 4px 24px rgba(60, 72, 88, 0.08);
+  --shadow-hover: 0 8px 32px rgba(60, 72, 88, 0.16);
+  --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
-  background: linear-gradient(120deg, var(--main-bg) 60%, var(--secondary-bg) 100%);
+  background: linear-gradient(
+    120deg,
+    var(--main-bg) 60%,
+    var(--secondary-bg) 100%
+  );
   color: var(--main-text);
   font-family: var(--alternate-font);
   margin: 0;
@@ -36,8 +45,9 @@ a {
   color: var(--tertiary-bg);
   text-decoration: none;
   font-weight: 500;
-  transition: color var(--transition), box-shadow var(--transition);
-  box-shadow: 0 2px 0 var(--accent);
+  transition:
+    color var(--transition),
+    box-shadow var(--transition);
   border-radius: 4px;
   padding: 0.25em 0.5em;
 }
@@ -46,15 +56,15 @@ a:visted {
   color: var(--accent);
 }
 
-a:hover, a:focus {
-  background: var(--secondary-bg);
+a:hover,
+a:focus {
   color: var(--accent);
-  box-shadow: 0 4px 8px rgba(60,72,88,0.12);
 }
 /* Visually hidden utility for accessibility */
 .visually-hidden {
   position: absolute !important;
-  height: 1px; width: 1px;
+  height: 1px;
+  width: 1px;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
@@ -66,8 +76,10 @@ a:hover, a:focus {
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(60,72,88,0.12);
-  transition: box-shadow var(--transition), transform var(--transition);
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.12);
+  transition:
+    box-shadow var(--transition),
+    transform var(--transition);
 }
 .avatar:hover {
   box-shadow: var(--shadow-hover);
@@ -85,35 +97,50 @@ a:hover, a:focus {
   margin: 1rem auto;
 }
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Animated card pop effect */
 .card {
-  animation: cardPopIn 0.7s cubic-bezier(.25,.8,.25,1);
+  animation: cardPopIn 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 @keyframes cardPopIn {
-  0% { opacity: 0; transform: scale(0.95) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Section fade-in effect */
 .section {
-  animation: fadeInSection 0.8s cubic-bezier(.25,.8,.25,1);
+  animation: fadeInSection 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 @keyframes fadeInSection {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive container and cards */
 @media (max-width: 767px) {
-  .container, .card, .section {
+  .container,
+  .card,
+  .section {
     padding: 1rem;
     margin: 0.5rem;
   }
 }
-
 
 h2 {
   font-size: 2.5rem;
@@ -157,7 +184,8 @@ footer {
 }
 
 /* Focus states for accessibility */
-a:focus, .button:focus {
+a:focus,
+.button:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -178,13 +206,23 @@ a:focus, .button:focus {
 }
 
 /* Spacing utilities */
-.mt-2 { margin-top: 2rem; }
-.mb-2 { margin-bottom: 2rem; }
-.pt-2 { padding-top: 2rem; }
-.pb-2 { padding-bottom: 2rem; }
+.mt-2 {
+  margin-top: 2rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+.pt-2 {
+  padding-top: 2rem;
+}
+.pb-2 {
+  padding-bottom: 2rem;
+}
 
 /* Form elements */
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: var(--alternate-font);
   border: 1px solid var(--tertiary-bg);
   border-radius: 6px;
@@ -194,7 +232,9 @@ input, select, textarea {
   background: #fff;
   transition: border-color 0.2s;
 }
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   border-color: var(--accent);
 }
 
@@ -205,7 +245,8 @@ table {
   margin-bottom: 2rem;
   background: #fff;
 }
-th, td {
+th,
+td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--secondary-bg);
   text-align: left;
@@ -222,11 +263,11 @@ th {
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 24px rgba(60,72,88,0.08);
+  box-shadow: 0 4px 24px rgba(60, 72, 88, 0.08);
   transition: box-shadow 0.2s;
 }
 .card:hover {
-  box-shadow: 0 6px 24px rgba(60,72,88,0.12);
+  box-shadow: 0 6px 24px rgba(60, 72, 88, 0.12);
 }
 
 /* Button styles */

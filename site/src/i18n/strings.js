@@ -66,7 +66,7 @@ const strings = {
     footer: {
       message:
         'Obrigado! Esperamos que você tenha encontrado o que procurava. Sinta-se à vontade para contribuir via',
-      github: 'Github',
+      github: 'GitHub',
     },
     exercise: {
       level: 'Nível',

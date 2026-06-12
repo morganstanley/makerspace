@@ -21,8 +21,9 @@ const Header = ({ location }) => {
   ];
 
   function menuLink({ label, path }) {
+    const normalize = (p) => p.replace(/\/$/, '');
     const classname =
-      path === location.pathname ? 'nav-link-current' : 'nav-link';
+      normalize(path) === normalize(location.pathname) ? 'nav-link-current' : 'nav-link';
 
     return (
       <li key={label}>

@@ -1,19 +1,19 @@
 import strings from './strings';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, getStrings } from './index';
 
-const topLevelKeys = Object.keys(strings[DEFAULT_LOCALE]);
+const topLevelKeys = Object.keys(strings[DEFAULT_LOCALE]).sort();
 
 test('all locales define the same top-level sections', () => {
   SUPPORTED_LOCALES.forEach((locale) => {
-    expect(Object.keys(strings[locale])).toEqual(topLevelKeys);
+    expect(Object.keys(strings[locale]).sort()).toEqual(topLevelKeys);
   });
 });
 
 test('all locales define the same keys within each section', () => {
   SUPPORTED_LOCALES.forEach((locale) => {
     topLevelKeys.forEach((section) => {
-      expect(Object.keys(strings[locale][section])).toEqual(
-        Object.keys(strings[DEFAULT_LOCALE][section])
+      expect(Object.keys(strings[locale][section]).sort()).toEqual(
+        Object.keys(strings[DEFAULT_LOCALE][section]).sort()
       );
     });
   });

@@ -10,7 +10,7 @@ const strings = {
     footer: {
       message:
         'Thanks! We hope you found what you are looking for. Please feel free to contribute via',
-      github: 'Github',
+      github: 'GitHub',
     },
     exercise: {
       level: 'Level',
@@ -38,7 +38,7 @@ const strings = {
     footer: {
       message:
         "Merci\u00a0! Nous espérons que vous avez trouvé ce que vous cherchiez. N'hésitez pas à contribuer via",
-      github: 'Github',
+      github: 'GitHub',
     },
     exercise: {
       level: 'Niveau',

@@ -15,6 +15,7 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
     ? pageContext.frontmatter.subtitle
     : '';
   const heroImage = getImage(pageContext.frontmatter.heroImage);
+  const heroId = pageContext.frontmatter.heroId;
   const category = pageContext.frontmatter.category;
   const level = pageContext.frontmatter.level;
   const slug = data.mdx.fields.slug;
@@ -33,7 +34,7 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
   return (
     <Layout location={location}>
       <GatsbyImage image={heroImage} alt="" />
-      <Hero title={pageTitle} subtitle={subTitle} />
+      <Hero title={pageTitle} subtitle={subTitle} heroId={heroId} />
       <div className="content">{children}</div>
       <div className="content">
         <SiteMap location={location} nodes={nodes} />

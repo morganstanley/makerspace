@@ -23,6 +23,10 @@
   justify-content: flex-end;
 }
 
+.header-main h1 {
+  width: auto;
+}
+
 .header-nav {
   flex-grow: 2;
   text-align: right;
@@ -36,6 +40,14 @@
   padding: 0;
 }
 
+.header-nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .header-nav ul li {
   list-style-type: none;
   margin: 1rem;
@@ -44,6 +56,12 @@
 
 .header-nav ul li:last-of-type {
   margin-right: 0;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Pages */

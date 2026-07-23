@@ -4,6 +4,7 @@ import { Link, graphql } from 'gatsby';
 import ExerciseNav from '../components/exercise-nav';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
+import { getLocaleFromPath, getStrings } from '../i18n';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
@@ -28,6 +29,8 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
   const selectedLanguage = getCurrentLanguage(slug, languages);
   const nodes = getLanguage(data.allMdx.nodes, selectedLanguage);
   const [next, previous] = nextPrev(nodes, location);
+  const strings = getStrings(getLocaleFromPath(location?.pathname || slug));
+  const { exercise: exerciseStrings } = strings;
 
   return (
     <Layout location={location}>
@@ -46,7 +49,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
-                ← Exercise {previous.frontmatter?.exercise} |{' '}
+                ← {exerciseStrings.exercise} {previous.frontmatter?.exercise} |{' '}
                 {previous.frontmatter?.title}
               </Link>
             )}
@@ -54,7 +57,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
           <li>
             {next && (
               <Link to={next.fields.slug} rel="next">
-                Exercise {next.frontmatter?.exercise} |{' '}
+                {exerciseStrings.exercise} {next.frontmatter?.exercise} |{' '}
                 {next.frontmatter?.title} →
               </Link>
             )}

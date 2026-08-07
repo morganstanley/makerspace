@@ -27,7 +27,7 @@
     "prismjs": "^1.30.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "style-to-object": "^1.0.14"
+    "style-to-object": "^2.0.2"
   },
   "overrides": {
     "axios": "^1.7.4",
@@ -37,7 +37,7 @@
     "flatted": "^3.4.2",
     "multer": "^2.2.0",
     "qs": "^6.15.3",
-    "socket.io-parser": "^4.2.6",
+    "socket.io-parser": "^4.2.7",
     "immutable": "^3.8.3",
     "gatsby": {
       "webpack": "^5.104.1"
@@ -66,13 +66,13 @@
     "pub": "rimraf ../docs && mv public ../docs"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
     "babel-jest": "^30.2.0",
     "babel-preset-gatsby": "^3.16.0",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.6",
     "rimraf": "^6.1.3"
   }
 }

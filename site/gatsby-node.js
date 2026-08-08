@@ -44,23 +44,43 @@ exports.createPages = async ({ graphql, actions }) => {
   const exerciseTemplate = path.resolve(`./src/templates/exercise.jsx`);
   const indexTemplate = path.resolve(`./src/templates/index.jsx`);
   const pageTemplate = path.resolve(`./src/templates/page.jsx`);
+  const homeTemplate = path.resolve(`./src/templates/home.jsx`);
 
   function getTemplate(page) {
-    const path = page.internal.contentFilePath;
-    const isExerciseIndex = path.includes('index') && path.includes('exercise');
-    return page.frontmatter.exercise
-      ? exerciseTemplate
-      : isExerciseIndex
-        ? indexTemplate
-        : pageTemplate;
+    const filePath = page.internal.contentFilePath;
+    const isExerciseIndex = filePath.includes('index') && filePath.includes('exercise');
+    const isHome = filePath.includes('home.mdx');
+    
+    if (page.frontmatter.exercise) {
+      return exerciseTemplate;
+    } else if (isExerciseIndex) {
+      return indexTemplate;
+    } else if (isHome) {
+      return homeTemplate;
+    }
+    return pageTemplate;
   }
 
   pages.forEach((page) => {
     const category = page.frontmatter.category;
-    const path = page.internal.contentFilePath;
+    const filePath = page.internal.contentFilePath;
+    const isHome = filePath.includes('home.mdx');
+    
+    let pagePath = page.fields.slug;
+    // For home pages, use appropriate language paths
+    if (isHome) {
+      if (filePath.includes('/fr-CA/')) {
+        pagePath = '/fr-CA/';
+      } else if (filePath.includes('/pt-BR/')) {
+        pagePath = '/pt-BR/';
+      } else {
+        pagePath = '/';
+      }
+    }
+    
     createPage({
-      path: page.fields.slug,
-      component: `${getTemplate(page)}?__contentFilePath=${path}`,
+      path: pagePath,
+      component: `${getTemplate(page)}?__contentFilePath=${filePath}`,
       context: {
         id: page.id,
         category: category,

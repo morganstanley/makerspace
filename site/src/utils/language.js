@@ -15,10 +15,22 @@ export function getCurrentLanguage(slug, languages) {
 
 export function getTranslationPath(pathname, language) {
   const segments = pathname.split('/').filter(Boolean);
+  
+  // Handle exercises paths
   const exercisesIndex = segments.indexOf('exercises');
-  const pathSegments =
-    exercisesIndex >= 0 ? segments.slice(exercisesIndex + 2) : [];
-  const suffix = pathSegments.length ? `/${pathSegments.join('/')}/` : '/';
-
-  return `/exercises/${language}${suffix}`;
+  if (exercisesIndex >= 0) {
+    const pathSegments = segments.slice(exercisesIndex + 2);
+    const suffix = pathSegments.length ? `/${pathSegments.join('/')}/` : '/';
+    return `/exercises/${language}${suffix}`;
+  }
+  
+  // Handle homepage paths (/, /fr-CA/, /pt-BR/)
+  if (segments.length === 0 || segments[0] === 'fr-CA' || segments[0] === 'pt-BR' || segments[0] === 'en-US') {
+    if (language === 'en-US') {
+      return '/';
+    }
+    return `/${language}/`;
+  }
+  
+  return pathname;
 }

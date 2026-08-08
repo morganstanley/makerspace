@@ -69,3 +69,11 @@ test('Builds translated paths for base-level pages', () => {
     '/exercises/fr-CA/'
   );
 });
+
+test('Builds translated paths for homepage', () => {
+  expect(getTranslationPath('/', 'fr-CA')).toEqual('/fr-CA/');
+  expect(getTranslationPath('/', 'pt-BR')).toEqual('/pt-BR/');
+  expect(getTranslationPath('/fr-CA/', 'en-US')).toEqual('/');
+  expect(getTranslationPath('/pt-BR/', 'en-US')).toEqual('/');
+  expect(getTranslationPath('/fr-CA/', 'pt-BR')).toEqual('/pt-BR/');
+});

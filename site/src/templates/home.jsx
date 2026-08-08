@@ -1,19 +1,19 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 
 import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
 import Translations from '../components/translations';
 
-const SiteIndex = ({ location }) => {
+export default function HomeTemplate({ data, location, children }) {
+  const { mdx } = data;
+  const { title, subtitle } = mdx.frontmatter;
+
   return (
     <Layout location={location}>
       <div className="home-main">
-        <Hero
-          title="Building Community Through Code"
-          subtitle="Intro to Programming"
-        />
+        <Hero title={title} subtitle={subtitle} />
         <article className="hero hero-learn">
           <img
             src="images/student-computer.jpg"
@@ -85,16 +85,25 @@ const SiteIndex = ({ location }) => {
       </div>
     </Layout>
   );
-};
+}
 
-export default SiteIndex;
+export const query = graphql`
+  query ($id: String!) {
+    mdx(id: { eq: $id }) {
+      frontmatter {
+        title
+        subtitle
+        description
+      }
+    }
+  }
+`;
 
 export const Head = ({ data }) => (
-  <PageHead title="Home">
+  <PageHead title={data.mdx.frontmatter.title}>
     <meta
       name="description"
-      content="Introduction to programming with Adafruit's Circuit Playground
-                Express"
+      content={data.mdx.frontmatter.description}
     />
   </PageHead>
 );

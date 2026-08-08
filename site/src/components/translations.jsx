@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql, useLocation, useStaticQuery } from 'gatsby';
 
-import { LOCALE_NAMES } from '../i18n';
+import { getCurrentLanguage, getTranslationPath } from '../utils/language';
 
 export default function Translations() {
+  const location = useLocation();
   const data = useStaticQuery(graphql`
     query TranslationsQuery {
       allDirectory(filter: { relativeDirectory: { eq: "exercises" } }) {
@@ -14,18 +15,28 @@ export default function Translations() {
     }
   `);
 
-  const translations = data.allDirectory.nodes.map((node) => node.base);
+  const languages = data.allDirectory.nodes.map((node) => node.base);
+  const currentLanguage = getCurrentLanguage(location.pathname, languages);
+  const translations = languages.filter(
+    (translation) => translation !== currentLanguage
+  );
+
+  if (!translations.length) {
+    return null;
+  }
 
   return (
-    <ul>
-      {translations.map((translation) => {
-        const url = `/exercises/${translation}/`;
-        return (
-          <li key={translation}>
-            <Link to={url}>{LOCALE_NAMES[translation] || translation}</Link>
-          </li>
-        );
-      })}
-    </ul>
+    <nav aria-label="Translations">
+      <ul>
+        {translations.map((translation) => {
+          const url = getTranslationPath(location.pathname, translation);
+          return (
+            <li key={translation}>
+              <Link to={url}>{translation}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

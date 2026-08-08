@@ -6,6 +6,7 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
 import SiteMap from '../components/site-map';
+import Translations from '../components/translations';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
@@ -15,7 +16,6 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
     ? pageContext.frontmatter.subtitle
     : '';
   const heroImage = getImage(pageContext.frontmatter.heroImage);
-  const heroId = pageContext.frontmatter.heroId;
   const category = pageContext.frontmatter.category;
   const level = pageContext.frontmatter.level;
   const slug = data.mdx.fields.slug;
@@ -34,8 +34,11 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
   return (
     <Layout location={location}>
       <GatsbyImage image={heroImage} alt="" />
-      <Hero title={pageTitle} subtitle={subTitle} heroId={heroId} />
-      <div className="content">{children}</div>
+      <Hero title={pageTitle} subtitle={subTitle} />
+      <div className="content">
+        <Translations />
+        {children}
+      </div>
       <div className="content">
         <SiteMap location={location} nodes={nodes} />
       </div>

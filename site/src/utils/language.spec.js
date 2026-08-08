@@ -1,4 +1,8 @@
-import { getCurrentLanguage, getLanguage } from './language';
+import {
+  getCurrentLanguage,
+  getLanguage,
+  getTranslationPath,
+} from './language';
 import { allExercises, slug, languages } from '../../__mocks__/exercises';
 
 test('Gets documentation by version', () => {
@@ -52,4 +56,16 @@ test('Gets language of current exercise', () => {
   expect(
     getCurrentLanguage('/exercises/3.4.1-rc3/components/', languages)
   ).toEqual(undefined);
+});
+
+test('Builds translated paths for base-level pages', () => {
+  expect(
+    getTranslationPath('/exercises/en-US/circuitpython/', 'fr-CA')
+  ).toEqual('/exercises/fr-CA/circuitpython/');
+  expect(getTranslationPath('/exercises/en-US/', 'pt-BR')).toEqual(
+    '/exercises/pt-BR/'
+  );
+  expect(getTranslationPath('/exercises/', 'fr-CA')).toEqual(
+    '/exercises/fr-CA/'
+  );
 });

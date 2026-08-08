@@ -29,6 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
           fields {
             slug
+            language
           }
         }
       }
@@ -64,18 +65,14 @@ exports.createPages = async ({ graphql, actions }) => {
   pages.forEach((page) => {
     const category = page.frontmatter.category;
     const filePath = page.internal.contentFilePath;
+    const language = page.fields.language;
     const isHome = filePath.includes('home.mdx');
     
     let pagePath = page.fields.slug;
+    
     // For home pages, use appropriate language paths
     if (isHome) {
-      if (filePath.includes('/fr-CA/')) {
-        pagePath = '/fr-CA/';
-      } else if (filePath.includes('/pt-BR/')) {
-        pagePath = '/pt-BR/';
-      } else {
-        pagePath = '/';
-      }
+      pagePath = language === 'en-US' ? '/' : `/${language}/`;
     }
     
     createPage({
@@ -93,11 +90,44 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `Mdx`) {
-    const value = createFilePath({ node, getNode });
+    const filePath = node.internal.contentFilePath;
+    
+    // Extract language from file path
+    let language = 'en-US';
+    if (filePath.includes('/en-US/')) {
+      language = 'en-US';
+    } else if (filePath.includes('/fr-CA/')) {
+      language = 'fr-CA';
+    } else if (filePath.includes('/pt-BR/')) {
+      language = 'pt-BR';
+    }
+    
+    createNodeField({
+      name: `language`,
+      node,
+      value: language,
+    });
+    
+    // Create slug - createFilePath includes language folder, so we need to normalize
+    const rawSlug = createFilePath({ node, getNode });
+    let slug = rawSlug;
+    
+    // Normalize slug based on language
+    // createFilePath gives us paths like: /en-US/continue/, /fr-CA/continue/, etc.
+    // We want: /continue/ for English, /fr-CA/continue/ for French, /pt-BR/continue/ for Portuguese
+    if (rawSlug.startsWith('/en-US/')) {
+      slug = rawSlug.substring(7); // Remove '/en-US/'
+    } else if (rawSlug.startsWith('/fr-CA/')) {
+      slug = rawSlug; // Keep as is for French
+    } else if (rawSlug.startsWith('/pt-BR/')) {
+      slug = rawSlug; // Keep as is for Portuguese
+    }
+    
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: slug,
     });
   }
 };
+

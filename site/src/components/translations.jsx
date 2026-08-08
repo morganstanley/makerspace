@@ -16,22 +16,16 @@ export default function Translations() {
     }
   `);
 
-  // Get all language directories (includes 'exercises', 'fr-CA', 'pt-BR', 'en-US', etc.)
   const allDirs = data.allDirectory.nodes.map((node) => node.base);
-  
-  // Language codes we care about
-  const languages = ['en-US', 'fr-CA', 'pt-BR'].filter(lang => 
-    allDirs.includes(lang) || lang === 'en-US'
+  const languages = ['en-US', 'fr-CA', 'pt-BR'].filter(
+    (lang) => allDirs.includes(lang) || lang === 'en-US'
   );
-  
-  // Determine current language from path
+
   let currentLanguage = getCurrentLanguage(location.pathname, languages);
-  
-  // Default to en-US if no language found in path
   if (!currentLanguage) {
     currentLanguage = 'en-US';
   }
-  
+
   const translations = languages.filter(
     (translation) => translation !== currentLanguage
   );
@@ -55,4 +49,3 @@ export default function Translations() {
     </nav>
   );
 }
-

@@ -48,7 +48,9 @@
     },
     "glob@^13": {
       "minimatch": "^10.2.4"
-    }
+    },
+    "whatwg-url": "^14.2.0",
+    "tr46": "^5.1.1"
   },
   "keywords": [
     "gatsby"
@@ -56,12 +58,12 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
-    "build": "gatsby clean && gatsby build --prefix-paths && npm run pub",
-    "develop": "gatsby clean && gatsby develop",
+    "build": "npm run clean && gatsby build --prefix-paths && npm run pub",
+    "develop": "npm run clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
+    "clean": "rimraf .cache public node_modules/.cache/babel-loader node_modules/.cache/terser-webpack-plugin",
     "test": "jest",
     "pub": "rimraf ../docs && mv public ../docs"
   },

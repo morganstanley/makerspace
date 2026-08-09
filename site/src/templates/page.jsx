@@ -5,7 +5,6 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import Translations from '../components/translations';
 
 const PageTemplate = ({ children, pageContext, location }) => {
   const pageTitle = pageContext.frontmatter.title;
@@ -19,7 +18,6 @@ const PageTemplate = ({ children, pageContext, location }) => {
       <GatsbyImage image={heroImage} alt="" />
       <Hero title={pageTitle} subtitle={subTitle} />
       <div className="content">
-        <Translations />
         {children}
       </div>
     </Layout>

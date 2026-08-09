@@ -4,7 +4,6 @@ import { Link, graphql } from 'gatsby';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import Translations from '../components/translations';
 import { getLocaleFromPath, getLocalePath } from '../i18n';
 
 export default function HomeTemplate({ data, location, children }) {
@@ -85,7 +84,6 @@ export default function HomeTemplate({ data, location, children }) {
             </section>
           </div>
         </article>
-        <Translations />
       </div>
     </Layout>
   );

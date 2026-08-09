@@ -4,7 +4,6 @@ import { Link } from 'gatsby';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import Translations from '../components/translations';
 import { getLocaleFromPath, getLocalePath } from '../i18n';
 
 const SiteIndex = ({ location }) => {
@@ -86,7 +85,6 @@ const SiteIndex = ({ location }) => {
             </section>
           </div>
         </article>
-        <Translations />
       </div>
     </Layout>
   );

@@ -6,7 +6,6 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
 import SiteMap from '../components/site-map';
-import Translations from '../components/translations';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
@@ -36,7 +35,6 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
       <GatsbyImage image={heroImage} alt="" />
       <Hero title={pageTitle} subtitle={subTitle} />
       <div className="content">
-        <Translations />
         {children}
       </div>
       <div className="content">

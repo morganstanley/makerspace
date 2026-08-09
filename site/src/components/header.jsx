@@ -10,7 +10,7 @@ import {
 } from '../i18n';
 
 const Header = ({ location }) => {
-  const { strings, locale } = useLocale();
+  const { strings, locale, setLocalePreference } = useLocale();
   const { nav } = strings;
 
   const links = [
@@ -36,6 +36,7 @@ const Header = ({ location }) => {
 
   function onLocaleChange(event) {
     const nextLocale = event.target.value;
+    setLocalePreference(nextLocale);
     const nextPath = getLocaleSwitchPath(location?.pathname, nextLocale);
     navigate(nextPath);
   }
@@ -43,7 +44,7 @@ const Header = ({ location }) => {
   return (
     <div className="content">
       <h1>
-        <Link className="logo-link" to={`/`}>
+        <Link className="logo-link" to={getLocalePath('/', locale)}>
           Makerspace
         </Link>
       </h1>

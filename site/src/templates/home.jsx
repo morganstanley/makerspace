@@ -5,10 +5,12 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
 import Translations from '../components/translations';
+import { getLocaleFromPath, getLocalePath } from '../i18n';
 
 export default function HomeTemplate({ data, location, children }) {
   const { mdx } = data;
   const { title, subtitle } = mdx.frontmatter;
+  const locale = getLocaleFromPath(location?.pathname);
 
   return (
     <Layout location={location}>
@@ -24,7 +26,7 @@ export default function HomeTemplate({ data, location, children }) {
             <header className="content">
               <h2>
                 <span className="cpx-title">
-                  <Link to={`/exercises`}>Learn to code</Link>
+                  <Link to={getLocalePath('/exercises', locale)}>Learn to code</Link>
                 </span>
               </h2>
             </header>
@@ -47,7 +49,7 @@ export default function HomeTemplate({ data, location, children }) {
               <header className="content">
                 <h2>
                   <span className="cpx-title">
-                    <Link to={`/teach`}>Teach</Link>
+                    <Link to={getLocalePath('/teach', locale)}>Teach</Link>
                   </span>
                 </h2>
               </header>
@@ -70,7 +72,9 @@ export default function HomeTemplate({ data, location, children }) {
             <header className="content">
               <h2>
                 <span className="cpx-title">
-                  <Link to={`/makerspace`}>Make a Makerspace</Link>
+                  <Link to={getLocalePath('/makerspace', locale)}>
+                    Make a Makerspace
+                  </Link>
                 </span>
               </h2>
             </header>

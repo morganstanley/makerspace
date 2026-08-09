@@ -1,14 +1,34 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-import { getLocaleFromPath, getStrings } from './index';
+import {
+  DEFAULT_LOCALE,
+  LOCALE_STORAGE_KEY,
+  getLocaleSegmentFromPath,
+  getStoredLocale,
+  getStrings,
+} from './index';
 
 const LocaleContext = createContext(null);
 
 export function LocaleProvider({ location, children }) {
+  const [preferredLocale, setPreferredLocale] = useState(getStoredLocale);
+  const pathLocaleSegment = getLocaleSegmentFromPath(location?.pathname);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, preferredLocale);
+  }, [preferredLocale]);
+
   const value = useMemo(() => {
-    const locale = getLocaleFromPath(location?.pathname);
-    return { locale, strings: getStrings(locale) };
-  }, [location?.pathname]);
+    const locale = pathLocaleSegment || preferredLocale || DEFAULT_LOCALE;
+    return {
+      locale,
+      strings: getStrings(locale),
+      setLocalePreference: setPreferredLocale,
+    };
+  }, [pathLocaleSegment, preferredLocale]);
 
   return (
     <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>

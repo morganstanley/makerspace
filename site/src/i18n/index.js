@@ -7,18 +7,36 @@ export const LOCALE_NAMES = {
   'fr-CA': 'Français',
   'pt-BR': 'Português',
 };
+export const LOCALE_STORAGE_KEY = 'cpx-preferred-locale';
 
 export function getStrings(locale) {
   return strings[locale] || strings[DEFAULT_LOCALE];
 }
 
 export function getLocaleFromPath(pathname) {
-  if (!pathname) return DEFAULT_LOCALE;
+  const localeFromSegment = getLocaleSegmentFromPath(pathname);
+  return localeFromSegment || DEFAULT_LOCALE;
+}
+
+export function getLocaleSegmentFromPath(pathname) {
+  if (!pathname) return undefined;
   const segments = pathname.split('/').filter(Boolean);
   for (const segment of segments) {
     if (SUPPORTED_LOCALES.includes(segment)) {
       return segment;
     }
+  }
+  return undefined;
+}
+
+export function getStoredLocale() {
+  if (typeof window === 'undefined') {
+    return DEFAULT_LOCALE;
+  }
+
+  const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+  if (SUPPORTED_LOCALES.includes(storedLocale)) {
+    return storedLocale;
   }
   return DEFAULT_LOCALE;
 }

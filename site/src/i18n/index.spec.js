@@ -2,8 +2,11 @@ import {
   DEFAULT_LOCALE,
   SUPPORTED_LOCALES,
   getLocaleFromPath,
+  getLocaleSegmentFromPath,
   getLocalePath,
+  getStoredLocale,
   getLocaleSwitchPath,
+  LOCALE_STORAGE_KEY,
 } from './index';
 
 test('DEFAULT_LOCALE is en-US', () => {
@@ -17,6 +20,39 @@ test('SUPPORTED_LOCALES contains en-US, fr-CA, pt-BR', () => {
 describe('getLocaleFromPath', () => {
   test('detects en-US from path', () => {
     expect(getLocaleFromPath('/exercises/en-US/circuitpython/')).toBe('en-US');
+  });
+
+  describe('getLocaleSegmentFromPath', () => {
+    test('returns locale segment when present in path', () => {
+      expect(getLocaleSegmentFromPath('/fr-CA/about/')).toBe('fr-CA');
+      expect(getLocaleSegmentFromPath('/exercises/pt-BR/python/')).toBe('pt-BR');
+    });
+
+    test('returns undefined when locale segment is missing', () => {
+      expect(getLocaleSegmentFromPath('/about/')).toBe(undefined);
+      expect(getLocaleSegmentFromPath('/')).toBe(undefined);
+      expect(getLocaleSegmentFromPath(null)).toBe(undefined);
+    });
+  });
+
+  describe('getStoredLocale', () => {
+    beforeEach(() => {
+      window.localStorage.clear();
+    });
+
+    test('returns default locale when nothing stored', () => {
+      expect(getStoredLocale()).toBe(DEFAULT_LOCALE);
+    });
+
+    test('returns stored locale when supported', () => {
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, 'fr-CA');
+      expect(getStoredLocale()).toBe('fr-CA');
+    });
+
+    test('falls back to default locale when unsupported value is stored', () => {
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, 'de-DE');
+      expect(getStoredLocale()).toBe(DEFAULT_LOCALE);
+    });
   });
 
   test('detects fr-CA from path', () => {

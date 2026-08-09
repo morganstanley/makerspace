@@ -41,22 +41,40 @@ export function getStoredLocale() {
   return DEFAULT_LOCALE;
 }
 
+function getExercisePathParts(path) {
+  const segments = path.split('/').filter(Boolean);
+
+  if (segments[0] === 'exercises') {
+    return {
+      isExercisePath: true,
+      parts: segments.slice(1),
+    };
+  }
+
+  if (SUPPORTED_LOCALES.includes(segments[0]) && segments[1] === 'exercises') {
+    return {
+      isExercisePath: true,
+      parts: segments.slice(2),
+    };
+  }
+
+  return {
+    isExercisePath: false,
+    parts: [],
+  };
+}
+
 export function getLocalePath(path, locale) {
   if (!locale || locale === DEFAULT_LOCALE) return path;
-  if (path.startsWith('/exercises')) {
-    const hasTrailingSlash = path.endsWith('/');
-    const parts = path.replace(/^\/exercises\/?/, '').split('/').filter(Boolean);
 
-    if (SUPPORTED_LOCALES.includes(parts[0])) {
-      parts.shift();
-    }
+  const hasTrailingSlash = path.endsWith('/');
+  const { isExercisePath, parts } = getExercisePathParts(path);
 
-    if (parts.length === 0) {
-      return `/exercises/${locale}/`;
-    }
-
-    return `/exercises/${locale}/${parts.join('/')}${hasTrailingSlash ? '/' : ''}`;
+  if (isExercisePath) {
+    const suffix = parts.length ? `${parts.join('/')}${hasTrailingSlash ? '/' : ''}` : '';
+    return `/${locale}/exercises/${suffix}`;
   }
+
   return `/${locale}${path}`;
 }
 
@@ -64,23 +82,18 @@ export function getLocaleSwitchPath(pathname, locale) {
   const path = pathname || '/';
   const segments = path.split('/').filter(Boolean);
   const hasTrailingSlash = path.endsWith('/');
+  const { isExercisePath, parts } = getExercisePathParts(path);
 
   if (segments.length === 0) {
     return locale === DEFAULT_LOCALE ? '/' : `/${locale}/`;
   }
 
-  if (segments[0] === 'exercises') {
-    if (segments.length === 1) {
-      return locale === DEFAULT_LOCALE ? '/exercises/' : `/exercises/${locale}/`;
+  if (isExercisePath) {
+    const suffix = parts.length ? `/${parts.join('/')}` : '';
+    if (locale === DEFAULT_LOCALE) {
+      return `/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
     }
-
-    if (SUPPORTED_LOCALES.includes(segments[1])) {
-      segments[1] = locale;
-    } else if (locale !== DEFAULT_LOCALE) {
-      segments.splice(1, 0, locale);
-    }
-
-    return `/${segments.join('/')}${hasTrailingSlash ? '/' : ''}`;
+    return `/${locale}/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
   }
 
   if (SUPPORTED_LOCALES.includes(segments[0])) {

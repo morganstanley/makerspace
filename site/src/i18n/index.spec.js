@@ -87,12 +87,15 @@ describe('getLocalePath', () => {
   });
 
   test('returns locale exercises root for exercise paths', () => {
-    expect(getLocalePath('/exercises', 'fr-CA')).toBe('/exercises/fr-CA/');
-    expect(getLocalePath('/exercises/en-US/', 'pt-BR')).toBe(
-      '/exercises/pt-BR/'
+    expect(getLocalePath('/exercises', 'fr-CA')).toBe('/fr-CA/exercises/');
+    expect(getLocalePath('/exercises/', 'pt-BR')).toBe(
+      '/pt-BR/exercises/'
     );
-    expect(getLocalePath('/exercises/en-US/python/E1/', 'fr-CA')).toBe(
-      '/exercises/fr-CA/python/E1/'
+    expect(getLocalePath('/exercises/python/E1/', 'fr-CA')).toBe(
+      '/fr-CA/exercises/python/E1/'
+    );
+    expect(getLocalePath('/fr-CA/exercises/python/E1/', 'pt-BR')).toBe(
+      '/pt-BR/exercises/python/E1/'
     );
   });
 
@@ -109,17 +112,21 @@ describe('getLocaleSwitchPath', () => {
   });
 
   test('switches locale for exercise pages while preserving route', () => {
-    expect(getLocaleSwitchPath('/exercises/en-US/python/E1/', 'fr-CA')).toBe(
-      '/exercises/fr-CA/python/E1/'
+    expect(getLocaleSwitchPath('/exercises/python/E1/', 'fr-CA')).toBe(
+      '/fr-CA/exercises/python/E1/'
     );
-    expect(getLocaleSwitchPath('/exercises/fr-CA/python/E1/', 'en-US')).toBe(
-      '/exercises/en-US/python/E1/'
+    expect(getLocaleSwitchPath('/fr-CA/exercises/python/E1/', 'en-US')).toBe(
+      '/exercises/python/E1/'
+    );
+    expect(getLocaleSwitchPath('/fr-CA/exercises/python/E1/', 'pt-BR')).toBe(
+      '/pt-BR/exercises/python/E1/'
     );
   });
 
   test('handles exercise root pages', () => {
-    expect(getLocaleSwitchPath('/exercises/', 'fr-CA')).toBe(
-      '/exercises/fr-CA/'
+    expect(getLocaleSwitchPath('/exercises/', 'fr-CA')).toBe('/fr-CA/exercises/');
+    expect(getLocaleSwitchPath('/fr-CA/exercises/', 'pt-BR')).toBe(
+      '/pt-BR/exercises/'
     );
     expect(getLocaleSwitchPath('/exercises/', 'en-US')).toBe('/exercises/');
   });
@@ -129,7 +136,7 @@ describe('getLocaleSwitchPath', () => {
       '/exercises/python/E1/'
     );
     expect(getLocaleSwitchPath('/exercises/python/E1/', 'fr-CA')).toBe(
-      '/exercises/fr-CA/python/E1/'
+      '/fr-CA/exercises/python/E1/'
     );
   });
 });

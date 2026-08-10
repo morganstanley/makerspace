@@ -64,6 +64,37 @@ The main content for the site lives in the [`/site/content`](https://github.com/
 
 [MarkDown Reference](https://daringfireball.net/projects/markdown/syntax)
 
+### Translation / Locale behavior
+
+The site supports three locales:
+
+- `en-US` (default)
+- `fr-CA`
+- `pt-BR`
+
+#### URL structure
+
+- Default locale pages are unprefixed (example: `/about/`, `/exercises/`).
+- Non-default locale pages are prefixed by locale (example: `/fr-CA/about/`, `/pt-BR/exercises/`).
+- Exercise content follows the same pattern:
+  - English: `/exercises/...`
+  - French: `/fr-CA/exercises/...`
+  - Portuguese: `/pt-BR/exercises/...`
+
+#### How language switching works
+
+- The **top navigation dropdown** is the only language selector UI.
+- Changing the dropdown switches to the same route in the selected locale when available.
+- Selected locale is persisted in browser storage (`cpx-preferred-locale`) and used for subsequent navigation.
+
+#### Content organization for translations
+
+Content is organized by top-level language folders under [`/site/content/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content):
+
+- [`en-US/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/en-US)
+- [`fr-CA/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/fr-CA)
+- [`pt-BR/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/pt-BR)
+
 The [`/site/content/exercises`](https://github.com/MorganStanley/makerspace/tree/master/site/content/exercises) directory contains directories name for the corresponding level and exercise. [`/site/content/exercises/L1-E1`](https://github.com/MorganStanley/makerspace/tree/master/site/content/exercises/L1-E1) should contain Level 1 Exercise 1 details and code. The main content is build from the `index.md` file contained in each of these directories.
 
 Please note that because the [starter project](https://www.gatsbyjs.org/starters/iamtherealgd/gatsby-starter-22boxes-uno/) used for this site is a blog template, the order of the exercises are dependent on the date included in the metadata that must be included at the top of each `index.md`.

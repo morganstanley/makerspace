@@ -1,38 +1,67 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
+
+import { useLocale } from '../i18n/LocaleContext';
+import {
+  LOCALE_NAMES,
+  SUPPORTED_LOCALES,
+  getLocalePath,
+  getLocaleSwitchPath,
+} from '../i18n';
 
 const Header = ({ location }) => {
-  const links = {
-    Learn: '/exercises',
-    Teach: '/teach',
-    'Make a Makerspace': '/makerspace',
-    'About': '/about',
-  };
+  const { strings, locale, setLocalePreference } = useLocale();
+  const { nav } = strings;
 
-  function menuLink(text) {
-    const path = links[text];
+  const links = [
+    { label: nav.learn, path: getLocalePath('/exercises', locale) },
+    { label: nav.teach, path: getLocalePath('/teach', locale) },
+    { label: nav.makerspace, path: getLocalePath('/makerspace', locale) },
+    { label: nav.about, path: getLocalePath('/about', locale) },
+  ];
+
+  function menuLink({ label, path }) {
+    const normalize = (p) => p.replace(/\/$/, '');
     const classname =
-      path === location.pathname ? 'nav-link-current' : 'nav-link';
+      normalize(path) === normalize(location.pathname) ? 'nav-link-current' : 'nav-link';
 
     return (
-      <li key={text}>
+      <li key={label}>
         <Link className={classname} to={path}>
-          {text}
+          {label}
         </Link>
       </li>
     );
   }
 
+  function onLocaleChange(event) {
+    const nextLocale = event.target.value;
+    setLocalePreference(nextLocale);
+    const nextPath = getLocaleSwitchPath(location?.pathname, nextLocale);
+    navigate(nextPath);
+  }
+
   return (
     <div className="content">
       <h1>
-        <Link className="logo-link" to={`/`}>
+        <Link className="logo-link" to={getLocalePath('/', locale)}>
           Makerspace
         </Link>
       </h1>
 
       <div className="header-nav">
-        <ul>{Object.keys(links).map(menuLink)}</ul>
+        <div className="header-nav-controls">
+          <ul>{links.map(menuLink)}</ul>
+          <label className="language-selector">
+            <select value={locale} onChange={onLocaleChange} aria-label={nav.language}>
+              {SUPPORTED_LOCALES.map((supportedLocale) => (
+                <option key={supportedLocale} value={supportedLocale}>
+                  {LOCALE_NAMES[supportedLocale]}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
     </div>
   );

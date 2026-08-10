@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
+import { useLocale } from '../i18n/LocaleContext';
+
 function getCategories(nodes) {
   const potentialValues = [];
   nodes.forEach((node) => {
@@ -49,7 +51,11 @@ const PageListItems = ({ nodes }) => {
   });
 };
 
-const PagesByLevel = ({ levels, location, nodes }) => (
+const PagesByLevel = ({ levels, location, nodes }) => {
+  const { strings } = useLocale();
+  const { exercise: exerciseStrings } = strings;
+
+  return (
   <nav className="nav exercise-nav">
     {levels.map((level, i) => {
       const currentLevelNodes = nodes.filter(
@@ -57,7 +63,7 @@ const PagesByLevel = ({ levels, location, nodes }) => (
       );
       return (
         <div key={`level-${i}`}>
-          {level !== null && <h3>Level {level}</h3>}
+          {level !== null && <h3>{exerciseStrings.level} {level}</h3>}
           <ul>
             <PageListItems location={location} nodes={currentLevelNodes} />
           </ul>
@@ -65,7 +71,8 @@ const PagesByLevel = ({ levels, location, nodes }) => (
       );
     })}
   </nav>
-);
+  );
+};
 
 const PagesByCategory = ({ categories, location, nodes }) => {
   return categories.map((category, i) => {

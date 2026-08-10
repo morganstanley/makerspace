@@ -34,7 +34,9 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
     <Layout location={location}>
       <GatsbyImage image={heroImage} alt="" />
       <Hero title={pageTitle} subtitle={subTitle} />
-      <div className="content">{children}</div>
+      <div className="content">
+        {children}
+      </div>
       <div className="content">
         <SiteMap location={location} nodes={nodes} />
       </div>

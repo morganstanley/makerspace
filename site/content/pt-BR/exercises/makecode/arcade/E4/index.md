@@ -13,7 +13,7 @@ Ao desenvolver um produto de software, como um jogo arcade, é importante lembra
 
 Por exemplo, o MVP do Ato 1 pode ser uma caixa de texto simples apresentando o personagem principal e explicando qual é o objetivo do jogo. Isso pode ser feito usando um quadro de diálogo ou um bloco de "texto longo" encontrado em Game:
 
-![dialogs](dialogs.png)
+![dialogs](../../../../../en-US/exercises/makecode/arcade/E4/dialogs.png)
 
 Depois de desenvolver o MVP do Ato 1, passe para o desenvolvimento do código dos Atos 2, 3, 4 e 5. Depois que o MVP do jogo inteiro for concluído, você pode adicionar recursos extras ao Ato 1, como:
 * Definir uma imagem de fundo.

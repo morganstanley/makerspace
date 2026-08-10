@@ -11,8 +11,8 @@ O Ato 2 é o momento em que o jogador se move e interage com o ambiente. Persona
 
 Use um mapa de tiles para projetar o ambiente do jogador e use paredes para definir os limites. Aqui está um exemplo curto de um jogo que permite ao usuário se mover e pular por cima de "paredes":
 
-![code](code.png)
+![code](../../../../../en-US/exercises/makecode/arcade/E5/code.png)
 
 O mapa de tiles define as paredes e usa um tema de masmorra:
 
-![tilemap](tilemap.png)
+![tilemap](../../../../../en-US/exercises/makecode/arcade/E5/tilemap.png)

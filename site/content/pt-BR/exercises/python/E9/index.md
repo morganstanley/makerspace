@@ -1,38 +1,38 @@
 ---
 template: exercise
-title: Entrada do Usuário
+title: Entrada do usuário
 level: 1
 exercise: 9
 category: Python
 tags: ['Python']
 ---
 
-Você pode solicitar uma entrada ao usuário usando `input()` - tudo o que o usuário digitar no prompt será armazenado como uma string.
+Você pode solicitar uma entrada do usuário com `input()` — tudo o que o usuário digitar no prompt será armazenado como uma string.
 
 ```python
-nome = input("Qual o seu nome? ")
-print(f"Olá, {nome}!")
+name = input("What is your name? ")
+print(f"Hello, {name}!")
 ```
-*Output:*
+*Saída:*
 ```
-Qual o seu nome? Bob
-Olá, Bob!
+What is your name? Bob
+Hello, Bob!
 ```
 
-Não se esqueça de que `input()` sempre retorna uma string, portanto, se você tentar usá-lo com um operador de comparação numérica, o Python gerará um erro. Para corrigir isso, convertemos a string para um inteiro usando `int()`:
+Não esqueça que `input()` sempre retorna uma string, então, se você tentar usá-la com um operador de comparação numérica, o Python lançará um erro. Para corrigir isso, convertemos a string em inteiro usando `int()`:
 
 ```python
-idade = input(f"Quantos anos você tem, {nome}? ")
-idade = int(idade)
-if idade < 21:
-  print(f"{nome} ainda é jovem")
+age = input(f"How old are you, {name}? ")
+age = int(age)
+if age < 21:
+  print(f"{name} is still young")
 ```
-*Output:*
+*Saída:*
 ```
-Quantos anos você tem, Bob? 18
-Bob ainda é jovem
+How old are you, Bob? 18
+Bob is still young
 ```
 
-## Exercício
+## Exercícios
 
-Escreva um jogo em que o jogador precisa adivinhar um número secreto. Primeiro, armazene o número em uma variável chamada `secret`. Em seguida, use um loop `while` que pede ao jogador para adivinhar o número até que ele esteja correto. Certifique-se de dar dicas ao jogador, como "muito alto" ou "muito baixo", com base nos palpites.
+Escreva um jogo em que o jogador tenha que adivinhar um número secreto. Primeiro, armazene o número em uma variável chamada `secret`. Depois, use um loop while que continue pedindo ao jogador para adivinhar o número até que ele esteja correto. Certifique-se de dar ao jogador dicas como "too high" ou "too low" com base nas tentativas.

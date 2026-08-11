@@ -10,86 +10,83 @@ tags: ['Python']
 Você pode usar listas para armazenar vários itens em uma única variável. Use colchetes para criar uma lista. Aqui está uma lista com 4 elementos:
 
 ```python
-groceries = ['ovos', 'leite', 'pão', 'café']
+groceries = ['eggs', 'milk', 'bread', 'coffee']
 print(groceries)
 ```
-*Output:*
+*Saída:*
 ```python
-['ovos', 'leite', 'pão', 'café']
+['eggs', 'milk', 'bread', 'coffee']
 ```
 
-Você acessa os itens da lista usando um **index** (índice). O primeiro item tem índice `[0]`, o segundo tem índice `[1]`, e assim por diante. Isso permite que você mostre itens individuais:
+Você acessa itens na lista usando um **índice**. O primeiro item tem índice `[0]`, o segundo tem índice `[1]`, etc. Isso permite imprimir itens individuais:
 
 ```python
 print(groceries[2])
 ```
-*Output:*
+*Saída:*
 ```python
-pão
+bread
 ```
 
-Ele também permite que você altere itens individuais:
+Também permite alterar itens individuais:
 
 ```python
-groceries[3] = 'café descafeinado'
+groceries[3] = 'decaf coffee'
 print(groceries)
 ```
-*Output:*
+*Saída:*
 ```python
-['ovos', 'leite', 'pão', 'café descafeinado']
+['eggs', 'milk', 'bread', 'decaf coffee']
 ```
 
 Você pode adicionar um item ao final da lista usando `append()`:
 
-
 ```python
-groceries.append('farinha')
+groceries.append('flour')
 print(groceries)
 ```
-*Output:*
+*Saída:*
 ```python
-['ovos', 'leite', 'pão', 'café descafeinado', 'farinha']
+['eggs', 'milk', 'bread', 'decaf coffee', 'flour']
 ```
 
-Você pode apagar itens usando `del`:
-
+Você pode excluir um item usando `del`:
 
 ```python
 del groceries[1]
 print(groceries)
 ```
-*Output:*
+*Saída:*
 ```python
-['ovos', 'pão', 'café descafeinado', 'farinha']
+['eggs', 'bread', 'decaf coffee', 'flour']
 ```
 
-Uma lista pode conter números, strings ou até mesmo uma mistura de ambos. Duas ou mais listas podem ser combinadas usando o operador `+`:
-
+Uma lista pode conter números, strings ou até uma mistura de ambos. Duas ou mais listas podem ser combinadas usando o operador `+`:
 
 ```python
 lottery_numbers = [4, 8, 15, 16, 23, 42]
 big_list = groceries + lottery_numbers
 print(big_list)
 ```
-*Output:*
+*Saída:*
 ```python
-['ovos', 'pão', 'café descafeinado', 'farinha', 4, 8, 15, 16, 23, 42]
+['eggs', 'bread', 'decaf coffee', 'flour', 4, 8, 15, 16, 23, 42]
 ```
 
 ## Exercícios
 
-1. Crie uma lista chamada `frutas` com os seguintes elementos: 'maçã', 'banana', 'laranja'
-   * Adicione 'uva' ao final da lista
+1. Crie uma lista chamada `fruits` com os seguintes elementos: 'apple', 'banana', 'orange'
+   * Adicione 'grape' ao fim da lista
 
-     _Dica: use a_ *função* `append()`
-   * Altere 'banana' para 'pera'
-   * Exiba a lista final
+     _Dica: use a função_ `append()`
+   * Troque 'banana' por 'pear'
+   * Imprima a lista final
 
 2. Crie uma lista de quatro números consecutivos
-    * Adicione o primeiro e o último elementos da lista
-    * Adicione os dois elementos do meio da lista
+    * Some o primeiro e o último elementos da lista
+    * Some os dois elementos do meio da lista
     * As duas somas são iguais ou diferentes?
 
-3. Faça uma lista dos seus jogos favoritos e atribua-a a uma variável chamada `jogos`. Faça uma lista das suas comidas favoritas e atribua-a a uma variável chamada `comidas`. Agora, combine essas listas em uma nova lista chamada `favoritos`.
-    * Agora remova o terceiro elemento de `favoritos` e mostre a nova lista de `favoritos`
-    * A remoção do elemento de `favoritos` afetou `jogos` ou `alimentos`?
+3. Faça uma lista dos seus jogos favoritos e atribua a uma variável chamada `games`. Faça uma lista dos seus alimentos favoritos e atribua a uma variável chamada `foods`. Agora combine essas listas em uma nova lista chamada `favorites`.
+    * Agora remova o terceiro elemento de `favorites` e imprima a nova lista `favorites`
+    * Remover o elemento de `favorites` afetou `games` ou `foods`?

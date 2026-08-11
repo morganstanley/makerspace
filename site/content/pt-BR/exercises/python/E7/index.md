@@ -1,14 +1,13 @@
 ---
 template: exercise
-title: Loops While
+title: Loops while
 level: 1
 exercise: 7
 category: Python
 tags: ['Python']
 ---
 
-Um loop `while` repete um bloco de código enquanto uma condição específica for `True` (verdadeira). Aqui está um exemplo que exibe os números de 1 a 5:
-
+Um loop `while` repete um bloco de código enquanto uma condição específica for `True`. Aqui está um exemplo que imprime os números de 1 a 5:
 
 ```python
 x = 1
@@ -16,7 +15,7 @@ while x <= 5:
   print(x)
   x = x + 1
 ```
-*Output:*
+*Saída:*
 ```python
 1
 2
@@ -25,7 +24,7 @@ while x <= 5:
 5
 ```
 
-Você pode usar a instrução `break` para interromper a execução de um loop `while`. Normalmente, uma instrução `break` é usada dentro de um bloco `if` para interromper o loop quando uma condição específica é atendida. Por exemplo, aqui está o mesmo loop acima, mas usando uma instrução `break`:
+Você pode usar a instrução `break` para parar a execução de um loop `while`. Normalmente, uma instrução `break` é usada dentro de um bloco `if` para parar o loop quando uma condição específica é atendida. Por exemplo, aqui está o mesmo loop acima, mas usando uma instrução `break`:
 
 ```python
 x = 1
@@ -35,7 +34,7 @@ while True:
   print(x)
   x = x + 1
 ```
-*Output:*
+*Saída:*
 ```python
 1
 2
@@ -44,6 +43,6 @@ while True:
 5
 ```
 
-## Exercício
+## Exercícios
 
-Escreva um loop while que exiba os números de 15 a 20.
+Escreva um loop while que imprima os números de 15 a 20.

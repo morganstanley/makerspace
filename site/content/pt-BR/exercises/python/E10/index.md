@@ -7,42 +7,43 @@ category: Python
 tags: ['Python']
 ---
 
-Uma **função** em Python é um bloco de código reutilizável projetado para executar uma tarefa específica. Uma função pode aceitar um ou mais parâmetros e pode ou não retornar um valor. Aqui estão algumas das funções integradas do Python que usamos até agora:
-* `print` - exibe um valor no console
-* `list.append` - adiciona um elemento ao final de uma lista
-* `input` - solicita uma entrada ao usuário e retorna a string inserida
-* `type` - retorna o tipo de um valor (`int`, `float`, `str`, `list`, `bool`)
+Uma **função** em Python é um bloco reutilizável de código projetado para executar uma tarefa específica. Uma função pode aceitar um ou mais parâmetros e pode ou não retornar um valor. Aqui estão algumas das funções internas do Python que usamos até agora:
+* `print` - exibir um valor no console
+* `list.append` - adicionar um elemento ao final de uma lista
+* `input` - solicitar uma entrada do usuário e devolver a string informada
+* `type` - retornar o tipo de um valor (`int`, `float`, `str`, `list`, `bool`)
 
-Os próprios tipos de dados também podem ser chamados como funções para converter um valor de um tipo para outro (quando possível). Lembre-se de que fizemos isso para converter uma string em um inteiro:
+Os próprios tipos de dados também podem ser chamados como funções para converter um valor de um tipo para outro (quando possível). Lembre-se de que fizemos isso para converter uma string em inteiro:
+
 ```python
 int('45')
 ```
-*Output:*
+*Saída:*
 ```python
 45
 ```
 
-Outra função integrada é `len`, que aceita um parâmetro. Se o parâmetro for uma string, `len` retorna o número de caracteres na string:
+Outra função interna é `len`, que aceita um parâmetro. Se o parâmetro for uma string, `len` retorna o número de caracteres da string:
 ```python
 greeting = "Hello"
 len(greeting)
 ```
-*Output:*
+*Saída:*
 ```python
 5
 ```
 
-Se o parâmetro for uma lista, `len` retornará o número de itens na lista:
+Se o parâmetro for uma lista, `len` retorna o número de itens da lista:
 ```python
-groceries = ['maçãs', 'peras', 'uvas']
+groceries = ['apples', 'pears', 'grapes']
 len(groceries)
 ```
-*Output:*
+*Saída:*
 ```python
 3
 ```
 
-Também podemos definir nossas próprias funções usando a palavra-chave `def`. Semelhante às instruções `if` e aos loops `while`, devemos terminar a linha com dois pontos `:` e recuar as linhas de código dentro da função. Use a palavra-chave `return` para que uma função retorne um valor. Por exemplo, aqui está uma função que recebe um parâmetro string e retorna uma string com uma saudação personalizada:
+Também podemos definir nossas próprias funções usando a palavra-chave `def`. Semelhante às instruções `if` e aos loops `while`, devemos terminar a linha com dois pontos `:` e indentar as linhas de código dentro da função. Use a palavra-chave `return` para fazer a função retornar um valor. Por exemplo, aqui está uma função que recebe um parâmetro string e retorna uma string com uma saudação personalizada:
 
 ```python
 def make_greeting(first_name):
@@ -54,11 +55,11 @@ Agora podemos chamar a função que acabamos de criar:
 greeting = make_greeting('Bob')
 print(greeting)
 ```
-*Output:*
+*Saída:*
 ```
 Hello, Bob!
 ```
 
-## Exercício
+## Exercícios
 
-Altere a função `make_greeting` acima para aceitar dois parâmetros, first_name e last_name (nome e sobrenome), e retornar uma saudação com o nome completo do usuário.
+Altere a função `make_greeting` acima para aceitar dois parâmetros, first_name e last_name, e retornar uma saudação com o nome completo do usuário.

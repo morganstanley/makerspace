@@ -1,4 +1,18 @@
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '../i18n';
+
 export function getLanguage(docs, language) {
+  if (!language || language === DEFAULT_LOCALE) {
+    const translatedLocales = SUPPORTED_LOCALES.filter(
+      (locale) => locale !== DEFAULT_LOCALE
+    );
+    return docs.filter(
+      (doc) =>
+        !translatedLocales.some((locale) =>
+          doc.fields.slug.includes(`/${locale}/`)
+        )
+    );
+  }
+
   return docs.filter((doc) => doc.fields.slug.includes(`/${language}/`));
 }
 

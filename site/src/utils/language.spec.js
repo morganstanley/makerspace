@@ -6,23 +6,44 @@ import {
 import { allExercises, slug, languages } from '../../__mocks__/exercises';
 
 test('Gets documentation by version', () => {
-  expect(getLanguage(allExercises, 'en-US')).toEqual([
+  expect(getLanguage(allExercises)).toEqual([
     {
       id: 'a9756c78-5cc2-5d50-9434-22fbd314e502',
       fields: {
-        slug: '/exercises/en-US/circuitpython/',
+        slug: '/exercises/circuitpython/',
       },
     },
     {
       id: '6698d395-fd02-5ca8-a485-0dd1ff1de0bc',
       fields: {
-        slug: '/exercises/en-US/makecode/',
+        slug: '/exercises/makecode/',
       },
     },
     {
       id: 'c7600476-3796-5367-af93-631c77005380',
       fields: {
-        slug: '/exercises/en-US/circuitpython/setup_bluefruit/',
+        slug: '/exercises/circuitpython/setup_bluefruit/',
+      },
+    },
+  ]);
+
+  expect(getLanguage(allExercises, 'en-US')).toEqual([
+    {
+      id: 'a9756c78-5cc2-5d50-9434-22fbd314e502',
+      fields: {
+        slug: '/exercises/circuitpython/',
+      },
+    },
+    {
+      id: '6698d395-fd02-5ca8-a485-0dd1ff1de0bc',
+      fields: {
+        slug: '/exercises/makecode/',
+      },
+    },
+    {
+      id: 'c7600476-3796-5367-af93-631c77005380',
+      fields: {
+        slug: '/exercises/circuitpython/setup_bluefruit/',
       },
     },
   ]);
@@ -38,8 +59,8 @@ test('Gets documentation by version', () => {
 });
 
 test('Gets language of current exercise', () => {
-  expect(getCurrentLanguage('/exercises/en-US/index.mdx', languages)).toEqual(
-    'en-US'
+  expect(getCurrentLanguage('/exercises/index.mdx', languages)).toEqual(
+    undefined
   );
   expect(getCurrentLanguage('/exercises/fr-CA/index.mdx', languages)).toEqual(
     'fr-CA'

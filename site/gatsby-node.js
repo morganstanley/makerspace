@@ -1,6 +1,19 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+function getExerciseLocalePath(slug, language) {
+  if (!slug.startsWith('/exercises/')) {
+    if (slug.startsWith('/fr-CA/exercises/')) {
+      return `/exercises/fr-CA/${slug.substring('/fr-CA/exercises/'.length)}`;
+    }
+    if (slug.startsWith('/pt-BR/exercises/')) {
+      return `/exercises/pt-BR/${slug.substring('/pt-BR/exercises/'.length)}`;
+    }
+    return slug;
+  }
+  return `/exercises/${language}${slug.substring('/exercises'.length)}`;
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
@@ -81,8 +94,26 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         id: page.id,
         category: category,
+        language,
+        canonicalPath: pagePath,
       },
     });
+
+    if (filePath.includes('/exercises/')) {
+      const localizedPath = getExerciseLocalePath(pagePath, language);
+      if (localizedPath !== pagePath) {
+        createPage({
+          path: localizedPath,
+          component: `${getTemplate(page)}?__contentFilePath=${filePath}`,
+          context: {
+            id: page.id,
+            category: category,
+            language,
+            canonicalPath: pagePath,
+          },
+        });
+      }
+    }
   });
 };
 
@@ -130,4 +161,3 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     });
   }
 };
-

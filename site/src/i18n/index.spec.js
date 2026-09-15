@@ -3,6 +3,7 @@ import {
   SUPPORTED_LOCALES,
   getLocaleFromPath,
   getLocaleSegmentFromPath,
+  getCanonicalExercisePath,
   getLocalePath,
   getStoredLocale,
   getLocaleSwitchPath,
@@ -79,6 +80,7 @@ describe('getLocalePath', () => {
   test('returns original path for en-US', () => {
     expect(getLocalePath('/about', 'en-US')).toBe('/about');
     expect(getLocalePath('/teach', 'en-US')).toBe('/teach');
+    expect(getLocalePath('/exercises', 'en-US')).toBe('/exercises/en-US/');
   });
 
   test('prefixes path with locale for non-English locales', () => {
@@ -87,15 +89,15 @@ describe('getLocalePath', () => {
   });
 
   test('returns locale exercises root for exercise paths', () => {
-    expect(getLocalePath('/exercises', 'fr-CA')).toBe('/fr-CA/exercises/');
+    expect(getLocalePath('/exercises', 'fr-CA')).toBe('/exercises/fr-CA/');
     expect(getLocalePath('/exercises/', 'pt-BR')).toBe(
-      '/pt-BR/exercises/'
+      '/exercises/pt-BR/'
     );
     expect(getLocalePath('/exercises/python/E1/', 'fr-CA')).toBe(
-      '/fr-CA/exercises/python/E1/'
+      '/exercises/fr-CA/python/E1/'
     );
     expect(getLocalePath('/fr-CA/exercises/python/E1/', 'pt-BR')).toBe(
-      '/pt-BR/exercises/python/E1/'
+      '/exercises/pt-BR/python/E1/'
     );
   });
 
@@ -113,30 +115,44 @@ describe('getLocaleSwitchPath', () => {
 
   test('switches locale for exercise pages while preserving route', () => {
     expect(getLocaleSwitchPath('/exercises/python/E1/', 'fr-CA')).toBe(
-      '/fr-CA/exercises/python/E1/'
+      '/exercises/fr-CA/python/E1/'
     );
     expect(getLocaleSwitchPath('/fr-CA/exercises/python/E1/', 'en-US')).toBe(
-      '/exercises/python/E1/'
+      '/exercises/en-US/python/E1/'
     );
     expect(getLocaleSwitchPath('/fr-CA/exercises/python/E1/', 'pt-BR')).toBe(
-      '/pt-BR/exercises/python/E1/'
+      '/exercises/pt-BR/python/E1/'
     );
   });
 
   test('handles exercise root pages', () => {
-    expect(getLocaleSwitchPath('/exercises/', 'fr-CA')).toBe('/fr-CA/exercises/');
+    expect(getLocaleSwitchPath('/exercises/', 'fr-CA')).toBe('/exercises/fr-CA/');
     expect(getLocaleSwitchPath('/fr-CA/exercises/', 'pt-BR')).toBe(
-      '/pt-BR/exercises/'
+      '/exercises/pt-BR/'
     );
-    expect(getLocaleSwitchPath('/exercises/', 'en-US')).toBe('/exercises/');
+    expect(getLocaleSwitchPath('/exercises/', 'en-US')).toBe('/exercises/en-US/');
   });
 
-  test('does not inject default locale into unscoped exercise paths', () => {
+  test('normalizes exercise paths to explicit locale routes', () => {
     expect(getLocaleSwitchPath('/exercises/python/E1/', 'en-US')).toBe(
-      '/exercises/python/E1/'
+      '/exercises/en-US/python/E1/'
     );
     expect(getLocaleSwitchPath('/exercises/python/E1/', 'fr-CA')).toBe(
+      '/exercises/fr-CA/python/E1/'
+    );
+  });
+});
+
+describe('getCanonicalExercisePath', () => {
+  test('normalizes explicit exercise locale paths to canonical routes', () => {
+    expect(getCanonicalExercisePath('/exercises/en-US/python/E1/')).toBe(
+      '/exercises/python/E1/'
+    );
+    expect(getCanonicalExercisePath('/exercises/fr-CA/python/E1/')).toBe(
       '/fr-CA/exercises/python/E1/'
+    );
+    expect(getCanonicalExercisePath('/exercises/pt-BR/')).toBe(
+      '/pt-BR/exercises/'
     );
   });
 });

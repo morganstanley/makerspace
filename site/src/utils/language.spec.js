@@ -59,8 +59,8 @@ test('Gets documentation by version', () => {
 });
 
 test('Gets language of current exercise', () => {
-  expect(getCurrentLanguage('/exercises/index.mdx', languages)).toEqual(
-    undefined
+  expect(getCurrentLanguage('/exercises/en-US/index.mdx', languages)).toEqual(
+    'en-US'
   );
   expect(getCurrentLanguage('/exercises/fr-CA/index.mdx', languages)).toEqual(
     'fr-CA'

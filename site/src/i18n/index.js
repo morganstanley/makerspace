@@ -45,6 +45,12 @@ function getExercisePathParts(path) {
   const segments = path.split('/').filter(Boolean);
 
   if (segments[0] === 'exercises') {
+    if (SUPPORTED_LOCALES.includes(segments[1])) {
+      return {
+        isExercisePath: true,
+        parts: segments.slice(2),
+      };
+    }
     return {
       isExercisePath: true,
       parts: segments.slice(1),
@@ -64,17 +70,38 @@ function getExercisePathParts(path) {
   };
 }
 
+export function getCanonicalExercisePath(pathname) {
+  if (!pathname) return pathname;
+  const segments = pathname.split('/').filter(Boolean);
+  const hasTrailingSlash = pathname.endsWith('/');
+
+  if (segments[0] !== 'exercises' || !SUPPORTED_LOCALES.includes(segments[1])) {
+    return pathname;
+  }
+
+  const locale = segments[1];
+  const parts = segments.slice(2);
+  const suffix = parts.length ? `/${parts.join('/')}` : '';
+
+  if (locale === DEFAULT_LOCALE) {
+    return `/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
+  }
+
+  return `/${locale}/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
+}
+
 export function getLocalePath(path, locale) {
-  if (!locale || locale === DEFAULT_LOCALE) return path;
+  if (!locale) return path;
 
   const hasTrailingSlash = path.endsWith('/');
   const { isExercisePath, parts } = getExercisePathParts(path);
 
   if (isExercisePath) {
     const suffix = parts.length ? `${parts.join('/')}${hasTrailingSlash ? '/' : ''}` : '';
-    return `/${locale}/exercises/${suffix}`;
+    return `/exercises/${locale}/${suffix}`;
   }
 
+  if (locale === DEFAULT_LOCALE) return path;
   return `/${locale}${path}`;
 }
 
@@ -90,10 +117,7 @@ export function getLocaleSwitchPath(pathname, locale) {
 
   if (isExercisePath) {
     const suffix = parts.length ? `/${parts.join('/')}` : '';
-    if (locale === DEFAULT_LOCALE) {
-      return `/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
-    }
-    return `/${locale}/exercises${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
+    return `/exercises/${locale}${suffix}${hasTrailingSlash || !parts.length ? '/' : ''}`;
   }
 
   if (SUPPORTED_LOCALES.includes(segments[0])) {

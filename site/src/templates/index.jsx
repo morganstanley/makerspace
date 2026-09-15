@@ -22,7 +22,8 @@ const ExerciseIndexTemplate = ({ children, data, pageContext, location }) => {
     () => data.allDirectory.nodes.map((node) => node.base),
     [data.allDirectory.nodes]
   );
-  const selectedLanguage = getCurrentLanguage(slug, languages);
+  const selectedLanguage =
+    pageContext.language || getCurrentLanguage(location?.pathname || slug, languages);
   const nodes = getLanguage(data.allMdx.nodes, selectedLanguage).filter(
     (node) =>
       node.frontmatter.category === category &&

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
+import { getLocaleSwitchPath } from '../i18n';
 import { useLocale } from '../i18n/LocaleContext';
 
 function getCategories(nodes) {
@@ -26,13 +27,14 @@ function getLevels(nodes) {
 }
 
 const PageListItems = ({ nodes }) => {
+  const { locale } = useLocale();
   return nodes.map((node, i) => {
     const title = node.frontmatter.title;
     const exercise = node.frontmatter.exercise;
     const toc = node.tableOfContents.items;
     return (
       <li key={`exercise-${i}`}>
-        <Link to={node.fields.slug}>
+        <Link to={getLocaleSwitchPath(node.fields.slug, locale)}>
           {exercise ? `${exercise} ) ` : ''}
           {title}
         </Link>

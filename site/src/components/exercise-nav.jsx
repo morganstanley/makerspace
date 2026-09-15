@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
+import { getCanonicalExercisePath, getLocaleSwitchPath } from '../i18n';
 import { useLocale } from '../i18n/LocaleContext';
 
 function getLevels(nodes) {
@@ -13,13 +14,14 @@ function getLevels(nodes) {
   return potentialValues;
 }
 
-const ExerciseListItems = ({ location, nodes, toc }) => {
+const ExerciseListItems = ({ location, nodes, toc, locale }) => {
+  const currentPath = getCanonicalExercisePath(location.pathname);
   return nodes.map((node, i) => {
-    const isCurrentPage = location.pathname.includes(node.fields.slug);
+    const isCurrentPage = currentPath.includes(node.fields.slug);
     const title = node.frontmatter.title;
     return (
       <li className={isCurrentPage ? 'current' : ''} key={`exercise-${i}`}>
-        <Link to={node.fields.slug}>
+        <Link to={getLocaleSwitchPath(node.fields.slug, locale)}>
           {node.frontmatter.exercise} ) {title}
         </Link>
         {isCurrentPage && toc && (
@@ -40,7 +42,7 @@ const ExerciseListItems = ({ location, nodes, toc }) => {
 
 const ExerciseNav = ({ location, nodes, toc }) => {
   const levels = getLevels(nodes);
-  const { strings } = useLocale();
+  const { strings, locale } = useLocale();
   const { exercise: exerciseStrings } = strings;
 
   return (
@@ -58,6 +60,7 @@ const ExerciseNav = ({ location, nodes, toc }) => {
                 location={location}
                 nodes={currentLevel}
                 toc={toc}
+                locale={locale}
               />
             </ul>
           </div>

@@ -4,14 +4,20 @@ import { Link, graphql } from 'gatsby';
 import ExerciseNav from '../components/exercise-nav';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import { getLocaleFromPath, getStrings } from '../i18n';
+import {
+  getCanonicalExercisePath,
+  getLocaleFromPath,
+  getLocaleSwitchPath,
+  getStrings,
+} from '../i18n';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
 function nextPrev(nodes, location) {
   const len = nodes.length;
+  const currentPath = getCanonicalExercisePath(location.pathname);
   const current = nodes.findIndex((node) =>
-    location.pathname.includes(node.fields.slug)
+    currentPath.includes(node.fields.slug)
   );
   const prevNode = current !== 0 ? nodes[current - 1] : false;
   const nextNode = current !== len - 1 ? nodes[current + 1] : false;
@@ -26,7 +32,8 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
     () => data.allDirectory.nodes.map((node) => node.base),
     [data.allDirectory.nodes]
   );
-  const selectedLanguage = getCurrentLanguage(slug, languages);
+  const selectedLanguage =
+    pageContext.language || getCurrentLanguage(location?.pathname || slug, languages);
   const nodes = getLanguage(data.allMdx.nodes, selectedLanguage);
   const [next, previous] = nextPrev(nodes, location);
   const strings = getStrings(getLocaleFromPath(location?.pathname || slug));
@@ -48,7 +55,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
         <ul className="exercise-nav">
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <Link to={getLocaleSwitchPath(previous.fields.slug, selectedLanguage)} rel="prev">
                 ← {exerciseStrings.exercise} {previous.frontmatter?.exercise} |{' '}
                 {previous.frontmatter?.title}
               </Link>
@@ -56,7 +63,7 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <Link to={getLocaleSwitchPath(next.fields.slug, selectedLanguage)} rel="next">
                 {exerciseStrings.exercise} {next.frontmatter?.exercise} |{' '}
                 {next.frontmatter?.title} →
               </Link>

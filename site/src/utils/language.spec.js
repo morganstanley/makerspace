@@ -10,19 +10,19 @@ test('Gets documentation by version', () => {
     {
       id: 'a9756c78-5cc2-5d50-9434-22fbd314e502',
       fields: {
-        slug: '/exercises/en-US/circuitpython/',
+        slug: '/exercises/circuitpython/',
       },
     },
     {
       id: '6698d395-fd02-5ca8-a485-0dd1ff1de0bc',
       fields: {
-        slug: '/exercises/en-US/makecode/',
+        slug: '/exercises/makecode/',
       },
     },
     {
       id: 'c7600476-3796-5367-af93-631c77005380',
       fields: {
-        slug: '/exercises/en-US/circuitpython/setup_bluefruit/',
+        slug: '/exercises/circuitpython/setup_bluefruit/',
       },
     },
   ]);
@@ -31,17 +31,17 @@ test('Gets documentation by version', () => {
     {
       id: '32212966-4d2e-5868-81ef-5a40324a2891',
       fields: {
-        slug: '/exercises/fr-CA/circuitpython/',
+        slug: '/fr-CA/exercises/circuitpython/',
       },
     },
   ]);
 });
 
 test('Gets language of current exercise', () => {
-  expect(getCurrentLanguage('/exercises/en-US/index.mdx', languages)).toEqual(
+  expect(getCurrentLanguage('/exercises/index.mdx', languages)).toEqual(
     'en-US'
   );
-  expect(getCurrentLanguage('/exercises/fr-CA/index.mdx', languages)).toEqual(
+  expect(getCurrentLanguage('/fr-CA/exercises/index.mdx', languages)).toEqual(
     'fr-CA'
   );
   expect(
@@ -55,19 +55,22 @@ test('Gets language of current exercise', () => {
   ).toEqual('3.4.1-rc3');
   expect(
     getCurrentLanguage('/exercises/3.4.1-rc3/components/', languages)
-  ).toEqual(undefined);
+  ).toEqual('en-US');
 });
 
 test('Builds translated paths for base-level pages', () => {
   expect(
-    getTranslationPath('/exercises/en-US/circuitpython/', 'fr-CA')
-  ).toEqual('/exercises/fr-CA/circuitpython/');
-  expect(getTranslationPath('/exercises/en-US/', 'pt-BR')).toEqual(
-    '/exercises/pt-BR/'
+    getTranslationPath('/exercises/circuitpython/', 'fr-CA')
+  ).toEqual('/fr-CA/exercises/circuitpython/');
+  expect(getTranslationPath('/exercises/', 'pt-BR')).toEqual(
+    '/pt-BR/exercises/'
   );
   expect(getTranslationPath('/exercises/', 'fr-CA')).toEqual(
-    '/exercises/fr-CA/'
+    '/fr-CA/exercises/'
   );
+  expect(
+    getTranslationPath('/fr-CA/exercises/circuitpython/', 'en-US')
+  ).toEqual('/exercises/circuitpython/');
 });
 
 test('Builds translated paths for homepage', () => {

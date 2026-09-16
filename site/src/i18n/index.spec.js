@@ -19,13 +19,13 @@ test('SUPPORTED_LOCALES contains en-US, fr-CA, pt-BR', () => {
 
 describe('getLocaleFromPath', () => {
   test('detects en-US from path', () => {
-    expect(getLocaleFromPath('/exercises/en-US/circuitpython/')).toBe('en-US');
+    expect(getLocaleFromPath('/exercises/circuitpython/')).toBe('en-US');
   });
 
   describe('getLocaleSegmentFromPath', () => {
     test('returns locale segment when present in path', () => {
       expect(getLocaleSegmentFromPath('/fr-CA/about/')).toBe('fr-CA');
-      expect(getLocaleSegmentFromPath('/exercises/pt-BR/python/')).toBe('pt-BR');
+      expect(getLocaleSegmentFromPath('/pt-BR/exercises/python/')).toBe('pt-BR');
     });
 
     test('returns undefined when locale segment is missing', () => {
@@ -56,11 +56,11 @@ describe('getLocaleFromPath', () => {
   });
 
   test('detects fr-CA from path', () => {
-    expect(getLocaleFromPath('/exercises/fr-CA/circuitpython/')).toBe('fr-CA');
+    expect(getLocaleFromPath('/fr-CA/exercises/circuitpython/')).toBe('fr-CA');
   });
 
   test('detects pt-BR from path', () => {
-    expect(getLocaleFromPath('/exercises/pt-BR/makecode/')).toBe('pt-BR');
+    expect(getLocaleFromPath('/pt-BR/exercises/makecode/')).toBe('pt-BR');
   });
 
   test('detects locale from non-exercise path', () => {

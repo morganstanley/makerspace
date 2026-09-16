@@ -29,7 +29,7 @@ while True:
 
 ## Making Music
 
-If you want to try out some music here are variables you need to get started. See below for [sample songs](http://morganstanley.github.io/makerspace/exercises/fr-CA/circuitpython/robotics/E3/#sample-songs).
+If you want to try out some music here are variables you need to get started. See below for [sample songs](http://morganstanley.github.io/makerspace/fr-CA/exercises/circuitpython/robotics/E3/#sample-songs).
 
 Copy these musical note variables into your code:
 

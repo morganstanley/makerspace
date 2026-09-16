@@ -10,7 +10,7 @@ import {
 } from '../i18n';
 
 const Header = ({ location }) => {
-  const { strings, locale, setLocalePreference } = useLocale();
+  const { strings, locale } = useLocale();
   const { nav } = strings;
 
   const links = [
@@ -36,7 +36,6 @@ const Header = ({ location }) => {
 
   function onLocaleChange(event) {
     const nextLocale = event.target.value;
-    setLocalePreference(nextLocale);
     const nextPath = getLocaleSwitchPath(location?.pathname, nextLocale);
     navigate(nextPath);
   }

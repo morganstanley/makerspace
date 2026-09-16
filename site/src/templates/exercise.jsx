@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby';
 import ExerciseNav from '../components/exercise-nav';
 import Layout from '../components/layout';
 import PageHead from '../components/head';
-import { getLocaleFromPath, getStrings } from '../i18n';
+import { SUPPORTED_LOCALES, getLocaleFromPath, getStrings } from '../i18n';
 
 import { getCurrentLanguage, getLanguage } from '../utils/language';
 
@@ -22,12 +22,11 @@ const ExerciseTemplate = ({ children, data, pageContext, location }) => {
   const pageTitle = pageContext.frontmatter.title;
   const toc = data.mdx.tableOfContents.items;
   const slug = data.mdx.fields.slug;
-  const languages = useMemo(
-    () => data.allDirectory.nodes.map((node) => node.base),
-    [data.allDirectory.nodes]
+  const selectedLanguage = getCurrentLanguage(slug, SUPPORTED_LOCALES);
+  const nodes = useMemo(
+    () => getLanguage(data.allMdx.nodes, selectedLanguage),
+    [data.allMdx.nodes, selectedLanguage]
   );
-  const selectedLanguage = getCurrentLanguage(slug, languages);
-  const nodes = getLanguage(data.allMdx.nodes, selectedLanguage);
   const [next, previous] = nextPrev(nodes, location);
   const strings = getStrings(getLocaleFromPath(location?.pathname || slug));
   const { exercise: exerciseStrings } = strings;
@@ -81,11 +80,6 @@ export const Head = ({ pageContext }) => {
 
 export const exerciseQuery = graphql`
   query ($id: String!, $category: String!) {
-    allDirectory(filter: { relativeDirectory: { eq: "exercises" } }) {
-      nodes {
-        base
-      }
-    }
     mdx(id: { eq: $id }) {
       fields {
         slug

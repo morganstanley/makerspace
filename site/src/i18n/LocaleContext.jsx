@@ -1,34 +1,34 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 
 import {
-  DEFAULT_LOCALE,
   LOCALE_STORAGE_KEY,
-  getLocaleSegmentFromPath,
-  getStoredLocale,
+  getLocaleFromPath,
   getStrings,
 } from './index';
 
 const LocaleContext = createContext(null);
 
 export function LocaleProvider({ location, children }) {
-  const [preferredLocale, setPreferredLocale] = useState(getStoredLocale);
-  const pathLocaleSegment = getLocaleSegmentFromPath(location?.pathname);
+  // The locale must always reflect the page actually being viewed, which is
+  // determined entirely by the URL. Falling back to a previously stored
+  // preference here would let the selector (and its links) point to a
+  // different language than the content on screen.
+  const locale = getLocaleFromPath(location?.pathname);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, preferredLocale);
-  }, [preferredLocale]);
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  }, [locale]);
 
-  const value = useMemo(() => {
-    const locale = pathLocaleSegment || preferredLocale || DEFAULT_LOCALE;
-    return {
+  const value = useMemo(
+    () => ({
       locale,
       strings: getStrings(locale),
-      setLocalePreference: setPreferredLocale,
-    };
-  }, [pathLocaleSegment, preferredLocale]);
+    }),
+    [locale]
+  );
 
   return (
     <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>

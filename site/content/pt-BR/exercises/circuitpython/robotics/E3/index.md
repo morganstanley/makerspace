@@ -29,7 +29,7 @@ while True:
 
 ## Fazendo Música
 
-Se você quiser testar alguma música, aqui estão as variáveis ​​que você precisa para começar. Veja abaixo [exemplos de músicas](http://morganstanley.github.io/makerspace/exercises/pt-BR/circuitpython/robotics/E3/#sample-songs).
+Se você quiser testar alguma música, aqui estão as variáveis ​​que você precisa para começar. Veja abaixo [exemplos de músicas](http://morganstanley.github.io/makerspace/pt-BR/exercises/circuitpython/robotics/E3/#sample-songs).
 
 Copie estas variáveis ​​de notas musicais no seu código:
 

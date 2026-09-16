@@ -84,8 +84,9 @@ The site supports three locales:
 #### How language switching works
 
 - The **top navigation dropdown** is the only language selector UI.
+- The dropdown always shows the locale of the page currently being viewed, determined from the URL, and all header navigation links point to that same locale.
 - Changing the dropdown switches to the same route in the selected locale when available.
-- Selected locale is persisted in browser storage (`cpx-preferred-locale`) and used for subsequent navigation.
+- The most recently viewed locale is recorded in browser storage (`cpx-preferred-locale`) for reference, but does not override the locale detected from the current URL.
 
 #### Content organization for translations
 

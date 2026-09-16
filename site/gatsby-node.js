@@ -116,7 +116,11 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     // createFilePath gives us paths like: /en-US/continue/, /fr-CA/continue/, etc.
     // We want: /continue/ for English, /fr-CA/continue/ for French, /pt-BR/continue/ for Portuguese
     if (rawSlug.startsWith('/en-US/')) {
-      slug = rawSlug.substring(7); // Remove '/en-US/'
+      // Remove the 'en-US' segment but keep the leading slash, otherwise the
+      // resulting slug becomes a relative path (e.g. "exercises/foo/") that
+      // Gatsby's <Link> resolves against the current URL instead of the site
+      // root, producing duplicated/incorrect hrefs.
+      slug = rawSlug.substring(6); // Remove '/en-US'
     } else if (rawSlug.startsWith('/fr-CA/')) {
       slug = rawSlug; // Keep as is for French
     } else if (rawSlug.startsWith('/pt-BR/')) {

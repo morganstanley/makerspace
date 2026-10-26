@@ -1,0 +1,39 @@
+{
+  "colors": {
+    "basic": "#1E90FF", "input": "#D400D4", "loops": "#00AA00", "logic": "#00A4A6", "variables": "#DC143C",
+    "led": "#5C2D91", "math": "#9400D3", "music": "#E63022", "cutebot": "#008C8C"
+  },
+  "drawers": {
+    "basic": ["Basic", "Base"],
+    "input": ["Input", "Entrées"],
+    "cutebot": ["Cutebot Pro"]
+  },
+  "blocks": {
+    "basic": [
+      "on start", "show icon", "forever", "show number", "show number distance", "pause", "pause 1000 ms", "show string",
+      "au démarrage", "montrer l’icône", "toujours", "montrer nombre", "montrer nombre distance", "pause (ms) 1000", "afficher texte"
+    ],
+    "input": [
+      "on button A pressed", "on shake", "on logo pressed",
+      "lorsque le bouton A est pressé"
+    ],
+    "loops": ["repeat 4 times", "répéter 4 fois"],
+    "logic": [
+      "and", "or", "not", "if", "else if", "if … then … else", "0 &lt; 0",
+      "et", "ou", "non", "si", "sinon si", "si … alors … sinon"
+    ],
+    "variables": [
+      "set distance to", "set distance", "Make a Variable…",
+      "définir distance à", "définir distance", "Créer une variable…"
+    ],
+    "led": ["plot bar graph of … up to …", "tracer graphique en barres de … jusqu’à …"],
+    "math": ["pick random", "choisir au hasard"],
+    "music": ["play tone", "play melody"],
+    "cutebot": [
+      "set LED headlights", "set LED headlights all RGB lights color to", "set left wheel speed 50 %, right wheel speed 50 %",
+      "stop immediately", "set all wheel to stop immediately", "turn off all LED headlights", "sonar sensor unit cm", "left RGB", "right RGB",
+      "régler la coulleur des LED", "régler la coulleur des LED RVB tous à", "régler la vitesse de la roue gauche à 50 %, la vitesse de la roue droite à 50 %",
+      "régler toutes les roues pour un arrêt immédiat", "éteindre toutes les LEDs", "capteur sonar cm", "RVB gauche", "RVB droite"
+    ]
+  }
+}

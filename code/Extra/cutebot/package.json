@@ -1,0 +1,25 @@
+{
+  "name": "makecode-cutebot-curriculum",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A beginner coding curriculum for micro:bit and the ELECFREAKS Cutebot Pro, as a teacher guide in English and French.",
+  "license": "MIT",
+  "homepage": "https://ghalichraibi.github.io/makecode-cutebot-curriculum/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghalichraibi/makecode-cutebot-curriculum.git"
+  },
+  "scripts": {
+    "render": "node tools/render-blocks.mjs --lang=en && node tools/render-blocks.mjs --lang=en --pieces && node tools/render-blocks.mjs --lang=fr && node tools/render-blocks.mjs --lang=fr --pieces",
+    "build": "node tools/build-page.mjs",
+    "audit": "node tools/audit-layout.mjs",
+    "screenshot": "node tools/screenshot.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "lucide-static": "1.54.0",
+    "puppeteer-core": "23.11.1"
+  }
+}

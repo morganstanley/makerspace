@@ -41,7 +41,7 @@ const PageListItems = ({ nodes }) => {
             {toc &&
               toc.map((item, j) => (
                 <li key={`toc-${j}`}>
-                  <Link to={item.url}>{item.title}</Link>
+                  <Link to={`${node.fields.slug}${item.url}`}>{item.title}</Link>
                 </li>
               ))}
           </ul>

@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Follow Me, Cutebot</title>
+<meta name="description" content="A free beginner coding curriculum for micro:bit and the Cutebot Pro robot: four 60-minute lessons in English and French, from a beating heart to a robot that follows you.">
+<meta property="og:title" content="Follow Me, Cutebot · a beginner micro:bit curriculum">
+<meta property="og:description" content="Four 60-minute MakeCode lessons for 12-year-olds, with scripts, demos, projectable challenges and block solutions. English and French.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#6c4bc1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 5'%3E%3Cpath fill='%23cd0365' d='M1 0h1v1H1zM3 0h1v1H3zM0 1h5v2H0zM1 3h3v1H1zM2 4h1v1H2z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Code+Pro:wght@500;600&display=swap">
+<style>
+/* ---------- Colours and fonts ---------- */
+:root {
+  --purple: #6c4bc1;
+  --magenta: #cd0365;
+  --go: #00a000;
+  --back: #d9473d;
+  --sky: #1f7fc4;
+  --teal: #008c8c;
+  --highlight: #ffd23f;
+  /* Lesson rhythm: a warm scale no lesson uses, deepening as pupils get more hands-on.
+     Bright enough to work on both the light and the dark background. */
+  --rhythm-hook: #ffe39a; --rhythm-demo: #ffbf47; --rhythm-build: #f5892a; --rhythm-ink: #3d2300;
+  --bg: #f7f6fb;
+  --surface: #ffffff;
+  --surface-2: #efecf8;
+  --ink: #23212b;
+  --muted: #5f5b6e;
+  --line: #e3e0ee;
+  /* Each lesson has a band colour and a text colour that stays readable on the page background. */
+  --lesson1: #1f7fc4; --lesson2: #6c4bc1; --lesson3: #cd0365; --lesson4: #00873c;
+  --l1-text: #1f7fc4; --l2-text: #6c4bc1; --l3-text: #cd0365; --l4-text: #00873c;
+  --font-display: "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-code: "Source Code Pro", ui-monospace, Menlo, Consolas, monospace;
+  --nav-h: 60px;
+}
+:root[data-theme="dark"] {
+  --purple: #a58bf0; --magenta: #ff5aa5; --go: #3ddc5a; --back: #ff8a80;
+  --sky: #6cc1ff; --teal: #3fc5c5; --bg: #16131f; --surface: #211c30; --surface-2: #2a2440;
+  --ink: #efedf7; --muted: #b3aec6; --line: #352f4a;
+  --lesson1: #155f95; --lesson2: #4f37a3; --lesson3: #9e0350; --lesson4: #006b30;
+  --l1-text: #7cc4ff; --l2-text: #b59cff; --l3-text: #ff6fb0; --l4-text: #4fd67f;
+  color-scheme: dark;
+}
+.lesson-1 { --band: var(--lesson1); --band-text: var(--l1-text); --lesson-icon: var(--i-lesson1); }
+.lesson-2 { --band: var(--lesson2); --band-text: var(--l2-text); --lesson-icon: var(--i-lesson2); }
+.lesson-3 { --band: var(--lesson3); --band-text: var(--l3-text); --lesson-icon: var(--i-lesson3); }
+.lesson-4 { --band: var(--lesson4); --band-text: var(--l4-text); --lesson-icon: var(--i-lesson4); }
+
+/* ---------- Icons ----------
+   Lucide icons (see src/icons.json) used as CSS masks, so each takes the colour of its context.
+   An element sets --icon; its icon pseudo-element (listed below) draws it. */
+:root {
+{{icons}}
+}
+.phase[data-phase="hook"] { --icon: var(--i-hook); }
+.phase[data-phase="tour"] { --icon: var(--i-tour); }
+.phase[data-phase="demo"] { --icon: var(--i-demo); }
+.phase[data-phase="build"] { --icon: var(--i-build); }
+.phase[data-phase="wrap"] { --icon: var(--i-wrap); }
+.phase[data-phase="plan"] { --icon: var(--i-plan); }
+.phase[data-phase="parade"] { --icon: var(--i-parade); }
+.say { --icon: var(--i-say); }
+.ask { --icon: var(--i-ask); }
+.challenge, .projector { --icon: var(--i-target); }
+.tip.warn { --icon: var(--i-warn); }
+.tip.stretch { --icon: var(--i-rocket); }
+.ex-head .meta span { --icon: var(--i-clock); }
+details.solution > summary { --icon: var(--i-check); }
+.theme-btn { --icon: var(--i-moon); }
+:root[data-theme="dark"] .theme-btn { --icon: var(--i-sun); }
+.project-btn { --icon: var(--i-project); }
+.projector .close { --icon: var(--i-close); }
+.phase::after, .say::after, .ask::after, .challenge h4::before, .projector h4::before,
+.tip h4::before, .ex-head .meta span::before, details.solution > summary::after,
+.timeline .tl-hook::before, .timeline .tl-demo::before, .timeline .tl-build::before,
+.theme-btn::before, .project-btn::before, .projector .close::before, .lesson-link::after, .lesson-head .wrap::after,
+.copy-btn::before {
+  content: "";
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-padding-top: calc(var(--nav-h) + 16px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { background: var(--bg); color: var(--ink); font: 16.5px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { font-family: var(--font-display); line-height: 1.12; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--purple); text-underline-offset: 3px; }
+ul, ol { margin: 0; padding-left: 20px; }
+li + li { margin-top: 5px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
+kbd { font: 600 .85em var(--font-code); background: var(--surface-2); border-bottom: 2px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+code { font: 500 .9em var(--font-code); background: var(--surface-2); border-radius: 4px; padding: 1px 5px; }
+.wrap { max-width: 1000px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+
+/* Block names in the text look like small MakeCode blocks, in their drawer colour (--dc). */
+b.blk { font: 600 .88em/1.2 var(--font-code); color: #fff; background: var(--dc); padding: .12em .5em; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+b.drawer-name::before { content: ""; display: inline-block; width: .62em; height: .62em; border-radius: 3px; background: var(--dc); margin-right: .3em; vertical-align: .05em; }
+b.go { color: var(--go); }
+b.back { color: var(--back); }
+b.stay { color: var(--sky); }
+
+/* ---------- Top bar ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; gap: 24px; min-height: var(--nav-h); }
+.brand { font: 700 17px var(--font-display); color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.brand-mark { display: grid; grid-template-columns: repeat(5, 4px); gap: 2px; }
+.brand-mark i { width: 4px; height: 4px; border-radius: 1px; background: var(--line); }
+.brand-mark i.on { background: var(--magenta); }
+.nav ul { list-style: none; margin: 0 0 0 auto; padding: 0; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.nav li + li { margin: 0; }
+.nav a.tab { display: block; color: var(--muted); text-decoration: none; font: 600 15px var(--font-display); padding: 18px 10px 15px; border-bottom: 3px solid transparent; white-space: nowrap; }
+.nav a.tab:hover { color: var(--ink); }
+.nav a.tab[aria-current="page"] { color: var(--ink); border-bottom-color: var(--magenta); }
+
+/* Theme and language switches, added to each top bar by the script */
+.nav-tools { display: flex; align-items: center; gap: 8px; flex: none; }
+.theme-btn { width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--surface-2); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+.theme-btn:hover { color: var(--magenta); }
+.theme-btn::before { width: 18px; height: 18px; }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--surface-2); }
+.seg button { border: 0; background: none; color: var(--muted); font: 700 13px var(--font-display); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(30, 10, 70, .15); }
+
+/* ---------- Start page ---------- */
+.hero { background: var(--purple); color: #fff; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; align-items: center; padding-block: 64px 150px; }
+.hero-note { display: inline-flex; align-items: center; gap: 10px; font: 600 15px var(--font-display); }
+.hero-note::before { content: ""; width: 10px; height: 10px; border-radius: 2px; background: var(--highlight); box-shadow: 0 0 12px var(--highlight); }
+.hero h1 { font-size: clamp(40px, 6.4vw, 70px); font-weight: 800; letter-spacing: -.01em; margin-top: 18px; }
+.hero .lede { font-size: 19px; margin-top: 20px; max-width: 32em; color: rgba(255, 255, 255, .92); }
+.matrix-card { justify-self: center; background: #1b1b1f; border-radius: 26px; padding: 28px; transform: rotate(-4deg); box-shadow: 0 24px 50px rgba(20, 0, 60, .35); }
+.matrix { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: min(210px, 50vw); aspect-ratio: 1; max-width: 100%; }
+.matrix i { border-radius: 4px; background: #3a1616; }
+.matrix i.on { background: #ff3b30; box-shadow: 0 0 14px #ff3b30; }
+.matrix.beat { animation: beat 1.2s infinite; }
+@keyframes beat { 0%, 40%, 100% { transform: scale(1); } 20% { transform: scale(1.07); } }
+@media (prefers-reduced-motion: reduce) { .matrix.beat { animation: none; } .lesson-link, .lesson-link::after { transition: none; } .lesson-link:hover, .lesson-link:hover::after { transform: none; } }
+
+section.plain .wrap { padding-block: 56px; }
+section.tinted { background: var(--surface-2); }
+.section-title { font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; }
+.setup + .section-title { margin-top: 48px; }
+.section-intro { color: var(--muted); margin-top: 12px; max-width: 44em; }
+
+.lesson-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: -96px; position: relative; }
+.lesson-link { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: #fff; background: var(--band); border-radius: 20px; padding: 20px 20px 22px; min-height: 190px; box-shadow: 0 10px 24px rgba(30, 10, 70, .18); transition: transform .15s ease, box-shadow .15s ease; }
+.lesson-link:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(30, 10, 70, .25); }
+.lesson-link .num { font: 800 64px/1 var(--font-display); opacity: .35; }
+/* A large, faint drawing of what the lesson is about (also in the lesson page header) */
+.lesson-link::after { position: absolute; top: 18px; right: 18px; width: 64px; height: 64px; opacity: .28; transition: transform .2s ease, opacity .2s ease; }
+.lesson-link:hover::after { opacity: .4; transform: rotate(-6deg) scale(1.05); }
+.lesson-link, .lesson-head { --icon: var(--lesson-icon); }
+.lesson-link b { font: 700 21px/1.15 var(--font-display); margin-top: auto; }
+.lesson-link .skills { font-size: 14.5px; opacity: .9; }
+
+.rhythm { margin-top: 64px; }
+/* Not a lesson colour on purpose: colour means "which lesson" on this page. Phases are told apart
+   by their icon (the same as in the lessons) and by how deep the colour is. */
+.timeline { display: flex; gap: 3px; margin-top: 18px; font: 700 13px var(--font-display); color: var(--rhythm-ink); }
+.timeline div { display: flex; align-items: center; justify-content: center; gap: .5em; min-width: 0; padding: 11px 6px; border-radius: 8px; white-space: nowrap; overflow: hidden; }
+.timeline div::before { width: 16px; height: 16px; flex: none; }
+.timeline .tl-hook { flex: 2; font-size: 0; }
+.timeline .tl-demo { flex: 6; }
+.timeline .tl-build { flex: 10; }
+.tl-hook, .key-hook { --icon: var(--i-hook); --rhythm: var(--rhythm-hook); }
+.tl-demo, .key-demo { --icon: var(--i-demo); --rhythm: var(--rhythm-demo); }
+.tl-build, .key-build { --icon: var(--i-build); --rhythm: var(--rhythm-build); }
+.timeline div { background: var(--rhythm); }
+.timeline-key { list-style: none; padding: 0; margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px; color: var(--muted); }
+.timeline-key li { margin: 0; position: relative; padding-left: 34px; line-height: 26px; }
+.timeline-key li::before { content: ""; position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 7px; background: var(--rhythm); }
+.timeline-key li::after { content: ""; position: absolute; left: 5px; top: 5px; width: 16px; height: 16px; background: var(--rhythm-ink); -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+.timeline-key b { color: var(--ink); font-family: var(--font-display); }
+
+.setup { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 24px; }
+.setup > div { min-width: 0; }
+.setup h3 { font-size: 18px; margin-bottom: 10px; }
+.setup p, .setup ul { font-size: 15.5px; }
+
+.glossary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; margin: 20px 0 0; }
+.glossary div { display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.glossary dt { font: 700 17px var(--font-display); }
+.glossary dd { margin: 0; color: var(--muted); font-size: 15px; }
+.glossary small { font: 600 12px var(--font-code); color: var(--muted); white-space: nowrap; }
+
+/* ---------- Lesson pages ---------- */
+.lesson-head { background: var(--band); color: #fff; overflow: hidden; }
+.lesson-head .wrap { position: relative; padding-block: 52px 48px; }
+.lesson-head .wrap > * { max-width: 34em; }
+.lesson-head .wrap::after { position: absolute; right: max(20px, env(safe-area-inset-right, 0px)); top: 50%; width: 180px; height: 180px; margin-top: -90px; opacity: .2; transform: rotate(-8deg); }
+.eyebrow { font: 600 14px var(--font-display); color: rgba(255, 255, 255, .85); }
+.lesson-head h2 { font-size: clamp(36px, 5.4vw, 58px); font-weight: 800; letter-spacing: -.01em; margin-top: 8px; }
+.lesson-head .lede { font-size: 18px; margin-top: 14px; color: rgba(255, 255, 255, .92); max-width: 30em; }
+
+.lesson-body .wrap { padding-block: 8px 64px; }
+.ex { padding-block: 48px; border-bottom: 1px solid var(--line); }
+.ex-head { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 18px; align-items: baseline; margin-bottom: 26px; }
+.ex-id { font: 800 40px/1 var(--font-display); color: var(--band-text); grid-row: span 2; }
+.ex-head h3 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; }
+.ex-head .meta { color: var(--muted); font-size: 15px; margin-top: 4px; }
+.ex-head .meta span { font-weight: 700; color: var(--ink); }
+.ex-head .meta span::before { display: inline-block; width: 15px; height: 15px; margin-right: 5px; vertical-align: -2px; background: var(--band-text); }
+
+.warmup { padding-block: 44px; }
+.recap { display: grid; gap: 20px; }
+.recap > div { max-width: 46em; }
+.recap h3 { font-size: 26px; }
+.recap p, .recap ul { margin-top: 10px; }
+.recap p { color: var(--muted); }
+
+/* Each exercise is a vertical rail of phases (Hook, Demo, Build…) with an icon per phase. */
+.ex-body { position: relative; padding-left: 48px; display: grid; gap: 34px; }
+.ex-body::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 2px; background: var(--line); border-radius: 2px; }
+.phase { position: relative; min-width: 0; }
+.phase::before { content: ""; position: absolute; left: -48px; top: -5px; width: 32px; height: 32px; border-radius: 50%; background: var(--band); box-shadow: 0 0 0 5px var(--bg); }
+.phase::after { position: absolute; left: -40px; top: 3px; width: 16px; height: 16px; background: #fff; }
+.phase-label { display: flex; gap: 10px; align-items: baseline; font: 700 15px var(--font-display); color: var(--band-text); margin-bottom: 12px; }
+.phase-label small { font: 500 13px var(--font-code); color: var(--muted); }
+.phase-content { min-width: 0; display: grid; gap: 16px; }
+
+.say { position: relative; max-width: 46em; padding: 18px 22px 18px 54px; background: var(--surface); border-radius: 22px 22px 22px 6px; box-shadow: 0 1px 0 var(--line), 0 8px 22px rgba(40, 20, 90, .06); font: 500 19px/1.5 var(--font-display); }
+.say::before { content: "Say"; display: block; margin-bottom: 4px; font: 700 12px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--band-text); }
+.say::after { position: absolute; left: 20px; top: 21px; width: 20px; height: 20px; background: var(--band-text); }
+.ask { position: relative; padding-left: 30px; font: 600 17px var(--font-display); }
+.ask::before { content: "Ask the class: "; color: var(--band-text); }
+.ask::after { position: absolute; left: 0; top: 2px; width: 20px; height: 20px; background: var(--band-text); }
+:lang(fr) .say::before { content: "À dire"; }
+:lang(fr) .ask::before { content: "Question à la classe : "; }
+
+.challenge { position: relative; background: var(--band); color: #fff; border-radius: 24px; padding: 26px 28px; }
+.challenge h4 { display: flex; align-items: center; gap: 8px; font: 700 13px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: rgba(255, 255, 255, .8); }
+.challenge h4::before { width: 1.25em; height: 1.25em; }
+.challenge p { font: 700 clamp(20px, 2.4vw, 25px)/1.3 var(--font-display); margin-top: 8px; max-width: 30em; }
+.challenge ul { margin-top: 14px; font-size: 16px; color: rgba(255, 255, 255, .92); }
+.challenge code, .projector code { background: rgba(255, 255, 255, .2); color: #fff; }
+.project-btn { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 7px; background: rgba(255, 255, 255, .16); border: 0; color: #fff; font: 600 14px var(--font-display); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.project-btn::before { width: 15px; height: 15px; }
+.project-btn:hover { background: rgba(255, 255, 255, .28); }
+
+/* Block pictures. Narrow programs sit beside the demo steps on wide screens. */
+figure.blocks { margin: 0; }
+.blocks-frame { position: relative; width: fit-content; max-width: 100%; }
+.blocks-canvas { width: fit-content; max-width: 100%; overflow-x: auto; padding: 18px 54px 18px 18px; background: #fff; border-radius: 18px; border: 1px solid var(--line); }
+.blocks-canvas img { display: block; max-width: 100%; height: auto; }
+.copy-btn { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: #5f5b6e; cursor: pointer; opacity: .85; transition: opacity .15s, color .15s; }
+.copy-btn:hover, .copy-btn:focus-visible { opacity: 1; color: #23212b; }
+.copy-btn::before { width: 17px; height: 17px; }
+.copy-btn { --icon: var(--i-copy); }
+.copy-btn.copied { --icon: var(--i-copied); color: #00873c; opacity: 1; }
+figure.blocks figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
+@media (min-width: 861px) {
+  .phase-content:has(> ol + figure.blocks.narrow) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .phase-content > * { grid-column: 1 / -1; }
+  .phase-content > ol:has(+ figure.blocks.narrow) { grid-column: 1; }
+  .phase-content > ol + figure.blocks.narrow { grid-column: 2; }
+}
+details.solution > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; font: 700 16px var(--font-display); color: var(--band-text); }
+details.solution > summary::-webkit-details-marker { display: none; }
+details.solution > summary::before { content: "▸"; transition: transform .15s; }
+details.solution > summary::after { order: -1; width: 18px; height: 18px; }
+details.solution[open] > summary::before { transform: rotate(90deg); }
+details.solution > .inner { margin-top: 14px; display: grid; gap: 12px; }
+
+.tips { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; }
+.tip { font-size: 15.5px; min-width: 0; }
+.tip h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font: 700 16px var(--font-display); }
+.tip h4::before { width: 19px; height: 19px; flex: none; }
+.tip.warn h4 { color: var(--back); }
+.tip.stretch h4 { color: var(--sky); }
+
+/* Final project */
+.zones { background: var(--surface); border-radius: 18px; padding: 16px; overflow-x: auto; border: 1px solid var(--line); }
+.zones svg { display: block; width: 100%; min-width: 560px; height: auto; }
+ol.hints { counter-reset: hint; list-style: none; padding: 0; display: grid; gap: 10px; }
+.hints li { counter-increment: hint; position: relative; margin: 0; padding: 2px 0 0 44px; min-height: 28px; }
+.hints li::before { content: counter(hint); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--band); color: #fff; font: 700 14px var(--font-display); }
+
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 44px; }
+.pager a { font: 600 16px var(--font-display); text-decoration: none; padding: 14px 22px; border-radius: 999px; color: var(--band-text); }
+.pager a:hover { background: var(--surface-2); }
+.pager a.next { background: var(--band); color: #fff; margin-left: auto; }
+.pager a.next:hover { filter: brightness(1.1); }
+
+/* "You are here" bar, added to each lesson by the script */
+.progress { position: sticky; top: var(--nav-bottom, 60px); z-index: 4; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.progress ol { list-style: none; max-width: 1000px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right, 0px)) 0 max(20px, env(safe-area-inset-left, 0px)); display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.progress li { margin: 0; flex: 1 1 0; min-width: max-content; }
+.progress button { width: 100%; display: flex; align-items: baseline; gap: 7px; background: none; border: 0; border-bottom: 3px solid var(--line); padding: 12px 2px 10px; cursor: pointer; text-align: left; color: var(--muted); font: 600 14px var(--font-display); white-space: nowrap; }
+.progress button b { font: 700 13px var(--font-code); }
+.progress button time { margin-left: auto; font: 500 12px var(--font-code); color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress button:hover { color: var(--ink); }
+.progress button.done { border-bottom-color: color-mix(in srgb, var(--band-text) 45%, transparent); }
+.progress button[aria-current="step"] { color: var(--ink); border-bottom-color: var(--band-text); }
+.progress button[aria-current="step"] b, .progress button.done b { color: var(--band-text); }
+
+/* Troubleshooting */
+.trouble { margin-top: 28px; overflow-x: auto; }
+.trouble table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 15.5px; }
+.trouble th, .trouble td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.trouble th { font: 700 14px var(--font-display); color: var(--muted); }
+.trouble td:first-child { font-weight: 700; font-family: var(--font-display); }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 28px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer a { color: inherit; }
+
+/* ---------- Projector mode: one challenge full screen, in big type ---------- */
+.projector { position: fixed; inset: 0; z-index: 20; overflow-y: auto; display: grid; place-items: center; background: var(--band); color: #fff; padding: max(32px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-right, 0px)) max(32px, env(safe-area-inset-bottom, 0px)) max(32px, env(safe-area-inset-left, 0px)); }
+.projector .slide { max-width: 1100px; }
+.projector h4 { display: flex; align-items: center; gap: 10px; font: 700 clamp(14px, 1.6vw, 20px) var(--font-body); letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+.projector h4::before { width: 1.25em; height: 1.25em; }
+.projector p { font: 800 clamp(32px, 5vw, 68px)/1.15 var(--font-display); margin-top: 16px; text-wrap: balance; }
+.projector .slide > ul { font-size: clamp(18px, 2.2vw, 30px); margin-top: 28px; padding-left: 1.2em; }
+.projector .close { position: absolute; top: max(20px, env(safe-area-inset-top, 0px)); right: max(20px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, .16); border: 0; color: #fff; font: 600 16px var(--font-display); border-radius: 999px; padding: 10px 18px; cursor: pointer; }
+.projector .close::before { order: 1; width: 18px; height: 18px; }
+.projector .pieces-btn { margin-top: 32px; background: #fff; color: var(--band); border: 0; border-radius: 999px; padding: 12px 22px; font: 700 clamp(15px, 1.4vw, 19px) var(--font-display); cursor: pointer; }
+.projector.with-pieces { place-items: start center; }
+.projector.with-pieces p { font-size: clamp(24px, 3vw, 40px); }
+.projector.with-pieces .slide > ul { font-size: clamp(16px, 1.6vw, 22px); margin-top: 14px; }
+.projector h5 { margin: 28px 0 12px; font: 700 clamp(13px, 1.2vw, 16px) var(--font-body); letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.pieces-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+.pieces-list li { margin: 0; position: relative; max-width: 100%; display: grid; gap: 8px; justify-items: start; padding: 14px 14px 10px; background: #fff; border-radius: 16px; }
+.pieces-list img { display: block; width: calc(var(--w) * 1px); max-width: 100%; height: auto; }
+.pieces-list .drawer { font: 600 13px var(--font-display); color: #5f5b6e; }
+.pieces-list li.is-new { box-shadow: 0 0 0 4px var(--highlight); }
+.pieces-list em { position: absolute; top: -10px; right: 12px; padding: 3px 9px; border-radius: 999px; background: var(--highlight); color: #23212b; font: 700 12px var(--font-display); font-style: normal; }
+
+/* ---------- Smaller screens ---------- */
+@media (max-width: 860px) {
+  html { scroll-padding-top: 120px; }
+  /* The tabs get their own scrollable row under the logo and switches. */
+  .nav .wrap { flex-wrap: wrap; column-gap: 12px; row-gap: 0; }
+  .nav .nav-tools { margin-left: auto; }
+  .nav ul { order: 3; flex-basis: 100%; margin: 0; border-top: 1px solid var(--line); }
+  .nav a.tab { padding: 11px 10px 9px; }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .lesson-head .wrap::after { width: 130px; height: 130px; margin-top: -65px; }
+  .hero .wrap { padding-block: 48px 110px; }
+  .matrix-card { display: none; }
+  .lesson-links { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: -48px; }
+  .setup, .tips { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .glossary { grid-template-columns: minmax(0, 1fr); }
+  .timeline div { font-size: 0; padding-inline: 2px; }
+  .timeline .tl-hook { min-width: 24px; }
+  .timeline-key { flex-direction: column; }
+  .progress li { flex: none; }
+  .progress button { padding-inline: 8px; }
+  .progress button:not([aria-current="step"]) span, .progress button time { display: none; }
+}
+@media (max-width: 600px) {
+  .hero .wrap { padding-block: 40px 80px; }
+  .lesson-links { grid-template-columns: minmax(0, 1fr); }
+  .lesson-link { min-height: 140px; }
+  .lesson-link::after { width: 52px; height: 52px; }
+  .glossary div { grid-template-columns: minmax(0, 1fr) auto; }
+  .glossary dd { grid-column: 1 / -1; grid-row: 2; }
+  .ex-id { font-size: 30px; }
+  .lesson-head .wrap::after { top: 18px; width: 64px; height: 64px; margin-top: 0; opacity: .25; }
+  .lesson-head .eyebrow, .lesson-head h2 { padding-right: 76px; }
+  .ex-body { padding-left: 40px; }
+  .ex-body::before { left: 13px; }
+  .phase::before { left: -40px; top: -4px; width: 28px; height: 28px; }
+  .phase::after { left: -33px; top: 3px; width: 14px; height: 14px; }
+  .say { padding-left: 46px; }
+  .say::after { left: 16px; }
+  .project-btn { position: static; margin-top: 16px; }
+  /* Keep blocks readable: at least ~72% of their real size, scrolling sideways if wider. */
+  .blocks-frame, .blocks-canvas { width: 100%; }
+  .blocks-canvas { padding: 12px 48px 12px 12px; }
+  .blocks-canvas img { max-width: none; width: max(min(100%, calc(var(--w) * 1px)), calc(var(--w) * .72px)); }
+}
+@media (max-width: 360px) {
+  .brand-name { display: none; }
+}
+</style>
+</head>
+<body>
+{{content}}
+<script>
+const fr = el => el.closest("[lang]")?.lang === "fr";
+const store = {
+  get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+  set(key, value) { try { localStorage.setItem(key, value); } catch {} },
+};
+
+// ---------- Theme: light unless the viewer chose dark ----------
+function setTheme(theme, remember = true) {
+  document.documentElement.dataset.theme = theme;
+  const french = document.documentElement.lang === "fr";
+  const label = theme === "dark"
+    ? (french ? "Passer en mode clair" : "Switch to light mode")
+    : (french ? "Passer en mode sombre" : "Switch to dark mode");
+  document.querySelectorAll(".theme-btn").forEach(b => b.setAttribute("aria-label", label));
+  if (remember) store.set("follow-me-theme", theme);
+}
+
+// ---------- Language: one .lang block per language ----------
+const langs = [...document.querySelectorAll(".lang")].map(el => el.dataset.lang);
+function setLang(lang) {
+  document.querySelectorAll(".lang").forEach(el => { el.hidden = el.dataset.lang !== lang; });
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".seg-lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  store.set("follow-me-lang", lang);
+  setTheme(document.documentElement.dataset.theme || "light", false);
+  scheduleProgress();
+}
+
+document.querySelectorAll(".nav .wrap").forEach(wrap => {
+  const theme = document.createElement("button");
+  theme.type = "button";
+  theme.className = "theme-btn";
+  theme.addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+
+  const seg = document.createElement("div");
+  seg.className = "seg seg-lang";
+  seg.setAttribute("role", "group");
+  seg.setAttribute("aria-label", "Language / Langue");
+  for (const lang of langs) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.dataset.lang = lang;
+    b.textContent = lang.toUpperCase();
+    b.addEventListener("click", () => setLang(lang));
+    seg.append(b);
+  }
+
+  const tools = document.createElement("div");
+  tools.className = "nav-tools";
+  tools.append(theme, seg);
+  wrap.append(tools);
+});
+
+// ---------- Views: #start, #lesson1–#lesson4, #help (all visible without JS) ----------
+const views = ["start", "lesson1", "lesson2", "lesson3", "lesson4", "help"];
+function centerInRow(item, row) {
+  row.scrollLeft = item.offsetLeft - row.offsetLeft - (row.clientWidth - item.offsetWidth) / 2;
+}
+function showView() {
+  const hash = location.hash.slice(1);
+  const view = views.includes(hash) ? hash : "start";
+  document.querySelectorAll("[data-view]").forEach(el => { el.hidden = el.dataset.view !== view; });
+  document.querySelectorAll(".nav a.tab").forEach(a => {
+    if (a.getAttribute("href") === "#" + view) {
+      a.setAttribute("aria-current", "page");
+      centerInRow(a, a.closest("ul"));
+    } else {
+      a.removeAttribute("aria-current");
+    }
+  });
+  window.scrollTo(0, 0);
+  scheduleProgress();
+}
+
+// ---------- "You are here" bar: past exercises fill, the current one is highlighted ----------
+document.querySelectorAll(".lesson").forEach(lesson => {
+  const list = document.createElement("ol");
+  for (const ex of lesson.querySelectorAll("article.ex[id]")) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.dataset.jump = ex.id;
+    const number = document.createElement("b");
+    number.textContent = ex.querySelector(".ex-id").textContent;
+    const title = document.createElement("span");
+    title.textContent = ex.querySelector(".ex-head h3").textContent;
+    b.append(number, title);
+    if (ex.dataset.start) {
+      const start = document.createElement("time");
+      start.textContent = ex.dataset.start;
+      b.append(start);
+    }
+    const li = document.createElement("li");
+    li.append(b);
+    list.append(li);
+  }
+  const bar = document.createElement("nav");
+  bar.className = "progress";
+  bar.setAttribute("aria-label", fr(lesson) ? "Exercices de la leçon" : "Exercises in this lesson");
+  bar.append(list);
+  lesson.querySelector(".lesson-body").prepend(bar);
+});
+
+const visible = selector => [...document.querySelectorAll(selector)].find(el => el.offsetParent);
+function updateProgress() {
+  const navBottom = visible(".nav")?.getBoundingClientRect().bottom ?? 60;
+  document.documentElement.style.setProperty("--nav-bottom", navBottom + "px");
+  const bar = visible(".progress");
+  if (!bar) return;
+  document.documentElement.style.scrollPaddingTop = (navBottom + bar.offsetHeight + 12) + "px";
+  const readingLine = navBottom + bar.offsetHeight + 40;
+  const buttons = [...bar.querySelectorAll("button")];
+  let current = 0;
+  buttons.forEach((b, i) => {
+    if (document.getElementById(b.dataset.jump).getBoundingClientRect().top <= readingLine) current = i;
+  });
+  buttons.forEach((b, i) => {
+    b.classList.toggle("done", i < current);
+    if (i !== current) return b.removeAttribute("aria-current");
+    if (b.getAttribute("aria-current") !== "step") {
+      b.setAttribute("aria-current", "step");
+      centerInRow(b, bar.querySelector("ol"));
+    }
+  });
+}
+let progressFrame = 0;
+function scheduleProgress() {
+  cancelAnimationFrame(progressFrame);
+  progressFrame = requestAnimationFrame(updateProgress);
+}
+
+// Copy buttons put a program's JavaScript on the clipboard, to paste into MakeCode's JavaScript view.
+document.addEventListener("click", async ev => {
+  const button = ev.target.closest(".copy-btn");
+  if (!button) return;
+  const code = button.parentElement.querySelector("template.code").content.textContent;
+  try {
+    await navigator.clipboard.writeText(code);
+  } catch {
+    // Older browsers, or a page opened from a file: copy through a temporary text box.
+    const box = Object.assign(document.createElement("textarea"), { value: code });
+    document.body.append(box);
+    box.select();
+    document.execCommand("copy");
+    box.remove();
+  }
+  const french = fr(button);
+  button.dataset.label ??= button.title;
+  button.classList.add("copied");
+  button.setAttribute("aria-label", french ? "Copié\u202f!" : "Copied!");
+  button.title = french ? "Copié\u202f!" : "Copied!";
+  setTimeout(() => {
+    button.classList.remove("copied");
+    button.setAttribute("aria-label", button.dataset.label);
+    button.title = button.dataset.label;
+  }, 1600);
+});
+
+// The "you are here" bar jumps to its exercise.
+document.addEventListener("click", ev => {
+  const jump = ev.target.closest("[data-jump]");
+  if (jump) document.getElementById(jump.dataset.jump)?.scrollIntoView();
+});
+
+// ---------- Projector mode: one challenge full screen; Esc or Close leaves ----------
+let projector = null;
+function closeProjector() {
+  projector?.remove();
+  projector = null;
+}
+function openProjector(challenge, projectButton) {
+  const french = fr(challenge);
+  const slide = document.createElement("div");
+  slide.className = "slide";
+  for (const el of challenge.children) {
+    if (el !== projectButton && el.tagName !== "TEMPLATE") slide.append(el.cloneNode(true));
+  }
+
+  projector = document.createElement("div");
+  projector.className = "projector";
+  projector.style.setProperty("--band", getComputedStyle(challenge).backgroundColor);
+
+  // The blocks a challenge needs stay hidden until the teacher reveals them.
+  const pieces = challenge.querySelector("template.pieces");
+  if (pieces) {
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "pieces-btn";
+    const label = shown => shown
+      ? (french ? "Masquer les blocs" : "Hide blocks")
+      : (french ? "Afficher les blocs" : "Show blocks");
+    toggle.textContent = label(false);
+    let strip = null;
+    toggle.addEventListener("click", () => {
+      if (strip) {
+        strip.remove();
+        strip = null;
+      } else {
+        strip = document.createElement("div");
+        strip.append(pieces.content.cloneNode(true));
+        strip.querySelectorAll("img[data-piece]").forEach(img => { img.src = window.PIECE_IMAGES[img.dataset.piece]; });
+        slide.append(strip);
+      }
+      projector.classList.toggle("with-pieces", Boolean(strip));
+      toggle.textContent = label(Boolean(strip));
+    });
+    slide.append(toggle);
+  }
+
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "close";
+  close.textContent = french ? "Fermer" : "Close";
+  close.addEventListener("click", closeProjector);
+  projector.append(slide, close);
+  document.body.append(projector);
+  close.focus();
+}
+document.querySelectorAll(".challenge").forEach(challenge => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "project-btn";
+  button.textContent = fr(challenge) ? "Projeter" : "Project";
+  button.addEventListener("click", () => openProjector(challenge, button));
+  challenge.append(button);
+});
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") closeProjector(); });
+
+// ---------- Start ----------
+setTheme(store.get("follow-me-theme") === "dark" ? "dark" : "light", false);
+const browserLang = (navigator.language || "en").slice(0, 2);
+setLang([store.get("follow-me-lang"), browserLang].find(l => langs.includes(l)) || langs[0]);
+showView();
+addEventListener("hashchange", showView);
+addEventListener("scroll", scheduleProgress, { passive: true });
+addEventListener("resize", scheduleProgress);
+</script>
+</body>
+</html>

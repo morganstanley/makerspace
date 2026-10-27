@@ -1,0 +1,666 @@
+<nav class="nav" aria-label="Leçons">
+  <div class="wrap">
+    <a class="brand" href="#start"><span class="brand-mark" aria-hidden="true"><i></i><i class="on"></i><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span><span class="brand-name">Suis-moi, Cutebot</span></a>
+    <ul>
+      <li><a class="tab" href="#start">Commencer</a></li>
+      <li><a class="tab" href="#lesson1">Leçon 1</a></li>
+      <li><a class="tab" href="#lesson2">Leçon 2</a></li>
+      <li><a class="tab" href="#lesson3">Leçon 3</a></li>
+      <li><a class="tab" href="#lesson4">Leçon 4</a></li>
+      <li><a class="tab" href="#help">Dépannage</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" data-view="start">
+  <div class="wrap">
+    <div>
+      <span class="hero-note">Parcours débutant · aucune connaissance préalable</span>
+      <h1>D’un cœur qui bat à un robot qui vous suit</h1>
+      <p class="lede">Quatre séances de 60 minutes pour des élèves de 12 ans qui n’ont jamais codé. Pas besoin d’être développeur pour l’enseigner : chaque étape est scénarisée et chaque solution est montrée en blocs.</p>
+    </div>
+    <div class="matrix-card" aria-label="Écran LED du micro:bit affichant un cœur">
+      <div class="matrix beat" aria-hidden="true">
+        <i></i><i class="on"></i><i></i><i class="on"></i><i></i>
+        <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+        <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+        <i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+        <i></i><i></i><i class="on"></i><i></i><i></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="plain" data-view="start">
+  <div class="wrap">
+    <div class="lesson-links">
+      <a class="lesson-link lesson-1" href="#lesson1"><span class="num">1</span><b>Bonjour, micro:bit</b><span class="skills">Écran, boutons, phares</span></a>
+      <a class="lesson-link lesson-2" href="#lesson2"><span class="num">2</span><b>Réveillez votre robot</b><span class="skills">Moteurs, virages, répéter</span></a>
+      <a class="lesson-link lesson-3" href="#lesson3"><span class="num">3</span><b>Le robot voit</b><span class="skills">Capteur sonar, si / sinon</span></a>
+      <a class="lesson-link lesson-4" href="#lesson4"><span class="num">4</span><b>Suis-moi !</b><span class="skills">Variables, projet final</span></a>
+    </div>
+
+    <div class="rhythm">
+      <h2 class="section-title">Chaque séance, le même rythme</h2>
+      <p class="section-intro">Après un court échauffement, chaque séance enchaîne trois tours de la même boucle, puis se termine par un court bilan.</p>
+      <div class="timeline" role="img" aria-label="60 minutes : un court échauffement, puis trois tours d’accroche, démo et pratique, puis un court bilan">
+        <div class="tl-hook">Accroche</div><div class="tl-demo">Démo</div><div class="tl-build">Pratique</div>
+        <div class="tl-hook">Accroche</div><div class="tl-demo">Démo</div><div class="tl-build">Pratique</div>
+        <div class="tl-hook">Accroche</div><div class="tl-demo">Démo</div><div class="tl-build">Pratique</div>
+      </div>
+      <ul class="timeline-key"><li class="key-hook"><b>Accroche</b> 2 min · une courte histoire ou question</li><li class="key-demo"><b>Démo</b> 6 min · l’exemple construit en direct au vidéoprojecteur</li><li class="key-build"><b>Pratique</b> 10 min · les binômes relèvent le défi</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="plain tinted" data-view="start">
+  <div class="wrap">
+    <h2 class="section-title">Avant la leçon 1</h2>
+    <div class="setup">
+      <div>
+        <h3>Matériel par binôme</h3>
+        <ul>
+          <li>Un Cutebot Pro chargé (sa batterie alimente aussi le micro:bit)</li>
+          <li>Un micro:bit et un câble USB</li>
+          <li>Un ordinateur avec <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a> ouvert</li>
+          <li>2 m de sol dégagé. Plus tard : des livres (leçon 3), un cahier (leçon 4)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Règles du robot (à lire à voix haute)</h3>
+        <ul>
+          <li><b>Les robots vivent par terre.</b></li>
+          <li>Les programmes de déplacement démarrent avec le <b>bouton A</b>.</li>
+          <li>Celui qui appuie sur A rattrape le robot.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Les blocs du robot</h3>
+        <p><b>Extensions</b> → chercher <kbd>cutebot pro</kbd> → choisir <b>Cutebot Pro</b> d’ELECFREAKS. À refaire dans chaque nouveau projet.</p>
+        <p>Chaque image de blocs a un bouton de copie dans son coin. Après avoir ajouté l’extension Cutebot Pro, collez le code dans la vue <b>JavaScript</b> de MakeCode, puis revenez aux <b>Blocs</b> : les mêmes blocs apparaissent.</p>
+        <p>Pour que les blocs s’affichent en français, mettez MakeCode en français : ⚙ → <b>Language</b> (ou <b>Langue</b>) → <b>Français</b>.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Les mots que les élèves vont apprendre</h2>
+    <dl class="glossary">
+      <div><dt>Bloc</dt><dd>Une instruction. Les blocs s’emboîtent.</dd><small>Leçon 1</small></div>
+      <div><dt>Simulateur</dt><dd>Le faux micro:bit à l’écran.</dd><small>Leçon 1</small></div>
+      <div><dt>Boucle</dt><dd>Des blocs qui se répètent encore et encore.</dd><small>Leçon 1</small></div>
+      <div><dt>Événement</dt><dd>Quelque chose, comme un appui sur un bouton, qui lance du code.</dd><small>Leçon 1</small></div>
+      <div><dt>Moteur</dt><dd>Fait tourner une roue, de −100 (arrière) à 100 (avant).</dd><small>Leçon 2</small></div>
+      <div><dt>Capteur</dt><dd>Un sens du robot. Le sonar mesure la distance.</dd><small>Leçon 3</small></div>
+      <div><dt>Condition</dt><dd>Une question oui/non qui décide ce qui s’exécute.</dd><small>Leçon 3</small></div>
+      <div><dt>Variable</dt><dd>Une boîte avec une étiquette qui retient une valeur.</dd><small>Leçon 4</small></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================== LEÇON 1 ============================== -->
+<section class="lesson lesson-1" data-view="lesson1">
+  <div class="lesson-head">
+    <div class="wrap">
+      <p class="eyebrow">Leçon 1 · premier contact, aucune expérience requise · 60 min</p>
+      <h2>Bonjour, micro:bit</h2>
+      <p class="lede">Les élèves découvrent un tout petit ordinateur, écrivent leur tout premier programme et finissent par fabriquer un badge qui montre leur humeur, avec les phares du robot qui changent de couleur.</p>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <div class="wrap">
+
+      <article class="ex" id="ex-intro" data-start="0:00">
+        <header class="ex-head"><span class="ex-id">Intro</span><h3>Découvrir le micro:bit et MakeCode</h3><p class="meta"><span>10 min</span> · 3 min sans ordinateur</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>3 min</small></div><div class="phase-content">
+            <p class="say">« Levez la main si vous pensez qu’il y a un ordinateur dans un téléphone. Dans une voiture ? Dans une machine à laver ? Dans une carte d’anniversaire qui joue de la musique ? Les ordinateurs se cachent partout, et aujourd’hui vous avez le vôtre. Il est plus petit qu’une carte bancaire. »</p>
+            <p>Distribuez les micro:bits. Les élèves cherchent : les <b>25 lumières rouges</b> (l’écran LED), le <b>bouton A</b> et le <b>bouton B</b>, et la prise USB. Dites-leur que rien ne casse s’ils le touchent.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Visite<small>7 min</small></div><div class="phase-content">
+            <p>Au vidéoprojecteur, montrez les quatre zones de MakeCode. Les élèves vous imitent sur leur ordinateur.</p>
+            <ol>
+              <li>Ouvrez <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a>. Si les menus sont en anglais : ⚙ → <b>Language</b> → <b>Français</b>.</li>
+              <li>Cliquez sur <b>Nouveau projet</b> → tapez un nom → <b>Créer</b>.</li>
+              <li><b>Les catégories</b> (colonne du milieu) : Base, Entrées, Musique… Chaque catégorie contient des blocs d’une même couleur.</li>
+              <li><b>L’espace de travail</b> (la grande zone blanche) : c’est là qu’on construit. On y glisse un bloc ; on le ramène vers les catégories pour le supprimer.</li>
+              <li><b>Le simulateur</b> (à gauche) : un faux micro:bit. Il exécute le code tout de suite, sans avoir besoin du vrai.</li>
+              <li><b>Télécharger</b> (en bas à gauche) : envoie le programme au vrai micro:bit par le câble USB. La première fois, cliquez sur <b>⋯ → Connecter l’appareil</b> et suivez les étapes (cela fonctionne dans Chrome et Edge ; dans les autres navigateurs, glissez le fichier téléchargé sur le lecteur <b>MICROBIT</b>).</li>
+            </ol>
+            <p>Dites-le clairement : <b>on ne peut rien casser en essayant.</b> Le bouton Annuler (la flèche courbe) permet d’annuler n’importe quelle erreur.</p>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-1-1" data-start="0:10">
+        <header class="ex-head"><span class="ex-id">1.1</span><h3>Battement de cœur</h3><p class="meta"><span>14 min</span> · premier bloc, boucle toujours</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Posez deux doigts sur votre cou. Vous sentez ? Votre cœur bat environ 80 fois par minute, toute la journée, sans que vous y pensiez. Aujourd’hui, on donne un cœur au micro:bit. »</p>
+            <p class="ask">Que fait un cœur, encore et encore ? (Il devient grand, puis petit, puis grand…)</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>5 min</small></div><div class="phase-content">
+            <ol>
+              <li>Un nouveau projet contient déjà <b>au démarrage</b> et <b>toujours</b>. Le bloc <b>au démarrage</b> s’exécute une fois, quand le micro:bit s’allume.</li>
+              <li>Ouvrez la catégorie <b>Base</b> et glissez <b>montrer l’icône</b> dans <b>au démarrage</b>. Il s’emboîte avec un clic.</li>
+              <li>Cliquez sur la petite image et choisissez le cœur. Regardez : le simulateur l’affiche tout de suite.</li>
+              <li>Téléchargez-le ensemble sur le vrai micro:bit. C’est le premier programme de tout le monde !</li>
+            </ol>
+            {{block:l1-1-example|Exemple : au démarrage, montrer l’icône cœur}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>7 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Faites battre le cœur : grand cœur, petit cœur, grand cœur, petit cœur… pour toujours.</p>
+              <ul><li>Utilisez le bloc <b>toujours</b> au lieu du bloc <b>au démarrage</b> : il se répète sans s’arrêter.</li><li>Il faut deux blocs <b>montrer l’icône</b>.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l1-1-solution|Solution : toujours, montrer un grand cœur puis un petit cœur}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Le bloc flotte tout seul sans être emboîté. Un bloc flottant est grisé et ne s’exécute pas.</li><li>Les deux blocs montrent le même cœur : rien ne semble bouger.</li><li>Le téléchargement « ne fait rien » : vérifiez que le câble est branché et que l’appareil est bien connecté.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Ajoutez un bloc <b>pause</b> (Base) pour un cœur lent et endormi.</li><li>Faites un cœur qui s’emballe : qu’est-ce qui l’accélère ?</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-1-2" data-start="0:24">
+        <header class="ex-head"><span class="ex-id">1.2</span><h3>Badge prénom</h3><p class="meta"><span>14 min</span> · texte, ordre des blocs</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Dans les conférences, les gens portent un badge avec leur prénom. Le nôtre sera le seul badge de l’école qui défile ! »</p>
+            <p class="ask">L’écran ne fait que 5 lumières de large. Comment afficher un long prénom ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>5 min</small></div><div class="phase-content">
+            <ol>
+              <li>Dans <b>Base</b>, glissez <b>afficher texte</b> dans <b>au démarrage</b>.</li>
+              <li>Cliquez sur le mot à l’intérieur et tapez <b>Hi!</b>. Regardez-le défiler sur le simulateur, une lettre à la fois.</li>
+              <li>Faites remarquer : le programme s’exécute <b>de haut en bas</b>. L’ordre des blocs, c’est l’ordre des actions.</li>
+            </ol>
+            {{block:l1-2-example|Exemple : au démarrage, faire défiler le texte Hi!}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>7 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Fabriquez un badge qui fait défiler votre prénom, puis montre un visage souriant, encore et encore.</p>
+              <ul><li>Quel bloc se répète pour toujours ? Vous l’avez utilisé pour le cœur.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l1-2-solution|Solution : toujours, faire défiler un prénom puis montrer un visage souriant}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Le prénom ne s’affiche qu’une fois : il est dans <b>au démarrage</b>, pas dans <b>toujours</b>.</li><li>Les longs prénoms mettent du temps à défiler. C’est normal.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Ajoutez l’icône de votre loisir ou animal préféré après votre prénom.</li><li>Glissez le micro:bit dans le Cutebot Pro et allumez-le : la batterie du robot l’alimente, et votre badge marche sans l’ordinateur. Faites le tour de la salle avec votre robot-badge.</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-1-3" data-start="0:38">
+        <header class="ex-head"><span class="ex-id">1.3</span><h3>Badge humeur</h3><p class="meta"><span>19 min</span> · événements (boutons), extension, phares</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Votre badge dit votre prénom. Mais comment vous sentez-vous aujourd’hui ? Un badge humeur change de visage d’un appui sur un bouton, et le robot s’allume de la couleur de votre humeur. »</p>
+            <p class="ask">Si vous étiez une couleur maintenant, laquelle seriez-vous ? Pourquoi ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>7 min</small></div><div class="phase-content">
+            <ol>
+              <li>Commencez un <b>nouveau projet</b>. Dans <b>Entrées</b>, glissez <b>lorsque le bouton A est pressé</b>. C’est un <b>événement</b> : les blocs à l’intérieur attendent qu’on appuie sur le bouton.</li>
+              <li>Mettez dedans <b>montrer l’icône</b> avec un visage souriant. Appuyez sur A dans le simulateur.</li>
+            </ol>
+            {{block:l1-3-example|Exemple : lorsque le bouton A est pressé, montrer un visage souriant}}
+            <ol start="3">
+              <li>Place au robot : glissez le micro:bit dans l’emplacement du Cutebot Pro, comme sur la notice du kit.</li>
+              <li>Ajoutez les blocs du robot : <b>Extensions</b> → chercher <kbd>cutebot pro</kbd> → choisir <b>Cutebot Pro</b> d’ELECFREAKS. Une nouvelle catégorie turquoise apparaît.</li>
+              <li>Montrez le bloc <b>régler la coulleur des LED RVB tous à</b> (oui, avec deux « l » dans MakeCode) et le sélecteur de couleur. Ne construisez pas tout : c’est leur travail.</li>
+            </ol>
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Fabriquez un badge humeur. Bouton A : visage content et couleur joyeuse sur les phares du robot. Bouton B : visage triste et couleur triste.</p>
+              <ul><li>Il faut deux événements bouton : un pour A, un pour B (changez la lettre dans le menu).</li><li>Allumez le robot pour voir les phares.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l1-recap|Solution : le bouton A montre content et vert, le bouton B montre triste et bleu}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Pas de catégorie Cutebot Pro : l’extension n’a pas été ajoutée, ou ils ont pris « Cutebot » tout court.</li><li>Deux événements « bouton A » : MakeCode en grise un. Passez-en un sur B.</li><li>Les phares restent éteints : l’interrupteur du robot est sur arrêt.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Ajoutez une troisième humeur sur <b>A + B</b> (surpris ? endormi ?).</li><li>Donnez une couleur différente à chaque phare avec <b>RVB gauche</b> / <b>RVB droite</b>.</li></ul></div>
+            </div>
+          </div></div>
+          <div class="phase"><div class="phase-label">Bilan<small>3 min</small></div><div class="phase-content">
+            <p>Arc-en-ciel : tout le monde appuie sur un bouton en même temps et la salle s’illumine. Chacun choisit l’humeur qu’il veut, vraie ou pour jouer.</p>
+            <p class="say">« Aujourd’hui, vous avez donné à un ordinateur un cœur, un prénom et des émotions. À la prochaine séance, le robot se réveille : ces boutons vont le faire rouler. »</p>
+          </div></div>
+        </div>
+      </article>
+
+      <nav class="pager" aria-label="Navigation entre les leçons"><a href="#start">← Commencer</a><a class="next" href="#lesson2">Leçon 2 : Réveillez votre robot →</a></nav>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LEÇON 2 ============================== -->
+<section class="lesson lesson-2" data-view="lesson2">
+  <div class="lesson-head">
+    <div class="wrap">
+      <p class="eyebrow">Leçon 2 · moteurs et lumières · 60 min</p>
+      <h2>Réveillez votre robot</h2>
+      <p class="lede">Le robot dort dans sa boîte depuis sa sortie d’usine. Aujourd’hui, il fait ses premiers pas, apprend à danser et à rouler avec ses boutons.</p>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <div class="wrap">
+
+      <article class="ex warmup">
+        <div class="recap">
+          <div>
+            <h3>Échauffement : vous vous souvenez du badge humeur ? (3 min)</h3>
+            <p>Affichez le programme de la leçon 1. Demandez : « Qu’est-ce qui faisait changer le visage ? » (un appui sur un bouton, un <b>événement</b>). Aujourd’hui, ces mêmes boutons vont faire rouler le robot. Les élèves commencent un <b>nouveau projet</b> : ils doivent donc rajouter l’extension Cutebot Pro (rappelez les étapes de 1.3).</p>
+          </div>
+          {{block:l1-recap|Rappel de la leçon 1 : le bouton A montre content et vert, le bouton B montre triste et bleu}}
+        </div>
+      </article>
+
+      <article class="ex" id="ex-2-1" data-start="0:03">
+        <header class="ex-head"><span class="ex-id">2.1</span><h3>Premiers pas</h3><p class="meta"><span>18 min</span> · vitesse des roues, pause, arrêt</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Ce robot n’a jamais bougé de sa vie. Il n’a pas de jambes. Il a deux roues, et il a une horloge. Si je dis aux roues “roulez” et que je compte jusqu’à un… jusqu’où ira-t-il ? »</p>
+            <p class="ask">Levez la main : jusqu’où ira-t-il en une seconde ? Notez trois estimations au tableau.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>6 min</small></div><div class="phase-content">
+            <ol>
+              <li>Glissez <b>lorsque le bouton A est pressé</b> depuis Entrées (comme en leçon 1).</li>
+              <li>Dans Cutebot Pro, ajoutez <b>régler la coulleur des LED</b> et choisissez le vert.</li>
+              <li>Ajoutez <b>régler la vitesse de la roue gauche à 50 %, la vitesse de la roue droite à 50 %</b>. Expliquez : 100, c’est à fond ; 0, c’est à l’arrêt.</li>
+              <li>Ajoutez <b>pause (ms) 1000</b> depuis Base. « 1000 millisecondes, c’est une seconde. »</li>
+              <li>Ajoutez <b>régler toutes les roues pour un arrêt immédiat</b> et <b>éteindre toutes les LEDs</b>.</li>
+              <li>Lancez-le par terre. Mesurez la distance avec une règle et comparez avec les estimations.</li>
+            </ol>
+            {{block:l2-1-example|Exemple : appuyer sur A, phares verts, avancer 1 seconde, s’arrêter}}
+            <p>Point clé : <b>sans le bloc d’arrêt, le robot ne s’arrête jamais.</b> Les roues continuent de faire la dernière chose qu’on leur a dite. Enlevez-le (par terre !) pour le prouver.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Faites faire à votre robot un pas en avant avec les phares verts, puis un pas en arrière avec les phares rouges, puis un sourire.</p>
+              <ul><li>Indice : pour reculer, utilisez une vitesse négative (<b>−50</b>).</li><li>Revient-il exactement au même endroit ?</li></ul></div>
+            <p>Demandez-leur de retenir les couleurs : <b>vert veut dire avancer, rouge veut dire reculer</b>. Elles reviendront dans le projet final.</p>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l2-1-solution|Solution : avancer en vert, reculer en rouge, s’arrêter, sourire}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Une vitesse trop faible peut ne pas suffire à faire tourner les roues. Commencez à 30 % ou plus.</li><li>Il ne revient pas au même endroit : les roues glissent un peu. C’est normal, et cela mérite qu’on en discute.</li><li>Des élèves mettent le signe moins sur une seule roue et le robot tourne sur lui-même. Gardez ça pour 2.2 !</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Prédisez, puis testez : jusqu’où va-t-il en 2000 ms ? À 100 % ?</li><li>Faites-le s’arrêter pile sur la ligne de parking.</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-2-2" data-start="0:21">
+        <header class="ex-head"><span class="ex-id">2.2</span><h3>Soirée dansante</h3><p class="meta"><span>18 min</span> · tourner, boucle répéter</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Notre robot est invité à un concours de danse. Problème : il ne connaît que “avancer” et “reculer”. Apprenons-lui à tourner. »</p>
+            <p class="ask">Posez vos deux poings sur la table : ce sont les roues. Les deux roulent vers l’avant : on va tout droit. Que se passe-t-il si un poing avance et l’autre recule ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>6 min</small></div><div class="phase-content">
+            <ol>
+              <li>Réglez la <b>roue gauche à 50</b> et la <b>roue droite à −50</b>. Le robot tourne sur place.</li>
+              <li>Montrez que chaque phare peut avoir sa couleur : choisissez <b>RVB gauche</b> et <b>RVB droite</b> dans le menu.</li>
+              <li>Demandez : « Dans quel sens tournera-t-il si j’inverse les nombres ? » Lancez-le pour vérifier.</li>
+            </ol>
+            {{block:l2-2-example|Exemple : tourner sur place 1 seconde avec deux couleurs de phares}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Créez une chorégraphie : tourner dans un sens, puis dans l’autre, trois fois de suite. Changez la couleur des phares à chaque mouvement et terminez par un cœur.</p>
+              <ul><li>Nouveau bloc : <b>répéter 4 fois</b> dans Boucles. Changez-le en 3.</li><li>Les mouvements dans le répéter se font encore et encore. Ceux qui suivent, une seule fois.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l2-2-solution|Solution : répéter 3 fois, tourner à droite en magenta puis à gauche en jaune, puis s’arrêter et montrer un cœur}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Le bloc d’arrêt finit dans le répéter et la danse est saccadée. Demandez : « Qu’est-ce qui ne doit arriver qu’une fois ? »</li><li>Des pauses de 100 ms sont trop rapides pour être vues. Prenez 300 ms ou plus.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Avec un micro:bit V2, ajoutez une mélodie (catégorie Musique) avant le répéter.</li><li>Ajoutez un petit saut : un court aller-retour entre deux tours.</li><li>Concours de danse : deux robots côte à côte, même code, lequel reste en rythme ?</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-2-3" data-start="0:39">
+        <header class="ex-head"><span class="ex-id">2.3</span><h3>Pilote à boutons</h3><p class="meta"><span>18 min</span> · événements, flèches</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Jusqu’ici, le robot faisait une danse prévue à l’avance. Maintenant, c’est <b>vous</b> qui conduisez. En leçon 1, le bouton A voulait dire “content”. Que devrait vouloir dire le bouton A pour une voiture ? »</p>
+            <p class="ask">Si on appuie sur A et que le robot démarre, quand va-t-il s’arrêter ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>6 min</small></div><div class="phase-content">
+            <ol>
+              <li>Bouton A : flèche Nord, phares verts, les deux roues à 40 %. <b>Pas de pause, pas d’arrêt.</b></li>
+              <li>Bouton A + B : arrêt, phares éteints, effacer l’écran.</li>
+              <li>Appuyez sur A et éloignez-vous. Le robot continue : « les moteurs retiennent le dernier ordre ». Les boutons sont sur le robot : le conducteur marche à côté pour appuyer sur A + B.</li>
+            </ol>
+            {{block:l2-3-example|Exemple : le bouton A fait avancer avec une flèche verte, A + B arrête}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Terminez votre pilote à boutons : le bouton B fait reculer avec les phares rouges et une flèche Sud. A + B arrête et montre un carré.</p>
+              <ul><li>Jeu du parking : partez de la ligne de départ, garez-vous le plus près possible de la ligne de parking. Le binôme le plus proche gagne.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l2-3-solution|Solution : A avance en vert, B recule en rouge, A + B s’arrête avec un carré}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Si on appuie sur A puis sur B, c’est l’événement A (ou B) qui se déclenche d’abord. Appuyez sur les deux exactement en même temps.</li><li>Le robot est branché à l’ordinateur et tombe de la table. Débranchez avant de tester !</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>micro:bit V2 : utilisez l’événement du logo (Entrées) pour tourner sur place.</li><li>Utilisez l’événement « secouer » pour faire clignoter les phares comme un klaxon.</li></ul></div>
+            </div>
+          </div></div>
+          <div class="phase"><div class="phase-label">Bilan<small>3 min</small></div><div class="phase-content">
+            <p class="say">« Aujourd’hui, vous avez conduit le robot. Mais il est aveugle : il foncerait droit dans un mur. À la prochaine séance, le robot acquiert des sens. »</p>
+          </div></div>
+        </div>
+      </article>
+
+      <nav class="pager" aria-label="Navigation entre les leçons"><a href="#lesson1">← Leçon 1</a><a class="next" href="#lesson3">Leçon 3 : Le robot voit →</a></nav>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LEÇON 3 ============================== -->
+<section class="lesson lesson-3" data-view="lesson3">
+  <div class="lesson-head">
+    <div class="wrap">
+      <p class="eyebrow">Leçon 3 · capteurs et décisions · 60 min</p>
+      <h2>Le robot voit</h2>
+      <p class="lede">Les deux « yeux » ronds à l’avant ne sont pas des yeux. Ils fonctionnent comme les oreilles d’une chauve-souris. Aujourd’hui, le robot mesure les distances et commence à prendre ses propres décisions.</p>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <div class="wrap">
+
+      <article class="ex warmup">
+        <div class="recap">
+          <div>
+            <h3>Échauffement : conduire avec les boutons de la leçon 2 (3 min)</h3>
+            <p>Les binômes téléchargent leur pilote à boutons de la leçon 2 et conduisent leur robot quelques minutes. Demandez : « La dernière fois, votre robot a foncé dans le mur. Pourquoi ne s’est-il pas arrêté tout seul ? » Il ne voit pas encore, et c’est le sujet d’aujourd’hui.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-3-1" data-start="0:03">
+        <header class="ex-head"><span class="ex-id">3.1</span><h3>Oreilles de chauve-souris</h3><p class="meta"><span>17 min</span> · capteur sonar, toujours</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Les chauves-souris volent dans le noir complet sans se cogner. Elles crient et écoutent l’écho. Notre robot fait exactement pareil. L’un des cercles est un minuscule haut-parleur qui crie un son trop aigu pour nous. L’autre est un micro qui écoute l’écho. »</p>
+            <p class="ask">Si l’écho revient très vite, le mur est-il proche ou loin ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>6 min</small></div><div class="phase-content">
+            <ol>
+              <li>Présentez <b>toujours</b> : « il s’exécute encore et encore, tant que le robot est allumé ». Un capteur doit être lu tout le temps, pas une seule fois.</li>
+              <li>Mettez <b>montrer nombre</b> dedans, et déposez le bloc rond <b>capteur sonar cm</b> dans son trou. Les blocs ronds sont des <b>valeurs</b> : ils rentrent dans les trous.</li>
+              <li>Bougez la main devant le robot et regardez le nombre changer.</li>
+            </ol>
+            {{block:l3-1-example|Exemple : toujours, montrer la distance du sonar en centimètres}}
+            <p><b>Détective des distances (jeu de 3 min) :</b> annoncez une distance (« 17 cm ! »). Les binômes font la course pour placer une main exactement à cette distance, puis vérifient à la règle.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>9 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Transformez l’écran en indicateur de distance : plus votre main est loin, plus il y a de LED allumées.</p>
+              <ul><li>Nouveau bloc : <b>tracer graphique en barres de … jusqu’à …</b> (dans Led). Mettez le bloc sonar dans le premier trou et 50 dans le second.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l3-1-solution|Solution : toujours, tracer un graphique en barres de la distance du sonar jusqu’à 50}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Les objets mous (pulls, coussins) absorbent le son et donnent des nombres bizarres. Les surfaces plates et dures marchent le mieux.</li><li>Le capteur affiche <b>0</b> quand il n’entend aucun écho (rien devant, ou trop loin). À retenir pour la leçon 4 !</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Remplacez « jusqu’à 50 » par 20. Qu’est-ce qui change ?</li><li>Quelle est la plus petite distance que le capteur peut mesurer ? La plus grande ?</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-3-2" data-start="0:20">
+        <header class="ex-head"><span class="ex-id">3.2</span><h3>Radar de recul</h3><p class="meta"><span>19 min</span> · si / sinon, sinon si, comparer des nombres</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Quand une voiture se gare en marche arrière, elle bipe de plus en plus vite en s’approchant du mur. Les vraies voitures utilisent le même genre de capteur que votre robot. »</p>
+            <p class="ask">Comment la voiture décide-t-elle quand biper ? Quelle question se pose-t-elle, encore et encore ?</p>
+            <p>Amenez-les à la question : <b>« Le mur est-il plus près que … ? »</b> Cette question, c’est un <b>si</b>.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>7 min</small></div><div class="phase-content">
+            <ol>
+              <li>Dans Logique, prenez <b>si … alors … sinon</b>. Mettez-le dans un toujours.</li>
+              <li>Dans Logique, prenez la comparaison <b>0 &lt; 0</b>. Mettez le bloc sonar à gauche et tapez 10 à droite.</li>
+              <li>Si plus près que 10 : visage surpris, phares rouges. Sinon : visage content, phares verts.</li>
+              <li>Lisez le programme à voix haute, comme une phrase. Les élèves adorent découvrir qu’un programme se lit comme une phrase.</li>
+            </ol>
+            {{block:l3-2-example|Exemple : si la distance est inférieure à 10 cm, montrer surpris et rouge, sinon content et vert}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Fabriquez un radar de recul à trois zones : ✗ rouge tout près (moins de 10 cm), jaune quand on s’approche (moins de 25 cm), et ✓ vert quand la voie est libre.</p>
+              <ul><li>Cliquez sur le <b>+</b> en bas du bloc si pour ajouter un <b>sinon si</b>.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l3-2-solution|Solution : moins de 10 cm croix rouge, sinon si moins de 25 jaune, sinon coche verte}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li><b>L’ordre compte.</b> Si les élèves testent « moins de 25 » en premier, la zone rouge n’arrive jamais, car 5 est aussi inférieur à 25 ! Idéal pour 2 minutes de discussion en classe.</li><li>Le bloc sonar est utilisé deux fois. Ce n’est pas grave aujourd’hui. En leçon 4, on corrige ça avec une variable.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>micro:bit V2 : jouez une note (catégorie Musique) dans la zone rouge pour biper comme une vraie voiture.</li><li>Ajoutez une quatrième zone avec une nouvelle couleur.</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-3-3" data-start="0:39">
+        <header class="ex-head"><span class="ex-id">3.3</span><h3>Rover martien</h3><p class="meta"><span>18 min</span> · capter + rouler, éviter les obstacles</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Un rover sur Mars n’a pas de conducteur. Un message radio envoyé depuis la Terre met entre 4 et 24 minutes à arriver : bien trop lent pour crier “STOP !”. Alors le rover doit regarder et décider tout seul. »</p>
+            <p class="ask">Quelles sont les deux choses que le rover doit faire encore et encore ? (Regarder. Décider.)</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>6 min</small></div><div class="phase-content">
+            <ol>
+              <li>Reprenez le si/sinon de 3.2. Cette fois, la décision commande les roues, pas l’écran.</li>
+              <li>Plus près que 15 cm : arrêt. Sinon : rouler à 30 %.</li>
+              <li>Tenez un livre devant le robot, puis éloignez-le doucement. Le robot suit le livre et s’arrête. (C’est un avant-goût de la leçon 4, ne le leur dites pas !)</li>
+            </ol>
+            {{block:l3-3-example|Exemple : toujours, si plus près que 15 cm s’arrêter, sinon avancer à 30 %}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>10 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Construisez un rover martien qui explore un labyrinthe de livres. Quand quelque chose est proche : phares rouges, reculer, tourner, puis repartir explorer avec les phares verts.</p>
+              <ul><li>Construisez un petit labyrinthe par terre avec des livres et des sacs.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l3-3-solution|Solution : si plus près que 15 cm, rouge, reculer une demi-seconde, tourner ; sinon vert et avancer}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li><b>Pas de montrer l’icône dans une boucle de déplacement.</b> Chaque image prend environ une demi-seconde, pendant laquelle le robot roule à l’aveugle. Utilisez les phares pour montrer ce qu’il fait.</li><li>Le robot tourne sans fin : la pause du virage est trop longue ou la vitesse trop élevée.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Utilisez <b>choisir au hasard</b> (Maths) pour tourner parfois à gauche, parfois à droite.</li><li>Course : qui sort du labyrinthe le plus vite sans toucher de mur ?</li></ul></div>
+            </div>
+          </div></div>
+          <div class="phase"><div class="phase-label">Bilan<small>3 min</small></div><div class="phase-content">
+            <p class="say">« Votre rover <i>fuit</i> les obstacles. À la prochaine séance, il fera le contraire : il vous suivra comme un chiot, et s’arrêtera avant de vous rentrer dedans. »</p>
+          </div></div>
+        </div>
+      </article>
+
+      <nav class="pager" aria-label="Navigation entre les leçons"><a href="#lesson2">← Leçon 2</a><a class="next" href="#lesson4">Leçon 4 : Suis-moi ! →</a></nav>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LEÇON 4 ============================== -->
+<section class="lesson lesson-4" data-view="lesson4">
+  <div class="lesson-head">
+    <div class="wrap">
+      <p class="eyebrow">Leçon 4 · variables et projet final · 60 min</p>
+      <h2>Suis-moi !</h2>
+      <p class="lede">D’abord un robot timide qui recule, puis un chiot curieux qui s’approche. Assemblez les deux et vous obtenez un robot qui vous suit et s’arrête à la bonne distance.</p>
+    </div>
+  </div>
+  <div class="lesson-body">
+    <div class="wrap">
+
+      <article class="ex warmup">
+        <div class="recap">
+          <div>
+            <h3>Échauffement : le robot humain (5 min, sans ordinateur)</h3>
+            <p>Par deux. Un élève est le robot et tend les mains à plat devant lui : c’est le sonar. L’autre lève une paume comme cible et se déplace lentement. Règles au tableau :</p>
+            <ul>
+              <li><b class="go">Trop loin</b> → le robot fait un pas en <b>avant</b> (il dit « vert ! »)</li>
+              <li><b class="back">Trop près</b> → le robot fait un pas en <b>arrière</b> (il dit « rouge ! »)</li>
+              <li><b class="stay">À la bonne distance</b> → le robot <b>se fige</b></li>
+            </ul>
+            <p>Puis : <b>« Ces trois règles, c’est tout le programme final. Apprenons-les au Cutebot, une règle à la fois. »</b></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-4-1" data-start="0:05">
+        <header class="ex-head"><span class="ex-id">4.1</span><h3>Robot timide</h3><p class="meta"><span>13 min</span> · variables, reculer</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Notre robot est timide. Si on s’approche trop, il recule. Mais d’abord, il lui faut une mémoire. Pour l’instant, il mesure et oublie aussitôt. Pour le radar de recul, on a dû mesurer deux fois ! »</p>
+            <p class="ask">Quand on mesure quelque chose et qu’on veut s’en souvenir, que fait-on ? (On le note. Une variable, c’est le bloc-notes du robot.)</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>4 min</small></div><div class="phase-content">
+            <ol>
+              <li>Variables → <b>Créer une variable…</b> → nommez-la <code>distance</code>.</li>
+              <li>En haut du toujours : <b>définir distance à</b> sonar. Puis <b>montrer nombre distance</b>.</li>
+              <li>Imaginez une boîte avec une étiquette : à chaque tour de boucle, on jette l’ancien nombre et on met le nouveau.</li>
+            </ol>
+            {{block:l4-1-example|Exemple : toujours, ranger la mesure du sonar dans une variable distance et l’afficher}}
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>7 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Rendez le robot timide : quand vous êtes à moins de 15 cm, il recule avec les phares rouges. Sinon, il reste immobile, phares éteints.</p>
+              <ul><li>Utilisez votre variable <code>distance</code> dans le si, pas le bloc sonar.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l4-1-solution|Solution : si la distance est inférieure à 15, reculer avec les phares rouges, sinon s’arrêter et éteindre}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Si <b>définir distance</b> est dans <i>au démarrage</i>, la mesure n’a lieu qu’une fois. Il doit être dans toujours, tout en haut.</li><li>Le robot recule alors qu’il n’y a rien devant : c’est la mesure <b>0</b> de 3.1 (pas d’écho donne 0, et 0 est inférieur à 15). Gardez ça pour le projet final.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Encore plus timide : 30 cm.</li><li>Timide <i>et</i> poli : montrez un visage surpris quand il recule (mais l’écran est lent !).</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-4-2" data-start="0:18">
+        <header class="ex-head"><span class="ex-id">4.2</span><h3>Chiot curieux</h3><p class="meta"><span>13 min</span> · « et », intervalles</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Maintenant, l’inverse : un chiot curieux. Quand vous vous éloignez, il trottine derrière vous. Mais un bon chiot ne court pas après le mur au fond de la salle. »</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Démo<small>4 min</small></div><div class="phase-content">
+            <ol>
+              <li>Inversez le robot timide : si la distance est <b>supérieure à 25</b>, avancer avec les phares verts.</li>
+              <li>Lancez-le dans un espace dégagé, face à un mur lointain. Oups : il roule jusqu’au mur.</li>
+            </ol>
+            {{block:l4-2-example|Exemple : si la distance dépasse 25 cm, avancer avec les phares verts, sinon s’arrêter}}
+            <p class="ask">Comment dire au robot « loin, mais pas <i>trop</i> loin » ?</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>7 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Défi</h4><p>Apprenez au chiot à ne vous suivre que si vous êtes à plus de 25 cm <b>et</b> à moins de 80 cm.</p>
+              <ul><li>Nouveau bloc : <b>et</b> dans Logique. Chaque côté contient une comparaison.</li></ul></div>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l4-2-solution|Solution : si distance plus de 25 et moins de 80, avancer en vert, sinon s’arrêter}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Des élèves prennent <b>ou</b> au lieu de <b>et</b> : alors toutes les distances conviennent, et le chiot recommence à poursuivre les murs.</li><li>Les signes &lt; et &gt; sont inversés. Lisez à voix haute : « distance est plus grande que 25 ».</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>Tenez un cahier et reculez lentement. Arrivez-vous à guider le chiot à travers la salle ?</li><li>Commencez le projet final en avance !</li></ul></div>
+            </div>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="ex" id="ex-final" data-start="0:31">
+        <header class="ex-head"><span class="ex-id">Final</span><h3>Suis-moi, Cutebot</h3><p class="meta"><span>24 min</span> · tout ensemble</p></header>
+        <div class="ex-body">
+          <div class="phase"><div class="phase-label">Accroche<small>2 min</small></div><div class="phase-content">
+            <p class="say">« Vous avez construit un robot timide et un chiot curieux. Un chiot timide qui est aussi curieux… c’est un robot qui vous suit en gardant une distance de sécurité. Comme dans le jeu du robot humain. Construisons-le. »</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Planifier<small>4 min</small></div><div class="phase-content">
+            <p>Dessinez ceci au tableau. Chaque distance appartient à une seule zone :</p>
+            <div class="zones">
+              <svg viewBox="0 0 720 190" role="img" aria-label="Zones de distance : 0 veut dire rien vu, de 1 à 15 cm reculer en rouge, de 15 à 25 cm rester en bleu, de 25 à 80 cm suivre en vert, plus de 80 cm perdu, arrêt">
+                <g font-family="Outfit, Helvetica, Arial, sans-serif" font-size="14" font-weight="600">
+                  <!-- échelle : x = 70 + d * 7 (d en cm, 0..90) -->
+                  <rect x="70" y="60" width="105" height="56" rx="6" fill="var(--back)"/>
+                  <rect x="175" y="60" width="70" height="56" fill="var(--sky)"/>
+                  <rect x="245" y="60" width="385" height="56" fill="var(--go)"/>
+                  <rect x="630" y="60" width="70" height="56" rx="6" fill="var(--muted)" opacity=".55"/>
+                  <text x="122" y="93" text-anchor="middle" fill="#fff">reculer</text>
+                  <text x="210" y="93" text-anchor="middle" fill="#fff">rester</text>
+                  <text x="437" y="93" text-anchor="middle" fill="#fff">suivre →</text>
+                  <text x="665" y="93" text-anchor="middle" fill="#fff">perdu</text>
+                  <text x="122" y="44" text-anchor="middle" fill="var(--back)">rouge · −40 %</text>
+                  <text x="210" y="44" text-anchor="middle" fill="var(--sky)">bleu · arrêt</text>
+                  <text x="437" y="44" text-anchor="middle" fill="var(--go)">vert · 40 %</text>
+                  <text x="665" y="44" text-anchor="middle" fill="var(--muted)">arrêt</text>
+                </g>
+                <g font-family="Source Code Pro, Menlo, monospace" font-size="13" fill="var(--ink)" text-anchor="middle">
+                  <line x1="70" y1="124" x2="700" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+                  <line x1="70" y1="120" x2="70" y2="130" stroke="var(--muted)" stroke-width="1.5"/><text x="70" y="148">0</text>
+                  <line x1="175" y1="120" x2="175" y2="130" stroke="var(--muted)" stroke-width="1.5"/><text x="175" y="148">15</text>
+                  <line x1="245" y1="120" x2="245" y2="130" stroke="var(--muted)" stroke-width="1.5"/><text x="245" y="148">25</text>
+                  <line x1="630" y1="120" x2="630" y2="130" stroke="var(--muted)" stroke-width="1.5"/><text x="630" y="148">80 cm</text>
+                  <text x="84" y="176" font-size="12" fill="var(--muted)">0 = pas d’écho → arrêt</text>
+                </g>
+                <!-- robot -->
+                <g transform="translate(14 64)">
+                  <rect x="0" y="6" width="40" height="40" rx="8" fill="var(--teal)"/>
+                  <circle cx="30" cy="18" r="5" fill="#fff"/><circle cx="30" cy="34" r="5" fill="#fff"/>
+                  <rect x="4" y="0" width="22" height="8" rx="3" fill="var(--ink)"/><rect x="4" y="44" width="22" height="8" rx="3" fill="var(--ink)"/>
+                </g>
+              </svg>
+            </div>
+            <p><b>Pourquoi une zone « rester » ?</b> Demandez ce qui se passerait si « suivre » et « reculer » utilisaient le même nombre, disons 20 cm. Le robot ferait des allers-retours sans fin (à tester pour aller plus loin !). L’écart lui donne un endroit où se reposer. Les thermostats de chauffage utilisent la même astuce.</p>
+          </div></div>
+          <div class="phase"><div class="phase-label">Pratique<small>18 min</small></div><div class="phase-content">
+            <div class="challenge"><h4>Projet final</h4><p>Programmez votre robot pour qu’il vous suive. Trop loin : avancer avec les phares verts. Trop près : reculer avec les phares rouges. À la bonne distance, ou perdu : s’arrêter avec les phares bleus.</p>
+              <ul><li>Testez avec un cahier tenu bas, à la hauteur du sonar du robot, et marchez lentement.</li></ul></div>
+            <p>Donnez les indices un par un, seulement quand un binôme est bloqué :</p>
+            <ol class="hints">
+              <li>Partez de votre programme Chiot curieux. Il fait déjà la partie verte.</li>
+              <li>Cliquez sur le <b>+</b> du bloc si pour ajouter un <b>sinon si</b> pour « trop près ».</li>
+              <li>Copiez les blocs rouges de votre Robot timide dans le sinon si.</li>
+              <li>Le robot recule alors qu’il n’y a rien devant ? Souvenez-vous du <b>0</b> : « trop près » doit être <i>plus de 0 <b>et</b> moins de 15</i>.</li>
+            </ol>
+            <details class="solution" open><summary>Solution</summary><div class="inner">
+              {{block:l4-final-solution|Projet final : suivre en vert entre 25 et 80 cm, reculer en rouge entre 0 et 15 cm, sinon s’arrêter en bleu}}
+            </div></details>
+            <div class="tips">
+              <div class="tip warn"><h4>Attention à</h4><ul><li>Le sonar est bas et étroit : les jambes et les vêtements amples donnent des mesures instables. Un cahier marche le mieux.</li><li>Le robot réagit en retard : vérifiez qu’il n’y a ni <b>montrer l’icône</b> ni <b>pause</b> dans le toujours.</li><li>À grande vitesse (au-delà d’environ 60 %), il dépasse la cible et la percute.</li></ul></div>
+              <div class="tip stretch"><h4>Pour aller plus loin</h4><ul><li>L’expérience des allers-retours : mettez les deux nombres à 20 et observez.</li><li>Réglages : quelle vitesse et quelles distances font le plus « vrai animal » ?</li><li>Mode veille : le bouton A active et désactive le suivi (solution ci-dessous).</li></ul></div>
+            </div>
+            <details class="solution"><summary>Bonus : mode veille avec le bouton A</summary><div class="inner">
+              <p>Une variable vrai/faux <code>following</code> retient si le robot est réveillé. Le bloc <b>non</b> l’inverse à chaque appui.</p>
+              {{block:l4-final-bonus-button|Bonus, partie 1 : le bouton A active ou désactive le suivi, avec un cœur ou un visage endormi}}
+              {{block:l4-final-bonus-loop|Bonus, partie 2 : la boucle de suivi ne tourne que si following est vrai}}
+            </div></details>
+          </div></div>
+          <div class="phase"><div class="phase-label">Défilé<small>5 min</small></div><div class="phase-content">
+            <p>Tout le monde pose son robot sur la ligne de départ, tient un cahier devant lui et traverse lentement la salle en file. Les robots qui arrivent de l’autre côté ont leur nom inscrit au tableau d’honneur « Suis-moi ».</p>
+            <p class="say">« Il y a quatre séances, vous avez fait battre un cœur. Aujourd’hui, votre robot vous voit, décide quoi faire et vous suit. Certains robots dans les entrepôts et les hôpitaux font exactement cela, avec la même idée que celle que vous venez de construire. »</p>
+          </div></div>
+        </div>
+      </article>
+
+      <nav class="pager" aria-label="Navigation entre les leçons"><a href="#lesson3">← Leçon 3</a><a class="next" href="#help">Dépannage →</a></nav>
+    </div>
+  </div>
+</section>
+
+<section class="plain" data-view="help">
+  <div class="wrap">
+    <h2 class="section-title">Dépannage</h2>
+    <p class="section-intro">Les problèmes les plus fréquents, et quoi vérifier en premier.</p>
+    <div class="trouble">
+      <table>
+        <thead><tr><th>Ce que vous voyez</th><th>Cause probable</th><th>Solution</th></tr></thead>
+        <tbody>
+          <tr><td>Pas de catégorie Cutebot Pro</td><td>Extension non ajoutée à ce projet, ou « Cutebot » tout court ajouté.</td><td>Extensions → chercher <kbd>cutebot pro</kbd> → Cutebot Pro d’ELECFREAKS.</td></tr>
+          <tr><td>Le robot ne bouge pas</td><td>Interrupteur sur arrêt, batterie vide, ou vitesse trop faible pour faire tourner les roues.</td><td>Allumer, vérifier la batterie, utiliser 30 % ou plus.</td></tr>
+          <tr><td>Le robot bouge tout seul</td><td>Un code de déplacement placé dans <i>au démarrage</i> ou <i>toujours</i> s’exécute dès la mise sous tension.</td><td>Le laisser par terre, ou lancer le code avec le bouton A.</td></tr>
+          <tr><td>Le robot ne s’arrête jamais</td><td>Pas de bloc d’arrêt : les moteurs gardent la dernière vitesse.</td><td>Ajouter <b>régler toutes les roues pour un arrêt immédiat</b>.</td></tr>
+          <tr><td>Le robot roule en courbe</td><td>Les roues diffèrent un peu, ou une vitesse est mal tapée.</td><td>Vérifier les deux nombres. Une petite courbe est normale.</td></tr>
+          <tr><td>Le sonar affiche toujours 0</td><td>Rien à portée, ou il vise quelque chose de mou.</td><td>Tenir un livre plat entre 10 et 50 cm devant le capteur.</td></tr>
+          <tr><td>Le robot réagit lentement</td><td><b>montrer l’icône</b> / <b>montrer nombre</b> prend environ 0,5 s dans une boucle de déplacement.</td><td>Montrer l’état avec les phares à la place.</td></tr>
+          <tr><td>Le téléchargement ne marche pas</td><td>micro:bit non appairé, ou fichier enregistré dans le dossier Téléchargements.</td><td>Appairer via ⋯ → Connecter l’appareil, ou glisser le .hex sur le lecteur MICROBIT.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Suis-moi, Cutebot · parcours gratuit pour débutants · <a href="https://github.com/ghalichraibi/makecode-cutebot-curriculum">Code source sur GitHub</a></span>
+    <span>Leçons sous licence <a href="https://creativecommons.org/licenses/by/4.0/deed.fr">CC BY 4.0</a> · code MIT · blocs générés avec Microsoft MakeCode · extension Cutebot Pro d’ELECFREAKS. micro:bit est une marque de la Micro:bit Educational Foundation ; ce projet n’est pas affilié à celle-ci.</span>
+  </div>
+</footer>

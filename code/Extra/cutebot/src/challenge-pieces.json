@@ -1,0 +1,44 @@
+{
+  "drawers": {
+    "basic": { "en": "Basic", "fr": "Base" },
+    "input": { "en": "Input", "fr": "Entrées" },
+    "loops": { "en": "Loops", "fr": "Boucles" },
+    "logic": { "en": "Logic", "fr": "Logique" },
+    "variables": { "en": "Variables", "fr": "Variables" },
+    "led": { "en": "Led", "fr": "Led" },
+    "cutebot": { "en": "Cutebot Pro", "fr": "Cutebot Pro" }
+  },
+  "pieces": {
+    "forever": ["basic"],
+    "show-icon": ["basic"],
+    "show-string": ["basic"],
+    "show-arrow": ["basic"],
+    "pause": ["basic"],
+    "on-button": ["input"],
+    "repeat": ["loops"],
+    "if-compare": ["logic"],
+    "and": ["logic"],
+    "if-distance": ["logic", "variables"],
+    "set-var": ["variables"],
+    "bar-graph": ["led"],
+    "headlights": ["cutebot"],
+    "wheels": ["cutebot"],
+    "stop": ["cutebot"],
+    "lights-off": ["cutebot"],
+    "sonar": ["cutebot"]
+  },
+  "challenges": {
+    "1-1": ["show-icon", "forever*"],
+    "1-2": ["show-icon", "show-string*", "forever"],
+    "1-3": ["headlights*", "show-icon", "on-button*"],
+    "2-1": ["pause*", "headlights", "stop*", "on-button", "wheels*", "show-icon", "lights-off"],
+    "2-2": ["wheels", "show-icon", "repeat*", "headlights", "stop", "pause", "on-button", "lights-off"],
+    "2-3": ["stop", "show-arrow*", "headlights", "on-button", "wheels", "show-icon", "lights-off"],
+    "3-1": ["sonar*", "forever", "bar-graph*"],
+    "3-2": ["headlights", "if-compare*", "sonar", "show-icon", "forever"],
+    "3-3": ["wheels", "sonar", "pause", "forever", "if-compare", "headlights"],
+    "4-1": ["if-distance*", "headlights", "sonar", "set-var*", "stop", "forever", "wheels", "lights-off"],
+    "4-2": ["wheels", "and*", "sonar", "set-var", "forever", "headlights", "if-distance", "stop", "lights-off"],
+    "final": ["headlights", "and", "stop", "set-var", "wheels", "sonar", "if-distance", "forever"]
+  }
+}

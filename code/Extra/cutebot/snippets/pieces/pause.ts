@@ -1,0 +1,1 @@
+basic.pause(100)

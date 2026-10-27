@@ -1,0 +1,1 @@
+CutebotPro.turnOffAllHeadlights()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, navigate } from 'gatsby';
+import { Link, navigate, useStaticQuery, graphql, withPrefix } from 'gatsby';
 
 import { useLocale } from '../i18n/LocaleContext';
 import {
@@ -7,11 +7,34 @@ import {
   SUPPORTED_LOCALES,
   getLocalePath,
   getLocaleSwitchPath,
+  resolveExistingPath,
+  stripPathPrefix,
 } from '../i18n';
 
 const Header = ({ location }) => {
   const { strings, locale } = useLocale();
   const { nav } = strings;
+  const data = useStaticQuery(graphql`
+    query HeaderPagePaths {
+      allMdx {
+        nodes {
+          fields {
+            slug
+            language
+          }
+        }
+      }
+    }
+  `);
+  const pathname = stripPathPrefix(location?.pathname, withPrefix('/'));
+  const existingPaths = new Set(
+    data.allMdx.nodes.map(({ fields }) => {
+      const slug = fields.slug;
+      return slug.endsWith('/') ? slug : `${slug}/`;
+    })
+  );
+  existingPaths.add('/');
+  SUPPORTED_LOCALES.forEach((l) => existingPaths.add(getLocalePath('/', l)));
 
   const links = [
     { label: nav.learn, path: getLocalePath('/exercises', locale) },
@@ -23,7 +46,7 @@ const Header = ({ location }) => {
   function menuLink({ label, path }) {
     const normalize = (p) => p.replace(/\/$/, '');
     const classname =
-      normalize(path) === normalize(location.pathname) ? 'nav-link-current' : 'nav-link';
+      normalize(path) === normalize(pathname) ? 'nav-link-current' : 'nav-link';
 
     return (
       <li key={label}>
@@ -36,8 +59,8 @@ const Header = ({ location }) => {
 
   function onLocaleChange(event) {
     const nextLocale = event.target.value;
-    const nextPath = getLocaleSwitchPath(location?.pathname, nextLocale);
-    navigate(nextPath);
+    const switchPath = getLocaleSwitchPath(pathname, nextLocale);
+    navigate(resolveExistingPath(switchPath, existingPaths, nextLocale));
   }
 
   return (

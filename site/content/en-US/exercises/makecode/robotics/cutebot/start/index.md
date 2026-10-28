@@ -34,8 +34,12 @@ After a short warm-up, every lesson runs three rounds of the same loop, then end
 
 ### Kit per pair
 
-- Cutebot Pro, charged (its battery also powers the micro:bit)
-- micro:bit and a USB cable
+![ELECFREAKS Cutebot Pro smart robot car with a micro:bit](./cutebot-pro.png)
+
+_Image: ELECFREAKS, from [pxt-cutebot-pro](https://github.com/elecfreaks/pxt-cutebot-pro) (MIT License, © 2022 ELECFREAKS)._
+
+- [Cutebot Pro](https://www.elecfreaks.com/) by ELECFREAKS, charged (its battery also powers the micro:bit)
+- [BBC micro:bit](https://microbit.org) (V2 recommended) and a USB cable
 - A computer with [makecode.microbit.org](https://makecode.microbit.org) open
 - 2 m of clear floor. Later: books (lesson 3), a notebook (lesson 4)
 

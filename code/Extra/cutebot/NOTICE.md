@@ -11,3 +11,7 @@
 ## Trademarks
 
 micro:bit is a trademark of the Micro:bit Educational Foundation. Cutebot Pro is a product of ELECFREAKS. MakeCode is a Microsoft project. This curriculum is an independent educational resource and is not affiliated with or endorsed by any of them.
+
+## Images on the Makerspace site
+
+The Cutebot Pro product picture (`cutebot-pro.png`) is `image.png` from https://github.com/elecfreaks/pxt-cutebot-pro (MIT License, © 2022 ELECFREAKS). The ELECFREAKS name and logo are trademarks of ELECFREAKS.

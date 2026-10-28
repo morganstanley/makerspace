@@ -1,70 +1,54 @@
-# CPX-training Site
+# Makerspace Site
 
-This directory contains the [GatsbyJS](https://www.gatsbyjs.org) source code for the website. The built website code lives at `/docs`.
+This directory contains the [GatsbyJS](https://www.gatsbyjs.org) source code for the [Makerspace website](https://morganstanley.github.io/makerspace/). The site is built from `/site` into `/docs` (git-ignored) and deployed to GitHub Pages (`gh-pages` branch) by CI when changes are merged to `main`.
 
-The [GatsbyJS](https://www.gatsbyjs.org) site based on the [gatsby-starter-22boxes-uno](https://www.gatsbyjs.org/starters/iamtherealgd/gatsby-starter-22boxes-uno/) starter.
-
-[GatsbyJS](https://www.gatsbyjs.org) is a [React](https://reactjs.org) based framework for creating static sites that can easily be hosted in spaces such at [Github Pages](https://pages.github.com).
+The site is based on the [gatsby-starter-22boxes-uno](https://www.gatsbyjs.org/starters/iamtherealgd/gatsby-starter-22boxes-uno/) starter.
 
 ## How to contribute to the site
 
 ### Dependencies
 
 - [Git](https://git-scm.com)
-- [NodeJS](https://nodejs.org/en/)
-- [GatsbyJS](https://www.gatsbyjs.org/docs/quick-start)
-- Text Editor ([VSCode](https://code.visualstudio.com), [Sublime Text](https://www.sublimetext.com))
+- [Node.js](https://nodejs.org/en/) `^24` and npm `^12` (see `engines` in `package.json`)
+- Text editor ([VSCode](https://code.visualstudio.com), [Sublime Text](https://www.sublimetext.com))
 
-### Language support in vscode
+### Language support in VSCode
 
-If you want you can use C-Spell plugins to help validate spelling in multiple languages (english and french configured in settings shipped with the project. If you want to add more, please update settings)
+You can use the C-Spell plugin to validate spelling. English and French are configured in `cspell.json` at the repository root. To add more languages, update that file.
 
 ### Develop
 
-Clone this repo and from a CLI (Terminal, CMD, etc) change directory into `/site` and run:
+Clone this repo, change directory into `/site` and run:
 
 ```bash
 npm install
 ```
 
-To run preview server:
+To run the preview server:
 
 ```bash
 npm run start
-
----
-
-## Notes from Experienced Instructors
-
-### General Guidance
-
-- Plan your sessions with clear learning objectives.
-- Use hands-on activities and encourage questions.
-- Adapt pacing based on student feedback.
-
----
-
-## Sample Timeline & Budget
-
-> If images are broken, convert the `.xcf` files in `/site/raw-assets/` to `.png` or `.jpg` using GIMP or an online converter, then place them in `/site/static/images/`.
-
-Sample Timeline:
-![Sample Timeline](../static/images/timeline.png)
-
-Sample Budget:
-![Sample Budget](../static/images/budget.png)
-
 ```
 
-And load [http://localhost:8000](http://localhost:8000) in your browser of choice.
+Then load [http://localhost:8000](http://localhost:8000) in your browser.
 
-### Updating Content
+Other useful scripts:
 
-The main content for the site lives in the [`/site/content`](https://github.com/MorganStanley/makerspace/tree/master/site/content) directory.
+| Command | Purpose |
+| --- | --- |
+| `npm run develop` | Same as `npm run start` |
+| `npm run build` | Production build (with path prefix) into `/docs` |
+| `npm run serve` | Serve a production build (run `gatsby build` first; `npm run build` moves its output to `/docs`) |
+| `npm test` | Run the Jest tests |
+| `npm run format` | Format code with Prettier |
 
-[MarkDown Reference](https://daringfireball.net/projects/markdown/syntax)
+Note: the development server does not serve static `.html` files; use a production build to check those.
 
-### Translation / Locale behavior
+### Updating content
+
+All page content lives in [`/site/content`](content), in Markdown (`.md`) or MDX (`.mdx`). See the [Markdown reference](https://daringfireball.net/projects/markdown/syntax). Tables are not supported (no GFM plugin); use lists instead. Raw HTML such as `<details>` works.
+
+### Translation / locale behavior
 
 The site supports three locales:
 
@@ -84,45 +68,77 @@ The site supports three locales:
 #### How language switching works
 
 - The **top navigation dropdown** is the only language selector UI.
-- The dropdown always shows the locale of the page currently being viewed, determined from the URL, and all header navigation links point to that same locale.
+- The dropdown shows the locale of the page currently being viewed, determined from the URL, and all header navigation links point to that same locale.
 - Changing the dropdown switches to the same route in the selected locale when available.
 - The most recently viewed locale is recorded in browser storage (`cpx-preferred-locale`) for reference, but does not override the locale detected from the current URL.
 
-#### Content organization for translations
+#### Content organization
 
-Content is organized by top-level language folders under [`/site/content/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content):
+Content is organized by top-level language folders under [`/site/content/`](content):
 
-- [`en-US/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/en-US)
-- [`fr-CA/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/fr-CA)
-- [`pt-BR/`](/Users/mimiflynn/Projects/Web/cpx-training/site/content/pt-BR)
+- [`en-US/`](content/en-US)
+- [`fr-CA/`](content/fr-CA)
+- [`pt-BR/`](content/pt-BR)
 
-The [`/site/content/exercises`](https://github.com/MorganStanley/makerspace/tree/master/site/content/exercises) directory contains directories name for the corresponding level and exercise. [`/site/content/exercises/L1-E1`](https://github.com/MorganStanley/makerspace/tree/master/site/content/exercises/L1-E1) should contain Level 1 Exercise 1 details and code. The main content is build from the `index.md` file contained in each of these directories.
+### Exercises
 
-Please note that because the [starter project](https://www.gatsbyjs.org/starters/iamtherealgd/gatsby-starter-22boxes-uno/) used for this site is a blog template, the order of the exercises are dependent on the date included in the metadata that must be included at the top of each `index.md`.
+Exercises live under `content/<locale>/exercises/<track>/...`. Current tracks include `makecode` (`intro`, `arcade`, `robotics`), `circuitpython`, `python`, `microbit` and `imagicharm`.
 
-```bash
+Each exercise has its own folder containing an `index.md` (or `index.mdx`) and its images, for example `content/en-US/exercises/makecode/robotics/E2/index.md`. Each track folder has an `index.mdx` that renders the exercise list.
+
+Every exercise starts with front matter:
+
+```yaml
 ---
 template: exercise
-title: Level 1 | Exercise 1 - Blink
-date: "2020-05-01T23:46:37.121Z"
-category: CircuitPython
-tags: ["Level 1"]
+title: Variables and Logic Blocks
+level: 3
+exercise: 2
+category: Robotics
+tags: ['MakeCode', 'Variables', 'Logic Blocks']
+description: Variables and Logic Blocks
+---
 ```
 
-As you can see from the example metadata above, the first exercise (L1 E1) starts on May 1, and the last one (L1 E6) is May 6. The index page listing the exercises lists them from earliest to latest which also drives the menu at the bottom of each exercise page for the previous and next exercises. I didn't really want to go through and modify the whole site structure to include an order metadata field, but if you want to change the whole thing around, please do. If not, just go ahead and add new exercises with newer and newer dates.
+- `template: exercise` renders the page with the exercise template.
+- `category` and `level` group pages into a list on the track's index page.
+- `exercise` is the number that orders pages within a level. It also drives the previous/next links at the bottom of each exercise page. To add an exercise, pick the next number in sequence.
+- The page title is rendered as the page heading, so don't repeat it as a top-level `#` heading. Start the body with `##` headings; they populate the table of contents.
 
 ### Build
 
-The build command will automatically replace the contents of the `/docs` directory with the built code.
-
 ```bash
 npm run build
+```
+
+This cleans the previous build, runs `gatsby build --prefix-paths` and moves the result into `/docs`.
 
 ### Publish
 
-Create a pull request and reach out to the contributing team for a code review and merge.
+Create a pull request and reach out to the contributing team for review and merge. CI builds the site on every pull request to `main` and deploys to GitHub Pages when `main` is updated.
 
-### Implementation Notes
+### Implementation notes
 
-By default, GatsbyJS will build a site to live at the root of a domain name, but with Github Pages, the site will live in a subdirectory of `cpx-training/` so a [slight modification](https://www.gatsbyjs.org/docs/path-prefix/) to the `gatsby-config.js` was needed to define a path prefix.
-```
+GitHub Pages serves this site from a subdirectory (`/makerspace/`), so `gatsby-config.js` defines a [path prefix](https://www.gatsbyjs.org/docs/path-prefix/) of `/makerspace`.
+
+---
+
+## Notes from experienced instructors
+
+### General guidance
+
+- Plan your sessions with clear learning objectives.
+- Use hands-on activities and encourage questions.
+- Adapt pacing based on student feedback.
+
+---
+
+## Sample timeline and budget
+
+> If images are broken, convert the `.xcf` files in `/site/raw-assets/` to `.png` or `.jpg` using GIMP or an online converter, then place them in `/site/static/images/`.
+
+Sample timeline:
+![Sample Timeline](./static/images/timeline.png)
+
+Sample budget:
+![Sample Budget](./static/images/budget.png)

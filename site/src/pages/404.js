@@ -22,9 +22,13 @@ const NotFoundPage = ({ data, location }) => {
     const repaired = repairMalformedPath(stripped, prefix);
     if (!repaired) return;
     const existing = new Set(
-      nodes.map(({ fields }) =>
-        fields.slug.endsWith('/') ? fields.slug : `${fields.slug}/`
-      )
+      nodes.map(({ fields, internal }) => {
+        const locale = getLocaleFromPath(fields.slug);
+        const slug = internal.contentFilePath.includes('home.mdx')
+          ? (locale === DEFAULT_LOCALE ? '/' : `/${locale}/`)
+          : fields.slug;
+        return slug.endsWith('/') ? slug : `${slug}/`;
+      })
     );
     existing.add('/');
     const locale = getLocaleFromPath(stripped) || DEFAULT_LOCALE;

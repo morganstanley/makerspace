@@ -140,3 +140,34 @@ describe('getLocaleSwitchPath', () => {
     );
   });
 });
+
+describe('path prefix handling', () => {
+  const {
+    stripPathPrefix,
+    resolveExistingPath,
+    repairMalformedPath,
+  } = require('./index');
+
+  test('stripPathPrefix removes the site prefix', () => {
+    expect(stripPathPrefix('/makerspace/fr-CA/exercises/a/', '/makerspace/')).toBe('/fr-CA/exercises/a/');
+    expect(stripPathPrefix('/makerspace', '/makerspace/')).toBe('/');
+    expect(stripPathPrefix('/exercises/', '/')).toBe('/exercises/');
+  });
+
+  test('switching locale with the prefix stripped never duplicates segments', () => {
+    const p = stripPathPrefix('/makerspace/fr-CA/exercises/makecode/robotics/cutebot/', '/makerspace/');
+    expect(getLocaleSwitchPath(p, 'en-US')).toBe('/exercises/makecode/robotics/cutebot/');
+    expect(getLocaleSwitchPath(p, 'pt-BR')).toBe('/pt-BR/exercises/makecode/robotics/cutebot/');
+  });
+
+  test('resolveExistingPath falls back to the nearest existing ancestor', () => {
+    const pages = new Set(['/pt-BR/exercises/', '/pt-BR/exercises/makecode/robotics/', '/pt-BR/']);
+    expect(resolveExistingPath('/pt-BR/exercises/makecode/robotics/cutebot/', pages, 'pt-BR')).toBe('/pt-BR/exercises/makecode/robotics/');
+    expect(resolveExistingPath('/pt-BR/nope/', pages, 'pt-BR')).toBe('/pt-BR/');
+  });
+
+  test('repairMalformedPath fixes locale placed before the prefix', () => {
+    expect(repairMalformedPath('/fr-CA/makerspace/exercises/makecode/robotics/cutebot/', '/makerspace/')).toBe('/fr-CA/exercises/makecode/robotics/cutebot/');
+    expect(repairMalformedPath('/makerspace/fr-CA/makerspace/fr-CA/exercises/a/', '/makerspace/')).toBe('/fr-CA/exercises/a/');
+  });
+});

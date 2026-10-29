@@ -110,3 +110,50 @@ export function getLocaleSwitchPath(pathname, locale) {
 
   return `/${segments.join('/')}${hasTrailingSlash ? '/' : ''}`;
 }
+
+// Gatsby's location.pathname includes the site's pathPrefix (e.g. /makerspace)
+// in production builds, while page paths and navigate() do not.
+export function stripPathPrefix(pathname, prefix) {
+  const path = pathname || '/';
+  const cleanPrefix = (prefix || '').replace(/\/+$/, '');
+  if (!cleanPrefix) return path;
+  if (path === cleanPrefix) return '/';
+  if (path.startsWith(`${cleanPrefix}/`)) {
+    return path.slice(cleanPrefix.length);
+  }
+  return path;
+}
+
+const normalizeSlash = (p) => (p.endsWith('/') ? p : `${p}/`);
+
+// Returns the requested path if a page exists for it, otherwise the closest
+// existing ancestor, otherwise the locale home page.
+export function resolveExistingPath(path, existingPaths, locale) {
+  const exists = (p) => existingPaths.has(normalizeSlash(p));
+  if (exists(path)) return path;
+
+  const segments = path.split('/').filter(Boolean);
+  while (segments.length > 1) {
+    segments.pop();
+    const candidate = `/${segments.join('/')}/`;
+    if (exists(candidate)) return candidate;
+  }
+
+  return locale === DEFAULT_LOCALE ? '/' : `/${locale}/`;
+}
+
+// Repairs malformed URLs such as /fr-CA/makerspace/exercises/... (locale before
+// the site prefix, or duplicated locale/prefix segments). Returns undefined when
+// the path cannot be repaired.
+export function repairMalformedPath(pathname, prefix) {
+  const cleanPrefix = (prefix || '').replace(/^\/+|\/+$/g, '');
+  let segments = (pathname || '').split('/').filter(Boolean);
+  const locale = segments.find((s) => SUPPORTED_LOCALES.includes(s));
+  segments = segments.filter((s) => !SUPPORTED_LOCALES.includes(s));
+  while (cleanPrefix && segments[0] === cleanPrefix && segments.length > 1) {
+    segments.shift();
+  }
+  if (!segments.length && !locale) return undefined;
+  const base = `/${segments.join('/')}${segments.length ? '/' : ''}`;
+  return getLocaleSwitchPath(base, locale || DEFAULT_LOCALE);
+}

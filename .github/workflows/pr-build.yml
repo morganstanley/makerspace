@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [24.19.0]
+        node-version: [24.x]
 
     runs-on: ubuntu-latest
 
